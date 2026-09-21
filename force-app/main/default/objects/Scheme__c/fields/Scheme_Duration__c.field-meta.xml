@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scheme_Duration__c</fullName>
+    <label>Scheme Duration</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 yr</fullName>
+                <default>false</default>
+                <label>1 yr</label>
+            </value>
+            <value>
+                <fullName>3 yr</fullName>
+                <default>false</default>
+                <label>3 yr</label>
+            </value>
+            <value>
+                <fullName>5 yr</fullName>
+                <default>false</default>
+                <label>5 yr</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

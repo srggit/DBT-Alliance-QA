@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Public_Scheme_Must_Be_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Scheme_Visibility__c, &quot;Public&quot;),
+    Is_Active__c = FALSE
+)</errorConditionFormula>
+    <errorMessage>A Yearly Scheme cannot be inactive if its visibility is set to Public. Please check the &apos;Is Active&apos; box or change the &apos;Scheme Visibility&apos;</errorMessage>
+</ValidationRule>

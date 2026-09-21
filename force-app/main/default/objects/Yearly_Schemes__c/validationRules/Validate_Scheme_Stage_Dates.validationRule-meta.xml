@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Scheme_Stage_Dates</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+  /* 1. Scheme End Date before Scheme Start Date */
+  AND(
+    NOT(ISBLANK(Scheme_Start_Date__c)),
+    NOT(ISBLANK(Scheme_End_Date__c)),
+    Scheme_End_Date__c &lt; Scheme_Start_Date__c
+  ),
+  
+  /* 2. Second Stage End Date before Second Stage Start Date */
+  AND(
+    NOT(ISBLANK(Second_Stage_Start_Date__c)),
+    NOT(ISBLANK(Second_Stage_End_Date__c)),
+    Second_Stage_End_Date__c &lt; Second_Stage_Start_Date__c
+  ),
+  
+  /* 3. Second Stage Start Date before First Scheme End Date */
+  AND(
+    NOT(ISBLANK(Second_Stage_Start_Date__c)),
+    NOT(ISBLANK(Scheme_End_Date__c)),
+    Second_Stage_Start_Date__c &lt; Scheme_End_Date__c
+  )
+)</errorConditionFormula>
+    <errorMessage>Please check your dates: End dates cannot precede start dates, and Second Stage Start Date cannot be before First Scheme End Date.</errorMessage>
+</ValidationRule>

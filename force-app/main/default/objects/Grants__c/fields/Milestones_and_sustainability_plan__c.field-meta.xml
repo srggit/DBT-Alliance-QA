@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Milestones_and_sustainability_plan__c</fullName>
+    <inlineHelpText>Milestones (refer to the scheme guidelines) and sustainability plan</inlineHelpText>
+    <label>Milestones and sustainability plan</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

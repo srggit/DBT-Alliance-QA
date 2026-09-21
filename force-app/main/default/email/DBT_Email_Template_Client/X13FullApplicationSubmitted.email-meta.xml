@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>13FullApplicationSubmitted</name>
+    <style>none</style>
+    <subject>{applicationId} FULL APPLICATION SUBMITTED</subject>
+    <textOnly>Dear {Applicant_Full_Name}, 
+
+Thank you for submitting your application for {Scheme_Name}. This email confirms that your application has been received by the India Alliance. 
+
+Application Details:
+- Applicant: {Applicant name} 
+- Application ID: {Reference ID} 
+- Grant Title: {Project Title} 
+- Date Submitted: {Submission date} 
+
+Please quote your Application ID in any future correspondence regarding this application. Your application will now go through the review process; we will contact you separately regarding the outcome of your application. 
+
+If you have any questions, please contact us at grants@indiaalliance.org, quoting your Application ID.
+
+Regards, 
+Grants Team 
+India Alliance</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

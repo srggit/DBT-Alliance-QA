@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Decision_on_previous_application__c</fullName>
+    <description>Decision on previous application</description>
+    <inlineHelpText>Decision on previous application</inlineHelpText>
+    <label>Decision on previous application</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Recommended for an award</fullName>
+                <default>false</default>
+                <label>Recommended for an award</label>
+            </value>
+            <value>
+                <fullName>Declined at interview, but resubmission recommended by the Committee</fullName>
+                <default>false</default>
+                <label>Declined at interview, but resubmission recommended by the Committee</label>
+            </value>
+            <value>
+                <fullName>Declined at interview</fullName>
+                <default>false</default>
+                <label>Declined at interview</label>
+            </value>
+            <value>
+                <fullName>Declined at shortlisting (i.e., full application was not shortlisted for interview)</fullName>
+                <default>false</default>
+                <label>Declined at shortlisting (i.e., full application was not shortlisted for interview)</label>
+            </value>
+            <value>
+                <fullName>Declined at preliminary application stage (i.e., full application was not invited)</fullName>
+                <default>false</default>
+                <label>Declined at preliminary application stage (i.e., full application was not invited)</label>
+            </value>
+            <value>
+                <fullName>I withdrew my full application</fullName>
+                <default>false</default>
+                <label>I withdrew my full application</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

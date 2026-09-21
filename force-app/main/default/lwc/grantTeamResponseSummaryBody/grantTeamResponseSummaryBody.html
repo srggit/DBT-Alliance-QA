@@ -1,0 +1,76 @@
+<template>
+    <div class="gts-container">
+        <template if:true={summary.stages.length}>
+
+            <!-- ================================================= -->
+            <!-- STAGE SECTIONS -->
+            <!-- ================================================= -->
+            <template for:each={summary.stages} for:item="stage">
+                <div key={stage.stage} class={stage.cardClass}>
+
+                    <div class="gts-stage-header">
+                        <div class="gts-stage-icon">
+                            <lightning-icon icon-name={stage.headerIcon} size="small" variant="inverse">
+                            </lightning-icon>
+                        </div>
+                        <div class="gts-stage-text">
+                            <h3 class="gts-stage-title">{stage.stage}</h3>
+                            <p class="gts-stage-subtitle">{stage.subtitle}</p>
+                        </div>
+                    </div>
+
+                    <div class="gts-table-wrap">
+                        <table class="gts-table">
+                            <thead>
+                                <tr>
+                                    <th class="gts-th gts-th_num">#</th>
+                                    <th class="gts-th">Question</th>
+                                    <template for:each={stage.members} for:item="member">
+                                        <th key={member.responseId} class="gts-th gts-th_member">
+                                            <div class="member-name">{member.name}</div>
+                                            <div class={member.statusClass}>{member.status}</div>
+                                        </th>
+                                    </template>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={stage.rows} for:item="row">
+                                    <tr key={row.rowNumber} class="gts-tr">
+                                        <td class="gts-td gts-td_num">
+                                            <span class="gts-row-number">{row.rowNumber}</span>
+                                        </td>
+                                        <td class="gts-td gts-td_question">{row.question}</td>
+                                        <template for:each={row.answers} for:item="cell">
+                                            <td key={cell.responseId} class={cell.tdClass}>
+                                                <span class={cell.cellClass}>
+                                                    <template if:true={cell.isYes}>
+                                                        <lightning-icon icon-name="utility:check" size="xx-small">
+                                                        </lightning-icon>
+                                                    </template>
+                                                    <template if:true={cell.isNo}>
+                                                        <lightning-icon icon-name="utility:close" size="xx-small">
+                                                        </lightning-icon>
+                                                    </template>
+                                                    <template if:true={cell.isNotSubmitted}>
+                                                        <lightning-icon icon-name="utility:clock" size="xx-small">
+                                                        </lightning-icon>
+                                                    </template>
+                                                    {cell.value}
+                                                </span>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </template>
+
+        </template>
+        <template if:false={summary.stages.length}>
+            <div class="slds-text-align_center slds-p-around_medium">No grant team response data available.
+            </div>
+        </template>
+    </div>
+</template>

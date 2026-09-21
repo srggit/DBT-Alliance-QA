@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Justify_the_Role_of_Pi_And_Co_Pi__c</fullName>
+    <inlineHelpText>Justify the requirement/role of each PI and Co-PIs on the project. (limit 400 words)]</inlineHelpText>
+    <label>Justify the Role of Pi And Co-Pi</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

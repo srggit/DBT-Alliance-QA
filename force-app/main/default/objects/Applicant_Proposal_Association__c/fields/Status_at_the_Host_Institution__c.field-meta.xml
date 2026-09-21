@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_at_the_Host_Institution__c</fullName>
+    <description>Select one of the following options with reference to your status at the proposed Host Institution:  
+Already hold a faculty position at the Host institution. 
+Do not have a faculty position at the Host Institution.</description>
+    <label>Status at the Host Institution</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Already hold a faculty position at the Host institution</fullName>
+                <default>false</default>
+                <label>Already hold a faculty position at the Host institution</label>
+            </value>
+            <value>
+                <fullName>Do not have a faculty position at the Host Institution</fullName>
+                <default>false</default>
+                <label>Do not have a faculty position at the Host Institution</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

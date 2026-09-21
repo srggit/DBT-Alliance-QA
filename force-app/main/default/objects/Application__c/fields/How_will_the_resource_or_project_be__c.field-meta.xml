@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>How_will_the_resource_or_project_be__c</fullName>
+    <inlineHelpText>How will the resource or project be managed? Specify roles of all participating institutions if applying for collaborative grant</inlineHelpText>
+    <label>How will the resource or project</label>
+    <length>30000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

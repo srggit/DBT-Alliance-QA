@@ -1,0 +1,109 @@
+<template>
+    <div class="gmr-container">
+
+            <!-- ===================================================== -->
+            <!-- LOADING -->
+            <!-- ===================================================== -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+                <template if:true={hasItems}>
+
+                    <!-- ================================================= -->
+                    <!-- BANNER -->
+                    <!-- ================================================= -->
+                    <div class="gmr-banner">
+                        <div class="gmr-banner-icon">
+                            <lightning-icon icon-name="utility:task" alternative-text="Check Eligibility"
+                                size="small"></lightning-icon>
+                        </div>
+                        <div class="gmr-banner-text">
+                            <div class="gmr-banner-title">Check Eligibility</div>
+                            <div class="gmr-banner-subtitle">Please provide the required responses for the following
+                                items.</div>
+                        </div>
+                        <div class="gmr-banner-art" aria-hidden="true">
+                            <lightning-icon icon-name="utility:file" size="large"></lightning-icon>
+                        </div>
+                    </div>
+
+                    <!-- ================================================= -->
+                    <!-- TABLE HEADER -->
+                    <!-- ================================================= -->
+                    <div class="gmr-table-header">
+                        <div class="gmr-col-question">Response Items</div>
+                        <div class="gmr-col-answer">Your Response</div>
+                    </div>
+
+                    <!-- ================================================= -->
+                    <!-- ITEMS -->
+                    <!-- ================================================= -->
+                    <div class="gmr-rows">
+                        <template for:each={responseItems} for:item="item">
+                            <div key={item.Id} class="gmr-row">
+
+                                <div class="gmr-row-number">{item.rowNumber}</div>
+
+                                <div class="gmr-row-question">{item.displayQuestion}</div>
+
+                                <div class="gmr-row-answer">
+                                    <template if:true={item.isBoolean}>
+                                        <lightning-combobox label="Answer" variant="label-hidden"
+                                            value={item.Answer__c} options={yesNoOptions} data-id={item.Id}
+                                            onchange={handleInputChange} placeholder="Select Yes or No"
+                                            required={item.isRequired} disabled={item.isDisabled}>
+                                        </lightning-combobox>
+                                    </template>
+                                    <template if:false={item.isBoolean}>
+                                        <lightning-textarea label="Answer" variant="label-hidden"
+                                            value={item.Answer__c} data-id={item.Id} onchange={handleInputChange}
+                                            placeholder="Enter your answer" required={item.isRequired}
+                                            disabled={item.isDisabled}>
+                                        </lightning-textarea>
+                                    </template>
+                                </div>
+
+                                <div class={item.statusClass}>
+                                    <template if:true={item.isAnswered}>
+                                        <lightning-icon icon-name="utility:check" alternative-text="Answered"
+                                            size="x-small" class="gmr-status-answered"></lightning-icon>
+                                    </template>
+                                </div>
+
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- ================================================= -->
+                    <!-- FOOTER -->
+                    <!-- ================================================= -->
+                    <div class="gmr-footer">
+                        <button type="button" class="gmr-pill-btn gmr-pill-btn_secondary" onclick={handleClose}>
+                            <lightning-icon icon-name="utility:close" size="xx-small"
+                                class="gmr-pill-btn-icon"></lightning-icon>
+                            <span>Cancel</span>
+                        </button>
+                        <template if:false={isSubmitted}>
+                            <button type="button" class="gmr-pill-btn gmr-pill-btn_primary" onclick={handleSave}
+                                disabled={isSaving}>
+                                <lightning-icon icon-name="utility:save" size="xx-small"
+                                    class="gmr-pill-btn-icon"></lightning-icon>
+                                <span>Save Responses</span>
+                            </button>
+                        </template>
+                    </div>
+
+                </template>
+
+                <template if:false={hasItems}>
+                    <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                        No response items assigned to you for this stage.
+                    </p>
+                </template>
+            </template>
+    </div>
+</template>

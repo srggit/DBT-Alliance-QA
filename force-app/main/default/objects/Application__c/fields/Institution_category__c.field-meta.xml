@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Institution_category__c</fullName>
+    <label>Institution Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hospital</fullName>
+                <default>false</default>
+                <label>Hospital</label>
+            </value>
+            <value>
+                <fullName>Medical Trust</fullName>
+                <default>false</default>
+                <label>Medical Trust</label>
+            </value>
+            <value>
+                <fullName>Professional Body</fullName>
+                <default>false</default>
+                <label>Professional Body</label>
+            </value>
+            <value>
+                <fullName>Research Institution</fullName>
+                <default>false</default>
+                <label>Research Institution</label>
+            </value>
+            <value>
+                <fullName>Scientific Lab</fullName>
+                <default>false</default>
+                <label>Scientific Lab</label>
+            </value>
+            <value>
+                <fullName>University</fullName>
+                <default>false</default>
+                <label>University</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

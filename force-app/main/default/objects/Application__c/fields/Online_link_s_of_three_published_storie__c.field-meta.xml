@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Online_link_s_of_three_published_storie__c</fullName>
+    <description>Online link(s) of three published stories (preferably in the field of biological sciences/health/scientific research/science policy)</description>
+    <inlineHelpText>Online link(s) of three published stories (preferably in the field of biological sciences/health/scientific research/science policy)</inlineHelpText>
+    <label>Online link(s) of three published storie</label>
+    <length>10000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

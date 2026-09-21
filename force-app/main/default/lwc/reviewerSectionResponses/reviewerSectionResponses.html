@@ -1,0 +1,319 @@
+<template>
+    <div class="reviewer-container">
+
+            <!-- ===================================================== -->
+            <!-- PAGE HEADER -->
+            <!-- ===================================================== -->
+            <template lwc:if={showHeader}>
+
+                <div class="page-header">
+
+                    <div class="header-icon">
+                        <lightning-icon icon-name="utility:groups" alternative-text="Reviewer Responses"
+                            size="small">
+                        </lightning-icon>
+                    </div>
+
+                    <div class="header-text">
+                        <div class="page-title">
+                            Reviewer Rating and Comments
+                        </div>
+
+                        <div class="page-subtitle">
+                            Comments and ratings provided by reviewers for each section.
+                        </div>
+                    </div>
+
+                    <!-- Section Count -->
+                    <div class="section-count">
+
+                        <lightning-icon icon-name="utility:description" alternative-text="Sections" size="xx-small">
+                        </lightning-icon>
+
+                        <span>{sectionCount} Sections</span>
+
+                    </div>
+
+                    <!-- Decorative Art -->
+                    <div class="header-art" aria-hidden="true">
+                        <lightning-icon icon-name="utility:file" size="large"></lightning-icon>
+                    </div>
+
+                </div>
+
+            </template>
+
+
+            <!-- ===================================================== -->
+            <!-- LOADING -->
+            <!-- ===================================================== -->
+            <template lwc:if={isLoading}>
+
+                <div class="loading-container">
+
+                    <lightning-spinner alternative-text="Loading reviewer section responses..." size="medium">
+                    </lightning-spinner>
+
+                </div>
+
+            </template>
+
+
+            <!-- ===================================================== -->
+            <!-- ERROR -->
+            <!-- ===================================================== -->
+            <template lwc:elseif={error}>
+
+                <div class="error-container">
+
+                    <lightning-icon icon-name="utility:error" alternative-text="Error" size="small">
+                    </lightning-icon>
+
+                    <span>{error}</span>
+
+                </div>
+
+            </template>
+
+
+            <!-- ===================================================== -->
+            <!-- REVIEWER DATA -->
+            <!-- ===================================================== -->
+            <template lwc:elseif={hasData}>
+
+                <div class="reviewers-container">
+
+                    <!-- ================================================= -->
+                    <!-- REVIEWER TABS -->
+                    <!-- ================================================= -->
+                    <div class="reviewer-tabs">
+
+                        <template for:each={reviewers} for:item="reviewer">
+
+                            <div key={reviewer.mappingId} class={reviewer.tabClass}
+                                data-mapping-id={reviewer.mappingId} onclick={handleSelectReviewer}>
+
+                                <!-- Reviewer Icon -->
+                                <div class="reviewer-icon">
+
+                                    <lightning-icon icon-name={reviewer.reviewerIcon} alternative-text="Reviewer"
+                                        size="small">
+                                    </lightning-icon>
+
+                                </div>
+
+
+                                <!-- Reviewer Name + Type -->
+                                <div class="reviewer-info">
+
+                                    <div class="reviewer-name">
+                                        {reviewer.tabLabel}
+                                    </div>
+
+                                    <template lwc:if={reviewer.reviewerType}>
+
+                                        <span class="reviewer-type">
+                                            {reviewer.reviewerType}
+                                        </span>
+
+                                    </template>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- ACTIVE REVIEWER PANEL -->
+                    <!-- ================================================= -->
+                    <template for:each={reviewers} for:item="reviewer">
+
+                        <template lwc:if={reviewer.isActive}>
+
+                            <div key={reviewer.mappingId} class="reviewer-panel">
+
+                                <div class="sections-container">
+
+                                    <template for:each={reviewer.sections} for:item="section">
+
+                                        <!-- ================================= -->
+                                        <!-- SECTION CARD -->
+                                        <!-- ================================= -->
+                                        <div key={section.sectionId} class={section.cardClass}>
+
+
+                                            <!-- ============================= -->
+                                            <!-- SECTION HEADER -->
+                                            <!-- ============================= -->
+                                            <div class="section-header">
+
+                                                <!-- Section Icon -->
+                                                <div class="section-icon">
+
+                                                    <lightning-icon icon-name={section.sectionIcon}
+                                                        alternative-text="Section" size="small"
+                                                        variant="inverse"></lightning-icon>
+
+                                                </div>
+
+
+                                                <div class="section-header-text">
+
+                                                    <!-- Section Name -->
+                                                    <div class="section-title">
+
+                                                        <span>
+                                                            {section.sectionNumber}.
+                                                        </span>
+
+                                                        <span>
+                                                            {section.sectionName}
+                                                        </span>
+
+                                                    </div>
+
+                                                    <!-- Section Subtitle -->
+                                                    <div class="section-subtitle">
+                                                        {section.subtitle}
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- ============================= -->
+                                            <!-- SECTION BODY -->
+                                            <!-- ============================= -->
+                                            <div class="section-body">
+
+                                                <div class="section-content">
+
+
+                                                    <!-- ===================== -->
+                                                    <!-- RATING -->
+                                                    <!-- ===================== -->
+                                                    <div class="rating-column">
+
+                                                        <div class="field-label">
+                                                            Rating
+                                                        </div>
+
+                                                        <div class="rating-value">
+
+                                                            <template lwc:if={section.hasRating}>
+
+                                                                <span class="rating-number">
+                                                                    {section.rating}
+                                                                </span>
+
+                                                                <span class="rating-max">
+                                                                    (out of 5)
+                                                                </span>
+
+                                                            </template>
+
+                                                            <template lwc:else>
+
+                                                                <span class="empty-value">
+                                                                    -
+                                                                </span>
+
+                                                            </template>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <!-- ===================== -->
+                                                    <!-- COMMENTS -->
+                                                    <!-- ===================== -->
+                                                    <div class="comments-column">
+
+                                                        <div class="field-label">
+                                                            Overall Comments
+                                                        </div>
+
+                                                        <div class="comments-value reviewer-comment">
+
+                                                            <template lwc:if={section.overallComments}>
+
+                                                                {section.overallComments}
+
+                                                            </template>
+
+                                                            <template lwc:else>
+
+                                                                <span class="empty-value">
+                                                                    -
+                                                                </span>
+
+                                                            </template>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </template>
+
+                                </div>
+
+                            </div>
+
+                        </template>
+
+                    </template>
+
+                    <!-- ================================================= -->
+                    <!-- RATING SCALE NOTE -->
+                    <!-- ================================================= -->
+                    <div class="rating-scale-note">
+                        <lightning-icon icon-name="utility:info" size="xx-small"></lightning-icon>
+                        <span>Ratings are provided on a scale of 1 (Low) to 5 (High).</span>
+                    </div>
+
+                </div>
+
+            </template>
+
+
+            <!-- ===================================================== -->
+            <!-- NO DATA -->
+            <!-- ===================================================== -->
+            <template lwc:else>
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        <lightning-icon icon-name="utility:comments" alternative-text="No Reviewer Responses"
+                            size="small">
+                        </lightning-icon>
+
+                    </div>
+
+                    <div class="empty-title">
+                        No Reviewer Responses
+                    </div>
+
+                    <div class="empty-message">
+                        No reviewer responses were found for this proposal.
+                    </div>
+
+                </div>
+
+            </template>
+
+    </div>
+</template>

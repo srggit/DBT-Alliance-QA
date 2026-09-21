@@ -1,0 +1,193 @@
+<template>
+    <div class="pad-proposal-container">
+        <div class="pad-shell">
+            <div class="pad-container">
+
+                <!-- ===================================================== -->
+                <!-- PAGE HEADER -->
+                <!-- ===================================================== -->
+                <div class="pad-banner-wrap">
+                    <div class="pad-page-header">
+
+                        <div class="pad-page-header-left">
+                            <div class="pad-header-icon">
+                                <lightning-icon icon-name="utility:opportunity"
+                                    alternative-text="Proposal Applicant Details" size="small"></lightning-icon>
+                            </div>
+
+                            <div class="pad-header-text">
+                                <div class="pad-page-title">Proposal Applicant Details</div>
+                                <div class="pad-page-subtitle">{bannerSubtitle}</div>
+                            </div>
+                        </div>
+
+                        <div class="pad-page-header-actions">
+                            <template lwc:if={recordId}>
+                                <div class="pad-header-btn-group">
+                                    <button type="button" class="pad-header-btn" onclick={handleOpenGrantManager}>
+                                        <lightning-icon icon-name="utility:preview" size="xx-small"
+                                            class="pad-header-btn-icon"></lightning-icon>
+                                        <span>Check Eligibility</span>
+                                    </button>
+                                    <button type="button" class="pad-header-btn" onclick={handleOpenReviewerResponse}>
+                                        <lightning-icon icon-name="utility:comments" size="xx-small"
+                                            class="pad-header-btn-icon"></lightning-icon>
+                                        <span>Reviewer Response</span>
+                                    </button>
+                                    <button type="button" class="pad-header-btn"
+                                        onclick={handleOpenGrantTeamResponse}>
+                                        <lightning-icon icon-name="utility:groups" size="xx-small"
+                                            class="pad-header-btn-icon"></lightning-icon>
+                                        <span>Grant Team Response</span>
+                                    </button>
+                                    <button type="button" class="pad-header-btn"
+                                        onclick={handleOpenReviewerMapping}>
+                                        <lightning-icon icon-name="utility:identity" size="xx-small"
+                                            class="pad-header-btn-icon"></lightning-icon>
+                                        <span>Reviewer Mapping</span>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="slds-p-around_medium">
+                    <template lwc:if={showInput}>
+                        <div class="slds-form-element slds-m-bottom_medium">
+                            <label class="slds-form-element__label">Proposal Id</label>
+                            <div class="slds-form-element__control slds-grid slds-gutters_x-small">
+                                <div class="slds-col slds-grow">
+                                    <lightning-input type="text" value={proposalIdInput}
+                                        onchange={handleProposalIdChange} placeholder="Enter Proposal Id"
+                                        variant="label-hidden"></lightning-input>
+                                </div>
+                                <div class="slds-col slds-shrink-none">
+                                    <lightning-button label="Load" variant="brand"
+                                        onclick={handleLoad}></lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template lwc:if={recordId}>
+                        <div class="pad-custom-tabs">
+                            <button type="button" class={detailsTabClass} data-tab="details"
+                                onclick={handleTabClick}>
+                                <lightning-icon icon-name="utility:description" size="xx-small"
+                                    class="pad-tab-icon"></lightning-icon>
+                                <span>Proposal Details</span>
+                            </button>
+                            <button type="button" class={reviewerTabClass} data-tab="reviewer"
+                                onclick={handleTabClick}>
+                                <lightning-icon icon-name="utility:table" size="xx-small"
+                                    class="pad-tab-icon"></lightning-icon>
+                                <span>Reviewer Response</span>
+                            </button>
+                        </div>
+
+                        <div class="pad-tab-content-wrap">
+                            <div class={detailsPanelClass}>
+                                <template lwc:if={isPrelimStage}>
+                                    <c-proposal-application-form record-id={recordId}></c-proposal-application-form>
+                                </template>
+                                <template lwc:if={isFullStage}>
+                                    <c-proposal-application-form-full record-id={recordId}>
+                                    </c-proposal-application-form-full>
+                                </template>
+                            </div>
+                            <div class={reviewerPanelClass}>
+                                <c-reviewer-rating-matrix record-id={recordId}></c-reviewer-rating-matrix>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template lwc:if={showGrantManagerModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large pad-modal-anim">
+            <div class="slds-modal__container pad-large-modal">
+                <header class="slds-modal__header pad-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseGrantManager}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-grants-manager-response-items record-id={recordId} onclose={handleCloseGrantManager}>
+                    </c-grants-manager-response-items>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open pad-backdrop-blur pad-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showReviewerResponseModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large pad-modal-anim">
+            <div class="slds-modal__container pad-large-modal">
+                <header class="slds-modal__header pad-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseReviewerResponse}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-reviewer-section-responses record-id={recordId}></c-reviewer-section-responses>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open pad-backdrop-blur pad-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showGrantTeamResponseModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large pad-modal-anim">
+            <div class="slds-modal__container pad-large-modal">
+                <header class="slds-modal__header pad-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseGrantTeamResponse}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-grant-team-response-summary record-id={recordId}></c-grant-team-response-summary>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open pad-backdrop-blur pad-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showReviewerRatingMatrixModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large pad-modal-anim">
+            <div class="slds-modal__container pad-large-modal">
+                <header class="slds-modal__header pad-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseReviewerRatingMatrix}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-reviewer-rating-matrix record-id={recordId} onclose={handleCloseReviewerRatingMatrix}>
+                    </c-reviewer-rating-matrix>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open pad-backdrop-blur pad-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showReviewerMappingModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large pad-modal-anim">
+            <div class="slds-modal__container pad-large-modal">
+                <header class="slds-modal__header pad-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseReviewerMapping}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-reviewer-mapping-list record-id={recordId}></c-reviewer-mapping-list>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open pad-backdrop-blur pad-backdrop-anim"></div>
+    </template>
+
+
+</template>

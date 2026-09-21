@@ -1,0 +1,89 @@
+<template>
+    <div class="ar-container">
+
+        <div class="ar-banner">
+            <div class="ar-banner-icon">
+                <lightning-icon icon-name="utility:adduser" size="small"></lightning-icon>
+            </div>
+            <div class="ar-banner-text">
+                <div class="ar-banner-title">Assign Reviewers</div>
+                <div class="ar-banner-subtitle">Reviewers matched by keyword - select the ones to assign to this
+                    proposal.</div>
+            </div>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading reviewers" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:elseif={hasReviewers}>
+            <div class="ar-table-wrap">
+                <table class="ar-table">
+                    <thead>
+                        <tr>
+                            <th class="ar-th ar-th_checkbox"></th>
+                            <th class="ar-th">Name</th>
+                            <th class="ar-th">Email</th>
+                            <th class="ar-th">Phone</th>
+                            <th class="ar-th">Reviewer Type</th>
+                            <th class="ar-th">Matched Keywords</th>
+                            <th class="ar-th ar-th_center">Matches</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={reviewers} for:item="reviewer">
+                            <tr key={reviewer.Id} class={reviewer.rowClass}>
+                                <td class="ar-td ar-td_checkbox">
+                                    <lightning-input type="checkbox" label="Select reviewer" variant="label-hidden"
+                                        data-id={reviewer.Id} checked={reviewer.selected}
+                                        disabled={reviewer.isAlreadyMapped} onchange={handleReviewerSelect}>
+                                    </lightning-input>
+                                </td>
+                                <td class="ar-td">
+                                    <div class="slds-truncate" title={reviewer.Name}>{reviewer.Name}</div>
+                                </td>
+                                <td class="ar-td">
+                                    <div class="slds-truncate" title={reviewer.Email}>{reviewer.Email}</div>
+                                </td>
+                                <td class="ar-td">
+                                    <div class="slds-truncate" title={reviewer.Phone}>{reviewer.Phone}</div>
+                                </td>
+                                <td class="ar-td">
+                                    <span class="ar-badge">{reviewer.reviewerType}</span>
+                                </td>
+                                <td class="ar-td">
+                                    <div class="slds-truncate" title={reviewer.matchedKeywords}>
+                                        {reviewer.matchedKeywords}</div>
+                                </td>
+                                <td class="ar-td ar-td_center">{reviewer.matchCount}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="ar-footer">
+                <template lwc:if={showMinimumReviewersMessage}>
+                    <div class="ar-min-message">{minimumReviewersMessage}</div>
+                </template>
+                <div class="ar-footer-actions">
+                    <button type="button" class="ar-assign-btn" onclick={handleCreateMappings}
+                        disabled={isSubmitDisabled}>
+                        <span>Assign and Invite</span>
+                        <lightning-icon icon-name="utility:email" size="xx-small"
+                            class="ar-assign-btn-icon"></lightning-icon>
+                    </button>
+                </div>
+            </div>
+        </template>
+
+        <template lwc:else>
+            <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                No reviewer contacts found.
+            </div>
+        </template>
+
+    </div>
+</template>

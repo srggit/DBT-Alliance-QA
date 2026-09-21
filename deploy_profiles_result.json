@@ -1,0 +1,744 @@
+﻿{
+  "status": 1,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-17T13:05:26.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-17T13:05:04.000Z",
+    "details": {
+      "componentFailures": [
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:18.000Z",
+          "deleted": false,
+          "fileName": "profiles/Admin.profile",
+          "fullName": "Admin",
+          "problem": "In field: field - no CustomField named External_Participants__c.Notify__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Analytics Cloud Integration User.profile",
+          "fullName": "Analytics Cloud Integration User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Analytics Cloud Security User.profile",
+          "fullName": "Analytics Cloud Security User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Anypoint Integration.profile",
+          "fullName": "Anypoint Integration",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Applicant Member based.profile",
+          "fullName": "Applicant Member based",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Applicant Profile.profile",
+          "fullName": "Applicant Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/CPQ Integration User.profile",
+          "fullName": "CPQ Integration User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Chatter External User.profile",
+          "fullName": "Chatter External User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Chatter Free User.profile",
+          "fullName": "Chatter Free User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Chatter Moderator User.profile",
+          "fullName": "Chatter Moderator User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/ContractManager.profile",
+          "fullName": "ContractManager",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Custom Customer Community Plus Login User.profile",
+          "fullName": "Custom Customer Community Plus Login User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Customer Community Plus Login User.profile",
+          "fullName": "Customer Community Plus Login User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Customer Community Plus User.profile",
+          "fullName": "Customer Community Plus User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/DBT Site Profile.profile",
+          "fullName": "DBT Site Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Grants Manager.profile",
+          "fullName": "Grants Manager",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Guest License User.profile",
+          "fullName": "Guest License User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/IA Internal Reviewer.profile",
+          "fullName": "IA Internal Reviewer",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/IA Peer Review Team.profile",
+          "fullName": "IA Peer Review Team",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/IA Screening Committee.profile",
+          "fullName": "IA Screening Committee",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Identity User.profile",
+          "fullName": "Identity User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/India Alliance Applicant Portal Profile.profile",
+          "fullName": "India Alliance Applicant Portal Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/India Alliance Applicant Portal for CRC Profile.profile",
+          "fullName": "India Alliance Applicant Portal for CRC Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/India Alliance Peer Reviewers Profile.profile",
+          "fullName": "India Alliance Peer Reviewers Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/India Alliance Screening Committee Profile.profile",
+          "fullName": "India Alliance Screening Committee Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/MarketingProfile.profile",
+          "fullName": "MarketingProfile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Minimum Access - API Only Integrations.profile",
+          "fullName": "Minimum Access - API Only Integrations",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Minimum Access - Salesforce.profile",
+          "fullName": "Minimum Access - Salesforce",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Read Only.profile",
+          "fullName": "Read Only",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Sales Insights Integration User.profile",
+          "fullName": "Sales Insights Integration User",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Salesforce API Only System Integrations.profile",
+          "fullName": "Salesforce API Only System Integrations",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/SolutionManager.profile",
+          "fullName": "SolutionManager",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/Standard.profile",
+          "fullName": "Standard",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "Profile",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "profiles/peerreviewer Profile.profile",
+          "fullName": "peerreviewer Profile",
+          "problem": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found",
+          "problemType": "Error",
+          "success": false
+        }
+      ],
+      "componentSuccesses": [
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-17T13:05:25.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      }
+    },
+    "done": true,
+    "id": "0AfC300000D5QonKAF",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-17T13:05:26.000Z",
+    "numberComponentErrors": 34,
+    "numberComponentsDeployed": 0,
+    "numberComponentsTotal": 34,
+    "numberFiles": "36",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-17T13:05:04.000Z",
+    "status": "Failed",
+    "success": false,
+    "zipSize": 226720,
+    "files": [
+      {
+        "fullName": "Admin",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Admin.profile-meta.xml",
+        "error": "In field: field - no CustomField named External_Participants__c.Notify__c found"
+      },
+      {
+        "fullName": "Analytics Cloud Integration User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Analytics Cloud Integration User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Analytics Cloud Security User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Analytics Cloud Security User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Anypoint Integration",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Anypoint Integration.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Applicant Member based",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Applicant Member based.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Applicant Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Applicant Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "CPQ Integration User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\CPQ Integration User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Chatter External User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Chatter External User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Chatter Free User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Chatter Free User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Chatter Moderator User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Chatter Moderator User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "ContractManager",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\ContractManager.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Custom Customer Community Plus Login User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Custom Customer Community Plus Login User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Customer Community Plus Login User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Customer Community Plus Login User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Customer Community Plus User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Customer Community Plus User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "DBT Site Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\DBT Site Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Grants Manager",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Grants Manager.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Guest License User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Guest License User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "IA Internal Reviewer",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\IA Internal Reviewer.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "IA Peer Review Team",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\IA Peer Review Team.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "IA Screening Committee",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\IA Screening Committee.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Identity User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Identity User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "India Alliance Applicant Portal Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\India Alliance Applicant Portal Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "India Alliance Applicant Portal for CRC Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\India Alliance Applicant Portal for CRC Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "India Alliance Peer Reviewers Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\India Alliance Peer Reviewers Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "India Alliance Screening Committee Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\India Alliance Screening Committee Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "MarketingProfile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\MarketingProfile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Minimum Access - API Only Integrations",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Minimum Access - API Only Integrations.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Minimum Access - Salesforce",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Minimum Access - Salesforce.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Read Only",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Read Only.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Sales Insights Integration User",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Sales Insights Integration User.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Salesforce API Only System Integrations",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Salesforce API Only System Integrations.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "SolutionManager",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\SolutionManager.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "Standard",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\Standard.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      },
+      {
+        "fullName": "peerreviewer Profile",
+        "type": "Profile",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\profiles\\peerreviewer Profile.profile-meta.xml",
+        "error": "In field: field - no CustomField named Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c found"
+      }
+    ],
+    "zipFileCount": 35,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D5QonKAF%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": [
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry"
+  ]
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Existing_Grants__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Existing Grants</label>
+    <referenceTo>Existing_Grants__c</referenceTo>
+    <relationshipLabel>Existing Grants History</relationshipLabel>
+    <relationshipName>Existing_Grants_History</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

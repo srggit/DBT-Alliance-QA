@@ -1,0 +1,201 @@
+.ar-container {
+    padding: 15px;
+}
+
+/* ================================================================
+   BANNER
+   ================================================================ */
+
+.ar-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 16px 20px;
+    margin-bottom: 16px;
+
+    border-radius: 0.75rem;
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.ar-banner-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    border-radius: 0.6rem;
+
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ar-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.ar-banner-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.ar-banner-subtitle {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ================================================================
+   TABLE
+   ================================================================ */
+
+.ar-table-wrap {
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    border: 1px solid #eef1f6;
+}
+
+.ar-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.ar-table thead tr {
+    background: #f4f7fc;
+}
+
+.ar-th {
+    text-align: left;
+    padding: 0.7rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #16325c;
+    white-space: nowrap;
+    border-bottom: 1px solid #e2e8f4;
+}
+
+.ar-th_checkbox {
+    width: 40px;
+}
+
+.ar-th_center {
+    text-align: center;
+}
+
+.ar-td {
+    padding: 0.65rem 1rem;
+    vertical-align: middle;
+    font-size: 0.8125rem;
+    color: #334155;
+}
+
+.ar-td_checkbox {
+    width: 40px;
+}
+
+.ar-td_center {
+    text-align: center;
+}
+
+.ar-table tbody tr {
+    background: #ffffff;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.ar-table tbody tr:hover {
+    background: #f7fafe;
+}
+
+.ar-table tbody tr:not(:last-child) .ar-td {
+    border-bottom: 1px solid #eef1f6;
+}
+
+.ar-tr_disabled {
+    background: #f7f7f5 !important;
+}
+
+.ar-tr_disabled .ar-td {
+    color: #94a3b8;
+}
+
+.ar-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 10px;
+    border-radius: 1rem;
+
+    background: #f3d9e0;
+    color: #8b1e3f;
+
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+
+.ar-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 16px;
+}
+
+.ar-min-message {
+    font-size: 0.8125rem;
+    color: #8b1e3f;
+    font-weight: 500;
+}
+
+.ar-footer-actions {
+    margin-left: auto;
+}
+
+.ar-assign-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 9px 18px;
+    margin: 0;
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(120deg, #6c1730 0%, #8b1e3f 100%);
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.28);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.ar-assign-btn:hover:not(:disabled) {
+    background: linear-gradient(120deg, #7a1a37 0%, #9c2547 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(139, 30, 63, 0.35);
+}
+
+.ar-assign-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.ar-assign-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}

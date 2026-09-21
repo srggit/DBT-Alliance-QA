@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>IRMI INORMS Travel Grant Application Form</fullName>
+                <default>false</default>
+                <label>IRMI INORMS Travel Grant Application Form</label>
+            </value>
+            <value>
+                <fullName>IRMI RM Fellowship Application Form</fullName>
+                <default>false</default>
+                <label>IRMI RM Fellowship Application Form</label>
+            </value>
+            <value>
+                <fullName>IRMI RM Grant Application Form</fullName>
+                <default>false</default>
+                <label>IRMI RM Grant Application Form</label>
+            </value>
+            <value>
+                <fullName>Clinical Research Centres</fullName>
+                <default>false</default>
+                <label>Clinical Research Centres</label>
+            </value>
+            <value>
+                <fullName>Team Science Grants</fullName>
+                <default>false</default>
+                <label>Team Science Grants</label>
+            </value>
+            <value>
+                <fullName>Clinical and Public Health -Early Career Fellowship Full applications</fullName>
+                <default>false</default>
+                <label>Clinical and Public Health -Early Career Fellowship Full applications</label>
+            </value>
+            <value>
+                <fullName>Clinical and Public Health - Intermediate Fellowship Full applications</fullName>
+                <default>false</default>
+                <label>Clinical and Public Health - Intermediate Fellowship Full applications</label>
+            </value>
+            <value>
+                <fullName>Clinical and Public Health -Senior Fellowship Full applications</fullName>
+                <default>false</default>
+                <label>Clinical and Public Health -Senior Fellowship Full applications</label>
+            </value>
+            <value>
+                <fullName>Early Career Fellowship Full applications</fullName>
+                <default>false</default>
+                <label>Early Career Fellowship Full applications</label>
+            </value>
+            <value>
+                <fullName>Intermediate Fellowship Full applications</fullName>
+                <default>false</default>
+                <label>Intermediate Fellowship Full applications</label>
+            </value>
+            <value>
+                <fullName>Senior Fellowship Full applications</fullName>
+                <default>false</default>
+                <label>Senior Fellowship Full applications</label>
+            </value>
+            <value>
+                <fullName>Prelim forms have only numbers</fullName>
+                <default>false</default>
+                <label>Prelim forms have only numbers</label>
+            </value>
+            <value>
+                <fullName>Programme Award Application Form</fullName>
+                <default>false</default>
+                <label>Programme Award Application Form</label>
+            </value>
+            <value>
+                <fullName>Affordable Approaches to Cancer</fullName>
+                <default>false</default>
+                <label>Affordable Approaches to Cancer</label>
+            </value>
+            <value>
+                <fullName>Clinical/Public Health Research Centers(CRC)</fullName>
+                <default>false</default>
+                <label>Clinical/Public Health Research Centers(CRC)</label>
+            </value>
+            <value>
+                <fullName>Team Science Grants (TSG)</fullName>
+                <default>false</default>
+                <label>Team Science Grants (TSG)</label>
+            </value>
+            <value>
+                <fullName>INROMS Travel Grant</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>INROMS Travel Grant</label>
+            </value>
+            <value>
+                <fullName>IRMIRM Fellowships</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>IRMIRM Fellowships</label>
+            </value>
+            <value>
+                <fullName>IRMIRM grants</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>IRMIRM grants</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,423 @@
+<template>
+    <div class="myec-shell">
+        <div class="slds-p-around_medium myec-content">
+            <div class="eligibility-banner slds-m-bottom_medium">
+                <div class="eligibility-banner__icon">
+                    <lightning-icon icon-name="utility:people" size="small"></lightning-icon>
+                </div>
+                <div class="eligibility-banner__body">
+                    <h1 class="eligibility-banner__title">Application Review</h1>
+                    <p class="eligibility-banner__subtitle">Assign reviewers and record preliminary &amp; peer review
+                        decisions.</p>
+                </div>
+                <div class="eligibility-banner__art" aria-hidden="true">
+                    <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="120" cy="35" r="34" fill="#ffffff" opacity="0.18"></circle>
+                        <circle cx="30" cy="105" r="24" fill="#ffffff" opacity="0.14"></circle>
+                        <rect x="42" y="18" width="70" height="94" rx="10" fill="#ffffff" opacity="0.95"></rect>
+                        <rect x="60" y="10" width="34" height="16" rx="4" fill="#8b1e3f"></rect>
+                        <rect x="54" y="40" width="46" height="6" rx="3" fill="#f3d9e0"></rect>
+                        <rect x="54" y="56" width="46" height="6" rx="3" fill="#f3d9e0"></rect>
+                        <rect x="54" y="72" width="30" height="6" rx="3" fill="#f3d9e0"></rect>
+                        <circle cx="104" cy="94" r="16" fill="none" stroke="#8b1e3f" stroke-width="4"></circle>
+                        <line x1="115" y1="105" x2="128" y2="118" stroke="#8b1e3f" stroke-width="4"
+                            stroke-linecap="round"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <lightning-card class="myec-card-soft">
+                <div slot="title" class="slds-grid slds-grid_vertical-align-center">
+                    <span class="eligibility-title-icon">
+                        <lightning-icon icon-name="utility:apps" size="x-small" variant="inverse"></lightning-icon>
+                    </span>
+                    <span class="prc-card-title">Applications</span>
+                </div>
+
+                <div slot="actions" class="slds-grid slds-gutters_x-small slds-grid_vertical-align-center">
+                    <div class="myec-dd slds-m-right_x-small" style="width: 190px;">
+                        <button type="button" class={statusTriggerClass} onclick={handleToggleStatusDropdown}>
+                            <span class="myec-dd-trigger-label">{selectedStatusLabel}</span>
+                            <lightning-icon icon-name="utility:chevrondown" size="xx-small"
+                                class="myec-dd-caret"></lightning-icon>
+                        </button>
+                        <template lwc:if={isStatusDropdownOpen}>
+                            <ul class="myec-dd-menu">
+                                <template for:each={statusMenuOptions} for:item="opt">
+                                    <li key={opt.value}>
+                                        <button type="button" class={opt.itemClass} data-value={opt.value}
+                                            onclick={handleSelectStatus}>{opt.label}</button>
+                                    </li>
+                                </template>
+                            </ul>
+                        </template>
+                    </div>
+                    <div class="myec-dd" style="width: 260px;">
+                        <button type="button" class={schemeTriggerClass} onclick={handleToggleSchemeDropdown}>
+                            <span class="myec-dd-trigger-label">{selectedSchemeLabel}</span>
+                            <lightning-icon icon-name="utility:chevrondown" size="xx-small"
+                                class="myec-dd-caret"></lightning-icon>
+                        </button>
+                        <template lwc:if={isSchemeDropdownOpen}>
+                            <ul class="myec-dd-menu">
+                                <template for:each={schemeMenuOptions} for:item="opt">
+                                    <li key={opt.value}>
+                                        <button type="button" class={opt.itemClass} data-value={opt.value}
+                                            onclick={handleSelectScheme}>{opt.label}</button>
+                                    </li>
+                                </template>
+                            </ul>
+                        </template>
+                    </div>
+                </div>
+
+                <template if:true={isLoading}>
+                    <div class="slds-is-relative slds-p-around_large">
+                        <lightning-spinner alternative-text="Loading Applications" size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+                <template if:true={records.length}>
+                    <div class="eligibility-table-wrap">
+                        <table class="eligibility-table">
+                            <thead>
+                                <tr>
+                                    <th class="eligibility-th"><span class="eligibility-th__label">Application
+                                            Id</span></th>
+                                    <th class="eligibility-th"><span class="eligibility-th__label">Applicant
+                                            Name</span></th>
+                                    <th class="eligibility-th"><span class="eligibility-th__label">Scheme Name</span></th>
+                                    <th class="eligibility-th"><span class="eligibility-th__label">Status</span></th>
+                                    <th class="eligibility-th"><span class="eligibility-th__label">Actions</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={records} for:item="record">
+                                    <tr key={record.proposalId} class="eligibility-tr">
+                                        <td class="eligibility-td prc-app-cell">
+                                            <div class="composite-cell">
+                                                <div class="composite-cell__icon composite-cell__icon_blue">
+                                                    <lightning-icon icon-name="utility:file" size="x-small">
+                                                    </lightning-icon>
+                                                </div>
+                                                <div class="composite-cell__text">
+                                                    <div class="composite-cell__value slds-truncate"
+                                                        title={record.applicationId}>{record.applicationId}</div>
+                                                    <div class="composite-cell__sub">Proposal</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="eligibility-td prc-app-cell">
+                                            <div class="composite-cell__value slds-truncate"
+                                                title={record.applicantNameLabel}>{record.applicantNameLabel}</div>
+                                        </td>
+                                        <td class="eligibility-td prc-app-cell">
+                                            <div class="composite-cell__value composite-cell__value_link slds-truncate"
+                                                title={record.schemeNameLabel}>{record.schemeNameLabel}</div>
+                                        </td>
+                                        <td class="eligibility-td prc-app-cell">
+                                            <span class={record.statusBadgeClass}>
+                                                <span class="status-dot"></span>{record.proposalStatus}
+                                            </span>
+                                        </td>
+                                        <td class="eligibility-td prc-app-cell eligibility-td_action">
+                                            <div class="prc-action-row">
+                                                <button type="button" class="myec-open-btn myec-open-btn_compact"
+                                                    data-id={record.proposalId} onclick={handleOpenReviewers}>
+                                                    <span>Reviewers</span>
+                                                    <lightning-icon icon-name="utility:people" size="xx-small"
+                                                        class="myec-open-btn-icon"></lightning-icon>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <template if:false={records.length}>
+                    <template if:false={isLoading}>
+                        <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                            <lightning-icon icon-name="utility:info" size="small" class="slds-m-bottom_x-small">
+                            </lightning-icon>
+                            <p>No Applications Found</p>
+                        </div>
+                    </template>
+                </template>
+
+                <div slot="footer" class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                    <template if:true={totalPages}>
+                        <div class="slds-text-body_small slds-text-color_weak">
+                            Showing {startRecord} - {endRecord} of {totalRecords} records
+                        </div>
+                        <div class="slds-grid slds-grid_vertical-align-center eligibility-pager">
+                            <lightning-button-icon icon-name="utility:jump_to_left" alternative-text="First" title="First"
+                                variant="border-filled" onclick={handleFirst} disabled={disablePrevious}
+                                class="slds-m-right_xxx-small"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Previous"
+                                title="Previous" variant="border-filled" onclick={handlePrevious}
+                                disabled={disablePrevious} class="slds-m-right_xxx-small"></lightning-button-icon>
+                            <span class="slds-m-horizontal_small slds-text-body_small">Page {currentPage} of
+                                {totalPages}</span>
+                            <lightning-button-icon icon-name="utility:chevronright" alternative-text="Next" title="Next"
+                                variant="border-filled" onclick={handleNext} disabled={disableNext}
+                                class="slds-m-left_xxx-small"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:jump_to_right" alternative-text="Last" title="Last"
+                                variant="border-filled" onclick={handleLast} disabled={disableNext}
+                                class="slds-m-left_xxx-small"></lightning-button-icon>
+                        </div>
+                    </template>
+                </div>
+            </lightning-card>
+        </div>
+    </div>
+
+    <template if:true={showReviewerModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading"
+            class="slds-modal slds-fade-in-open myec-modal-anim prc-add-reviewer-modal">
+            <div class="slds-modal__container prc-modal-container">
+                <header class="slds-modal__header prc-modal-header">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" title="Close" variant="bare"
+                        onclick={handleCloseReviewerModal} class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 id="modal-heading" class="slds-text-heading_medium">Add Reviewer</h2>
+                    <p class="slds-m-top_x-small">Select reviewers for this application</p>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col">
+                            <lightning-input type="search" label="Search by Name" value={reviewerNameSearch}
+                                onchange={handleReviewerNameSearch} placeholder="Enter reviewer name">
+                            </lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-input type="search" label="Search by Email" value={reviewerEmailSearch}
+                                onchange={handleReviewerEmailSearch} placeholder="Enter email">
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <template if:true={reviewerLoading}>
+                        <lightning-spinner alternative-text="Loading Reviewers"></lightning-spinner>
+                    </template>
+
+                    <template if:true={reviewerRecords.length}>
+                        <div class="reviewer-modal-table eligibility-table-wrap">
+                            <table class="eligibility-table">
+                                <thead>
+                                    <tr>
+                                        <th class="eligibility-th eligibility-th_checkbox"><span
+                                                class="eligibility-th__label">Select</span></th>
+                                        <th class="eligibility-th"><span class="eligibility-th__label">Name</span></th>
+                                        <th class="eligibility-th"><span class="eligibility-th__label">Email</span></th>
+                                        <th class="eligibility-th"><span class="eligibility-th__label">Grant Type</span>
+                                        </th>
+                                        <th class="eligibility-th"><span
+                                                class="eligibility-th__label">Organization</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={reviewerRecords} for:item="reviewer">
+                                        <tr key={reviewer.reviewerId} class="eligibility-tr">
+                                            <td class="eligibility-td eligibility-td_checkbox">
+                                                <lightning-input type="checkbox" variant="label-hidden"
+                                                    label="Select Reviewer" checked={reviewer.selected}
+                                                    data-id={reviewer.reviewerId} onchange={handleReviewerSelection}>
+                                                </lightning-input>
+                                            </td>
+                                            <td class="eligibility-td">{reviewer.name}</td>
+                                            <td class="eligibility-td">{reviewer.email}</td>
+                                            <td class="eligibility-td">{reviewer.grantType}</td>
+                                            <td class="eligibility-td">{reviewer.organizationName}</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <template if:false={reviewerRecords.length}>
+                        <template if:false={reviewerLoading}>
+                            <div class="slds-align_absolute-center slds-p-around_large slds-text-color_weak">No Reviewers
+                                Found</div>
+                        </template>
+                    </template>
+
+                    <template if:true={reviewerTotalPages}>
+                        <div
+                            class="slds-grid slds-grid_align-center slds-grid_vertical-align-center slds-m-top_medium eligibility-pager">
+                            <lightning-button-icon icon-name="utility:jump_to_left" alternative-text="First" title="First"
+                                variant="border-filled" onclick={handleReviewerFirst}
+                                disabled={reviewerDisablePrevious} class="slds-m-right_xxx-small"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Previous"
+                                title="Previous" variant="border-filled" onclick={handleReviewerPrevious}
+                                disabled={reviewerDisablePrevious} class="slds-m-right_xxx-small"></lightning-button-icon>
+                            <span class="slds-m-horizontal_small slds-text-body_small">Page {reviewerCurrentPage} of
+                                {reviewerTotalPages}</span>
+                            <lightning-button-icon icon-name="utility:chevronright" alternative-text="Next" title="Next"
+                                variant="border-filled" onclick={handleReviewerNext} disabled={reviewerDisableNext}
+                                class="slds-m-left_xxx-small"></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:jump_to_right" alternative-text="Last" title="Last"
+                                variant="border-filled" onclick={handleReviewerLast} disabled={reviewerDisableNext}
+                                class="slds-m-left_xxx-small"></lightning-button-icon>
+                        </div>
+                        <div class="slds-align_absolute-center slds-m-top_x-small slds-text-body_small slds-text-color_weak">
+                            Showing {reviewerStartRecord} - {reviewerEndRecord} of {reviewerTotalRecords} reviewers
+                        </div>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer prc-modal-footer">
+                    <button type="button" class="myec-ghost-btn" onclick={handleCloseReviewerModal}>
+                        <span>Cancel</span>
+                    </button>
+                    <button type="button" class="myec-open-btn" onclick={handleSaveReviewers}
+                        disabled={disableSaveReviewers}>
+                        <span>Save</span>
+                        <lightning-icon icon-name="utility:check" size="xx-small" class="myec-open-btn-icon">
+                        </lightning-icon>
+                    </button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim prc-add-reviewer-backdrop">
+        </div>
+    </template>
+
+    <!-- ============================================================
+         "REVIEWERS" POP-OUT  (compact view of Reviewer / Actions / Organization)
+         ============================================================ -->
+    <template if:true={showReviewersModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="reviewers-modal-heading"
+            class="slds-modal slds-fade-in-open myec-modal-anim">
+            <div class="slds-modal__container prc-modal-container">
+                <header class="slds-modal__header prc-modal-header">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" title="Close" variant="bare"
+                        onclick={handleCloseReviewersModal} class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 id="reviewers-modal-heading" class="slds-text-heading_medium">{reviewersModalTitle}</h2>
+                    <p class="slds-m-top_x-small">Review decisions &amp; organization for each assigned reviewer</p>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={hasReviewersModalReviewers}>
+                        <div class="eligibility-table-wrap">
+                            <table class="eligibility-table">
+                                <thead>
+                                    <tr>
+                                        <th class="eligibility-th"><span class="eligibility-th__label">Reviewer
+                                                Name</span></th>
+                                        <th class="eligibility-th"><span
+                                                class="eligibility-th__label">Organization</span></th>
+                                        <th class="eligibility-th">
+                                            <span class="eligibility-th__label">Applicant Name</span>
+                                        </th>
+                                        <th class="eligibility-th">
+                                            <span class="eligibility-th__label">Applicant Organization</span>
+                                        </th>        
+                                        <th class="eligibility-th"><span class="eligibility-th__label">Actions</span></th>
+                                        <th class="eligibility-th"><span
+                                                class="eligibility-th__label">Conflict</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={reviewersModalReviewers} for:item="reviewer">
+                                        <tr key={reviewer.reviewerMappingId} class={reviewer.rowClass}>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell__value">{reviewer.reviewerName}</div>
+                                            </td>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell__value">{reviewer.organizationLabel}</div>
+                                            </td>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell__value">
+                                                    {reviewersModalRecord.applicantNameLabel}
+                                                </div>
+                                            </td>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell__value">
+                                                    {reviewersModalRecord.applicantOrganizationLabel}
+                                                </div>
+                                            </td>
+                                            <td class="eligibility-td prc-actions-cell">
+                                                <lightning-combobox class="prc-decision-combo" label="Decision"
+                                                    variant="label-hidden" value={reviewer.decision}
+                                                    options={decisionOptions} data-id={reviewer.reviewerMappingId}
+                                                    onchange={handleDecisionChange}>
+                                                </lightning-combobox>
+
+                                                <template if:true={reviewer.conflictReason}>
+                                                    <template if:false={reviewer.isEditingConflict}>
+                                                        <div class="existing-conflict-reason"
+                                                            data-id={reviewer.reviewerMappingId}
+                                                            onclick={handleConflictReasonClick}>
+                                                            <span class="conflict-label">Conflict Reason:</span>
+                                                            <span>{reviewer.conflictReason}</span>
+                                                        </div>
+                                                    </template>
+                                                </template>
+
+                                                <template if:true={reviewer.showConflictReason}>
+                                                    <div class="conflict-editor">
+                                                        <lightning-textarea label="Conflict Reason"
+                                                            variant="label-hidden" maxlength="255"
+                                                            value={reviewer.conflictReason}
+                                                            data-id={reviewer.reviewerMappingId}
+                                                            onchange={handleConflictReasonChange}
+                                                            placeholder="Enter conflict reason">
+                                                        </lightning-textarea>
+                                                        <div class="character-count">
+                                                            {reviewer.conflictReasonLength}/255</div>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-id={reviewer.reviewerMappingId}
+                                                            onclick={handleConflictSave}>
+                                                            <span>Save</span>
+                                                            <lightning-icon icon-name="utility:check" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </td>
+                                            <td class="eligibility-td prc-conflict-cell">
+                                                <template if:true={reviewer.hasOrganizationConflict}>
+                                                    <lightning-icon icon-name={reviewer.orgConflictIcon}
+                                                        size="x-small" variant="warning"
+                                                        title="Reviewer and applicant share the same organization"
+                                                        alternative-text="Organization conflict">
+                                                    </lightning-icon>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <template if:false={hasReviewersModalReviewers}>
+                        <div class="slds-align_absolute-center slds-p-around_large slds-text-color_weak">
+                            No reviewers assigned to this application yet.
+                        </div>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer prc-modal-footer">
+                    <button type="button" class="myec-open-btn myec-open-btn_compact"
+                        data-id={reviewersModalProposalId} onclick={handleAddReviewer}>
+                        <span>Add</span>
+                        <lightning-icon icon-name="utility:adduser" size="xx-small"
+                            class="myec-open-btn-icon"></lightning-icon>
+                    </button>
+                    <button type="button" class="myec-ghost-btn" onclick={handleCloseReviewersModal}>
+                        <span>Close</span>
+                    </button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Research_Summary_During_Highest_Degree__c</fullName>
+    <description>Summary of the research work carried out during PhD/MD or other highest degree.</description>
+    <inlineHelpText>Summary of the research work carried out during PhD/MD or other highest degree.</inlineHelpText>
+    <label>Research Summary During Highest Degree</label>
+    <length>12768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

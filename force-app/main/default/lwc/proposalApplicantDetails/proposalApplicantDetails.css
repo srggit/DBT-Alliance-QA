@@ -1,0 +1,337 @@
+.pad-proposal-container {
+    height: 100%;
+}
+
+.pad-shell {
+    border: 1px solid #eef1f6;
+    border-radius: 0.5rem;
+
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06);
+
+    overflow: hidden;
+}
+
+/* ================================================================
+   PAGE HEADER (banner)
+   ================================================================ */
+
+.pad-banner-wrap {
+    padding: 12px 16px 0;
+}
+
+.pad-page-header {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    height: 88px;
+    padding: 0 2rem;
+
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.pad-page-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+}
+
+.pad-page-header-left,
+.pad-page-header-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.pad-page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pad-header-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+
+    border-radius: 0.5rem;
+
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pad-header-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.pad-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pad-page-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 20px;
+}
+
+.pad-page-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 16px;
+}
+
+.pad-page-header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.pad-header-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pad-header-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 18px;
+    margin: 0;
+    border: none;
+    border-radius: 9px;
+
+    background-color: #ffffff;
+    color: #6c1730;
+
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+.pad-header-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.28);
+}
+
+.pad-header-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.pad-header-btn-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+/* ================================================================
+   BACKDROP BLUR
+   ================================================================ */
+
+.pad-backdrop-blur {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(15, 8, 12, 0.45);
+}
+
+.pad-backdrop-anim {
+    animation: pad-backdrop-fade 0.25s ease-out;
+}
+
+@keyframes pad-backdrop-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.pad-modal-anim {
+    animation: pad-modal-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.pad-modal-anim .slds-modal__container {
+    animation: pad-modal-container-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes pad-modal-pop {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pad-modal-container-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ================================================================
+   PLAIN MODAL HEADER (no title, just close button)
+   ================================================================ */
+
+.pad-modal-header-plain {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 16px;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+/* ================================================================
+   LARGE MODAL
+   Scoped to this component's own .slds-modal__container elements only
+   (LWC's native CSS scoping keeps this from leaking to other
+   components' modals elsewhere on the page).
+   ================================================================ */
+
+.pad-large-modal {
+    width: 100%;
+    max-width: 80%;
+    height: 100vh;
+    max-height: 100vh;
+}
+
+.pad-large-modal .slds-modal__content {
+    overflow-y: auto;
+}
+
+/* ================================================================
+   TABSET
+   ================================================================ */
+
+.pad-custom-tabs {
+    display: flex;
+    gap: 6px;
+
+    width: fit-content;
+    padding: 5px;
+    margin-bottom: 18px;
+
+    border-radius: 12px;
+    border: 1px solid #eef1f6;
+
+    background: #f8fafc;
+}
+
+.pad-tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 18px;
+    margin: 0;
+    border: none;
+    border-radius: 9px;
+
+    background: transparent;
+    color: #64748b;
+
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.pad-tab-btn:hover {
+    color: #8b1e3f;
+    background: #fdf2f4;
+}
+
+.pad-tab-btn_active,
+.pad-tab-btn_active:hover {
+    background: linear-gradient(120deg, #6c1730 0%, #8b1e3f 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.28);
+}
+
+.pad-tab-icon {
+    --slds-c-icon-color-foreground-default: #64748b;
+}
+
+.pad-tab-btn:hover .pad-tab-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.pad-tab-btn_active .pad-tab-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.pad-tab-content-wrap {
+    border: 1px solid #eef1f6;
+    border-radius: 12px;
+
+    padding: 1.25rem;
+
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* c-reviewer-rating-matrix has its own top-padding calibrated for the modal
+   contexts it's also opened in (My Dashboard, Proposal Applicant Details'
+   own modal) - here it additionally sits inside .pad-tab-content-wrap's
+   1.25rem padding, which stacks on top of it. Pull it up 10px so the
+   "Reviewer Rating and Comments" banner isn't sitting further down than in
+   those other contexts. Scoped to this panel only - the Proposal Details
+   tab is unaffected. */
+.pad-tab-panel_reviewer {
+    margin-top: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.pad-tab-panel {
+    animation: pad-tab-fade 0.2s ease;
+}
+
+.pad-tab-panel_hidden {
+    display: none;
+}
+
+@keyframes pad-tab-fade {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,249 @@
+.pem-container {
+    padding: 0 15px 15px;
+}
+
+/* ================================================================
+   BANNER
+   ================================================================ */
+
+.pem-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 16px 20px;
+    margin-bottom: 16px;
+
+    border-radius: 0.75rem;
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.pem-banner-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    border-radius: 0.6rem;
+
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pem-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.pem-banner-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.pem-banner-subtitle {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ================================================================
+   TABLE
+   ================================================================ */
+
+.pem-table-wrap {
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+}
+
+.pem-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pem-th {
+    background: #fdf5f7;
+    color: #5c1029;
+
+    text-align: left;
+    padding: 0.65rem 1rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    border-bottom: 1px solid #f3d9e0;
+    border-right: 1px solid #eef1f6;
+    white-space: nowrap;
+}
+
+.pem-th_question {
+    min-width: 260px;
+}
+
+.pem-th_reviewer {
+    text-align: center;
+    min-width: 220px;
+}
+
+.pem-td {
+    padding: 0.65rem 1rem;
+    vertical-align: top;
+
+    font-size: 0.8125rem;
+    color: #334155;
+
+    border-bottom: 1px solid #eef1f6;
+    border-right: 1px solid #eef1f6;
+
+    min-width: 220px;
+}
+
+.pem-td:last-child,
+.pem-th:last-child {
+    border-right: none;
+}
+
+.pem-td_question {
+    font-weight: 600;
+    color: #172554;
+    white-space: normal;
+}
+
+.pem-question-text {
+    font-weight: 600;
+}
+
+.pem-question-description {
+    margin-top: 4px;
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: #64748b;
+    white-space: normal;
+}
+
+/* ================================================================
+   DECISION PANEL (Reject / Process to Committee)
+   ================================================================ */
+
+.pem-decision-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eef1f6;
+}
+
+.pem-feedback-field {
+    width: 100%;
+}
+
+.pem-feedback-field .slds-form-element__label {
+    font-weight: 600;
+    color: #16325c;
+}
+
+.pem-feedback-textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 72px;
+    padding: 0.6rem 0.75rem;
+
+    border: 1px solid #d8dde5;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #172554;
+
+    font-size: 13px;
+    font-family: inherit;
+
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pem-feedback-textarea:hover {
+    border-color: #8b1e3f;
+}
+
+.pem-feedback-textarea:focus {
+    border-color: #8b1e3f;
+    box-shadow: 0 0 0 3px rgba(139, 30, 63, 0.12);
+}
+
+.pem-decision-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.pem-decision-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 9px 16px;
+    margin: 0;
+    border: none;
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.pem-decision-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.pem-decision-btn_neutral {
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #d8dde5;
+    box-shadow: none;
+}
+
+.pem-decision-btn_neutral:hover:not(:disabled) {
+    background: #f4f6f9;
+    border-color: #b8c0cc;
+}
+
+.pem-decision-btn_reject {
+    background: linear-gradient(120deg, #a51c1c 0%, #c23934 100%);
+    box-shadow: 0 4px 10px rgba(194, 57, 52, 0.28);
+}
+
+.pem-decision-btn_reject:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(194, 57, 52, 0.35);
+}
+
+.pem-decision-btn_committee {
+    background: linear-gradient(120deg, #1b5e8a 0%, #2478a4 100%);
+    box-shadow: 0 4px 10px rgba(27, 94, 138, 0.28);
+}
+
+.pem-decision-btn_committee:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(27, 94, 138, 0.35);
+}
+
+.pem-decision-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}

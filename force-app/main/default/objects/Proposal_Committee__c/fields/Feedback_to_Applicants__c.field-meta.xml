@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Feedback_to_Applicants__c</fullName>
+    <inlineHelpText>Reviewers are requested to provide applicant-facing comments that address the strength and weakness of the proposal, including grantsmanship and provide suggestions, if they wish, for improving the project. Reviewers may paraphase comments from the above sections into the section. Please do not leave this section blank.</inlineHelpText>
+    <label>Feedback to Applicants</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

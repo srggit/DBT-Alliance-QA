@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Checkbox_1_forNoConflictExi__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>I have no affiliation or financial connection with the institution or applicant(s) that might be construed as a conflict of interest. I believe that I can provide an objective evaluation.</inlineHelpText>
+    <label>No Conflict Exists Checkbox 1</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

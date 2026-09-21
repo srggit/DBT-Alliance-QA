@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Brief_summary_under_200_words</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(REGEX(TRIM( Brief_summary_under_200_words__c ),&apos;^(\\S+\\s+){0,199}\\S+&apos;))</errorConditionFormula>
+    <errorDisplayField>Brief_summary_under_200_words__c</errorDisplayField>
+    <errorMessage>Brief summary under 200 words</errorMessage>
+</ValidationRule>

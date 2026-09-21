@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Grant_Layout</fullName>
+    <fields>Name</fields>
+    <fields>Reference_Number__c</fields>
+    <fields>Start_date__c</fields>
+    <fields>Duration_of_the_grant_in_months__c</fields>
+    <fields>RecordTypeId</fields>
+    <label>New Grant Layout</label>
+</CompactLayout>

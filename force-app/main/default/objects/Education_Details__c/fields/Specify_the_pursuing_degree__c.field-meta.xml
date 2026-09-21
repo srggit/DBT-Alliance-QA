@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Specify_the_pursuing_degree__c</fullName>
+    <label>Specify the pursuing degree</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>PhD</fullName>
+                <default>false</default>
+                <label>PhD</label>
+            </value>
+            <value>
+                <fullName>MD</fullName>
+                <default>false</default>
+                <label>MD</label>
+            </value>
+            <value>
+                <fullName>MPH</fullName>
+                <default>false</default>
+                <label>MPH</label>
+            </value>
+            <value>
+                <fullName>DM</fullName>
+                <default>false</default>
+                <label>DM</label>
+            </value>
+            <value>
+                <fullName>MBBS</fullName>
+                <default>false</default>
+                <label>MBBS</label>
+            </value>
+            <value>
+                <fullName>MD-PhD</fullName>
+                <default>false</default>
+                <label>MD-PhD</label>
+            </value>
+            <value>
+                <fullName>Other Degree</fullName>
+                <default>false</default>
+                <label>Other Degree</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

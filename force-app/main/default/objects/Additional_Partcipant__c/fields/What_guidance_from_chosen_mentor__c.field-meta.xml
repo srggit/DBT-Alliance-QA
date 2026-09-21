@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_guidance_from_chosen_mentor__c</fullName>
+    <description>What guidance do you expect to receive from your chosen mentor? How will this benefit your proposed research?</description>
+    <inlineHelpText>What guidance do you expect to receive from your chosen mentor? How will this benefit your proposed research?</inlineHelpText>
+    <label>What guidance from chosen mentor?</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

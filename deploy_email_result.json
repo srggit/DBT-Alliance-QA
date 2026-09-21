@@ -1,0 +1,38 @@
+﻿{
+  "name": "SourceConflictError",
+  "message": "4 conflicts detected",
+  "exitCode": 1,
+  "context": "DeployMetadata",
+  "data": [
+    {
+      "state": "Conflict",
+      "fullName": "DBT_Email_Templates/New_Proposal_Assignment_commitee",
+      "type": "EmailTemplate",
+      "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\New_Proposal_Assignment_commitee.email-meta.xml"
+    },
+    {
+      "state": "Conflict",
+      "fullName": "DBT_Email_Templates/New_Proposal_Assignment_commitee",
+      "type": "EmailTemplate",
+      "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\New_Proposal_Assignment_commitee.email"
+    },
+    {
+      "state": "Conflict",
+      "fullName": "DBT_Email_Templates/WOHI_Collaboration_Invitation",
+      "type": "EmailTemplate",
+      "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\WOHI_Collaboration_Invitation.email-meta.xml"
+    },
+    {
+      "state": "Conflict",
+      "fullName": "DBT_Email_Templates/WOHI_Collaboration_Invitation",
+      "type": "EmailTemplate",
+      "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\WOHI_Collaboration_Invitation.email"
+    }
+  ],
+  "stack": "SourceConflictError: 4 conflicts detected\n    at SfCommandError.from (file:///C:/Users/SaurabhRGirhe/AppData/Local/sf/client/2.143.6-4b4ce38/node_modules/@salesforce/sf-plugins-core/lib/SfCommandError.js:48:16)\n    at DeployMetadata.catch (file:///C:/Users/SaurabhRGirhe/AppData/Local/sf/client/2.143.6-4b4ce38/node_modules/@salesforce/sf-plugins-core/lib/sfCommand.js:332:47)\n    at DeployMetadata.catch (file:///C:/Users/SaurabhRGirhe/AppData/Local/sf/client/2.143.6-4b4ce38/node_modules/@salesforce/plugin-deploy-retrieve/lib/commands/project/deploy/start.js:293:27)\n    at DeployMetadata._run (C:\\Users\\SaurabhRGirhe\\AppData\\Local\\sf\\client\\2.143.6-4b4ce38\\node_modules\\@oclif\\core\\lib\\command.js:187:29)\n    at async Config.runCommand (C:\\Users\\SaurabhRGirhe\\AppData\\Local\\sf\\client\\2.143.6-4b4ce38\\node_modules\\@oclif\\core\\lib\\config\\config.js:422:25)\n    at async run (C:\\Users\\SaurabhRGirhe\\AppData\\Local\\sf\\client\\2.143.6-4b4ce38\\node_modules\\@oclif\\core\\lib\\main.js:97:16)\n    at async file:///C:/Users/SaurabhRGirhe/AppData/Local/sf/client/2.143.6-4b4ce38/bin/run.js:15:1",
+  "cause": "undefined",
+  "warnings": [],
+  "code": "SourceConflictError",
+  "status": 1,
+  "commandName": "DeployMetadata"
+}

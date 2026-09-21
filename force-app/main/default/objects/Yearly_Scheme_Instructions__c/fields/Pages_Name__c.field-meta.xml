@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pages_Name__c</fullName>
+    <label>Pages Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Proposal</fullName>
+                <default>false</default>
+                <label>Proposal</label>
+            </value>
+            <value>
+                <fullName>Project Summary</fullName>
+                <default>false</default>
+                <label>Project Summary</label>
+            </value>
+            <value>
+                <fullName>Research Environment</fullName>
+                <default>false</default>
+                <label>Research Environment</label>
+            </value>
+            <value>
+                <fullName>Applicant CV</fullName>
+                <default>false</default>
+                <label>Applicant CV</label>
+            </value>
+            <value>
+                <fullName>Other Grants and Applications</fullName>
+                <default>false</default>
+                <label>Other Grants and Applications</label>
+            </value>
+            <value>
+                <fullName>Additional Section for Letters and Declaration</fullName>
+                <default>false</default>
+                <label>Additional Section for Letters and Declaration</label>
+            </value>
+            <value>
+                <fullName>Budget</fullName>
+                <default>false</default>
+                <label>Budget</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

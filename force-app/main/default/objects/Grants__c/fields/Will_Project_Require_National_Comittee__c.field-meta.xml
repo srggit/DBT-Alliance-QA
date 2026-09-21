@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Will_Project_Require_National_Comittee__c</fullName>
+    <inlineHelpText>Provide details of source of stem cells and nature of experiments Please specify if the project has been reviewed/will be reviewed by IC-SCR/IEC and NAC-SCR? Also specify any other regulatory approvals that have been/will be obtained. 
+(Limit 500 wor</inlineHelpText>
+    <label>Will Project Require National Comittee</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

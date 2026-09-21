@@ -1,0 +1,68 @@
+<!--
+  NOTE FOR EDITORS: This template is merged by Apex (EmailNotificationQueueable.processProposalParticipantHost),
+  NOT by Salesforce's own merge-field engine. Do not use the "Insert Merge Field"
+  picker here - it will insert {!Object.Field} syntax that this template does not use
+  and Apex will not replace. Instead, keep/reuse these plain text tokens, which Apex
+  replaces via String.replace(): {{Title}} {{FirstName}} {{LastName}} {{ProposalId}}
+  {{SchemeName}} {{Email}} {{InvitationLink}}
+-->
+<html>
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:Arial, Helvetica, sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4;padding:24px 0;">
+<tr>
+<td align="center">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border:1px solid #e0e0e0;">
+<tr>
+<td style="background:linear-gradient(135deg, #8b1e3f 0%, #5c1029 100%);background-color:#8b1e3f;padding:20px 32px;">
+<span style="color:#ffffff;font-size:20px;font-weight:bold;">DBT Alliance</span>
+</td>
+</tr>
+<tr>
+<td style="padding:32px;color:#333333;font-size:14px;line-height:1.6;">
+<p style="margin-top:0;">Dear {{Title}} {{FirstName}} {{LastName}},</p>
+
+<p>You have been identified as a Host for the proposal below. To proceed, please confirm and complete your details using the secure link below.</p>
+
+<table role="presentation" cellpadding="6" cellspacing="0" style="border-collapse:collapse;margin:12px 0;">
+<tr>
+<td style="color:#666666;">Reference Number:</td>
+<td style="color:#333333;">{{ProposalId}}</td>
+</tr>
+<tr>
+<td style="color:#666666;">Grant Title:</td>
+<td style="color:#333333;">{{SchemeName}}</td>
+</tr>
+<tr>
+<td style="color:#666666;">Registered Email:</td>
+<td style="color:#333333;">{{Email}}</td>
+</tr>
+</table>
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+<tr>
+<td align="center" style="border-radius:4px;background:linear-gradient(135deg, #8b1e3f 0%, #741832 100%);background-color:#8b1e3f;">
+<a href="{{InvitationLink}}" target="_blank" style="display:inline-block;padding:12px 28px;color:#ffffff;font-size:14px;font-weight:bold;text-decoration:none;">Complete Your Details</a>
+</td>
+</tr>
+</table>
+
+<p>If the button above does not work, copy and paste the following link into your browser:</p>
+<p style="word-break:break-all;color:#8b1e3f;">{{InvitationLink}}</p>
+
+<p>If you were not expecting this invitation, please contact our support team.</p>
+
+<p style="margin-bottom:0;">Regards,<br/>
+DBT Alliance Team</p>
+</td>
+</tr>
+<tr>
+<td style="background-color:#f0f0f0;padding:16px 32px;color:#999999;font-size:11px;">
+This is an automated message. Please do not reply directly to this email.
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

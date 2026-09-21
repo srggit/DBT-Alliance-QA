@@ -1,0 +1,66 @@
+<template>
+    <div class="ros-container">
+        <div class="ros-banner">
+            <div class="ros-banner-icon">
+                <lightning-icon icon-name="utility:refresh" size="small"></lightning-icon>
+            </div>
+            <div class="ros-banner-text">
+                <div class="ros-banner-title">Re-Open Section</div>
+                <div class="ros-banner-subtitle">Select the sections you want to reopen for the applicant.</div>
+            </div>
+            <div class="ros-banner-art" aria-hidden="true">
+                <lightning-icon icon-name="utility:file" size="large"></lightning-icon>
+            </div>
+        </div>
+
+        <template lwc:if={isLoadingSections}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading sections..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:elseif={hasSections}>
+            <table class="ros-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Section Name</th>
+                        <th>Data Filled Successfully</th>
+                        <th>Reopen Status</th>
+                        <th>Reopening Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={sections} for:item="section">
+                        <tr key={section.key}>
+                            <td>
+                                <lightning-input type="checkbox" variant="label-hidden" label="Select"
+                                    data-id={section.key} checked={section.isSelected}
+                                    disabled={section.isDisabled} onchange={handleToggleSection}></lightning-input>
+                            </td>
+                            <td>{section.sectionName}</td>
+                            <td>{section.dataFilledLabel}</td>
+                            <td>{section.reopenStatusLabel}</td>
+                            <td>
+                                <lightning-input type="text" variant="label-hidden" label="Reopening Reason"
+                                    placeholder="Enter reason" data-id={section.key} value={section.reason}
+                                    disabled={section.isReasonDisabled} required={section.isSelected}
+                                    onchange={handleReasonChange}></lightning-input>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        <template lwc:if={showEmptyState}>
+            <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                No scheme sections found for this proposal.
+            </p>
+        </template>
+
+        <div class="ros-footer">
+            <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_small"></lightning-button>
+            <lightning-button label="Reopen Selected" variant="brand" onclick={handleReopenSelected}
+                disabled={isSaving} class="ros-btn-maroon"></lightning-button>
+        </div>
+    </div>
+</template>

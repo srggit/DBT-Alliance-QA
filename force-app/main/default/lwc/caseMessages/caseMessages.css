@@ -1,0 +1,92 @@
+.cm-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 75vh;
+    background: #ffffff;
+}
+
+/* ---------- Header ---------- */
+.cm-header {
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e5e5;
+}
+.cm-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+}
+.cm-value {
+    font-weight: 600;
+    color: #16325c;
+}
+.cm-sub {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* ---------- Conversation ---------- */
+.msg-scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 200px;
+    max-height: 42vh;
+}
+
+.msg-row {
+    display: flex;
+    margin-bottom: 0.75rem;
+}
+.msg-row_inbound {
+    justify-content: flex-start;
+}
+.msg-row_outbound {
+    justify-content: flex-end;
+}
+
+.msg-bubble {
+    max-width: 80%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+.msg-bubble_inbound {
+    background: #f3f4f6;
+    color: #1f2937;
+    border-bottom-left-radius: 0.125rem;
+}
+.msg-bubble_outbound {
+    background: #eaf5fe;
+    color: #16325c;
+    border-bottom-right-radius: 0.125rem;
+}
+
+.msg-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.7rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+.msg-sender {
+    font-weight: 600;
+}
+
+.msg-status {
+    margin-top: 0.25rem;
+    font-size: 0.65rem;
+    color: #9ca3af;
+    text-align: right;
+}
+.msg-status_seen {
+    color: #2e844a;
+    font-weight: 600;
+}
+
+/* ---------- Reply ---------- */
+.cm-reply {
+    background: #f9fafb;
+    border-top: 1px solid #e5e5e5;
+}

@@ -1,0 +1,855 @@
+﻿<template>
+    <div class="papf-container">
+
+        <template lwc:if={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading proposal..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:elseif={error}>
+            <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+        </template>
+
+        <template lwc:elseif={hasData}>
+            <div class="papf-layout">
+
+                <!-- ================================================= -->
+                <!-- PATH -->
+                <!-- ================================================= -->
+                <div class="papf-path">
+                    <template for:each={sidebarItems} for:item="item">
+                        <div key={item.key} class={item.itemClass} data-key={item.key} onclick={handleSelectSection}>
+                            <div class="papf-nav-icon-wrap">
+                                <template lwc:if={item.isOverview}>
+                                    <lightning-icon icon-name="utility:check" size="xx-small"
+                                        class="papf-nav-icon-check"></lightning-icon>
+                                </template>
+                                <template lwc:else>
+                                    <span class="papf-nav-number">{item.number}</span>
+                                </template>
+                            </div>
+                            <span class="papf-nav-label">{item.label}</span>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- ================================================= -->
+                <!-- MAIN CONTENT -->
+                <!-- ================================================= -->
+                <div class="papf-main">
+
+                    <template lwc:if={isOverviewActive}>
+                        <h2 class="papf-section-title">1. Select Host</h2>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">Host Institution Name</div>
+                            <div class="papf-readonly-box">{hostInstitutionName}</div>
+                        </div>
+
+                        <div class="papf-publication-grid papf-field-block">
+                            <div>
+                                <div class="papf-field-label">City/Town</div>
+                                <div class="papf-field-value">{hostCityTown}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-label">District</div>
+                                <div class="papf-field-value">{hostDistrict}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-label">State</div>
+                                <div class="papf-field-value">{hostState}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-label">Country</div>
+                                <div class="papf-field-value">{hostCountry}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-label">Postcode</div>
+                                <div class="papf-field-value">{hostPostcode}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-label">Telephone No.</div>
+                                <div class="papf-field-value">{hostTelephone}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-label">Email Address</div>
+                                <div class="papf-field-value">{hostEmail}</div>
+                            </div>
+                            <div class="papf-checkbox-row papf-checkbox-row_inline">
+                                <span class={hostNotForProfitBoxClass}>
+                                    <template lwc:if={hostNotForProfitChecked}>
+                                        <lightning-icon icon-name="utility:check" size="xx-small"></lightning-icon>
+                                    </template>
+                                </span>
+                                <span class="papf-checkbox-label">Is the Host Institution not-for-profit?</span>
+                            </div>
+                        </div>
+
+                        <div class="papf-checkbox-row">
+                            <span class={basicBiomedicalResearchBoxClass}>
+                                <template lwc:if={isBasicBiomedicalResearchChecked}>
+                                    <lightning-icon icon-name="utility:check" size="xx-small"></lightning-icon>
+                                </template>
+                            </span>
+                            <span class="papf-checkbox-label">Confirm that your proposal is in the area of basic
+                                biomedical research</span>
+                        </div>
+                    </template>
+
+                    <template lwc:if={isProjectSummaryActive}>
+
+                        <h2 class="papf-section-title">1. Project Summary</h2>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">a. Project Title&nbsp;
+                                <span class="papf-field-limit">(Max 220 characters)</span>
+                            </div>
+                            <div class="papf-readonly-box">{projectTitle}</div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">b. Outline of proposed research&nbsp;
+                                <span class="papf-field-limit">(Max 1000 words)</span>
+                            </div>
+                            <div class="papf-field-hint">Outline: Background and identified research gaps, Research
+                                questions/objectives/aims, Approaches, Expected Outcomes</div>
+                            <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text value={outlineOfResearch}></lightning-formatted-rich-text></div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">c. Keywords&nbsp;
+                                <span class="papf-field-limit">(Provide 6)</span>
+                            </div>
+                            <div class="papf-readonly-box">{keywords}</div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">d. Describe the significance of the proposed work to the
+                                field and its role in establishing you in the area&nbsp;
+                                <span class="papf-field-limit">(200 words)</span>
+                            </div>
+                            <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text value={significance}></lightning-formatted-rich-text></div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">e. Research references&nbsp;
+                                <span class="papf-field-limit">(Max 1000 words)</span>
+                            </div>
+                            <div class="papf-field-hint">Limit 20 or less key references. Use Vancouver referencing
+                                style.</div>
+                            <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text value={researchReferences}></lightning-formatted-rich-text></div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">f. Applicant's Key Publications</div>
+
+                            <template lwc:if={hasPublications}>
+                                <template for:each={publications} for:item="pub">
+                                    <div key={pub.key} class="papf-publication-card">
+                                        <div class="papf-publication-number">{pub.number}</div>
+                                        <div class="papf-publication-grid">
+                                            <div>
+                                                <div class="papf-field-label">Title</div>
+                                                <div class="papf-field-value">{pub.title}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Author Names</div>
+                                                <div class="papf-field-value">{pub.authors}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Applicant Role</div>
+                                                <div class="papf-field-value">{pub.role}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Journal Name</div>
+                                                <div class="papf-field-value">{pub.journal}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Number of citations at present</div>
+                                                <div class="papf-field-value">{pub.citations}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">PMID / DOI / URL</div>
+                                                <div class="papf-field-value">{pub.identifier}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No publications provided.</p>
+                            </template>
+                        </div>
+
+                    </template>
+
+                    <template lwc:if={isResearchEnvironmentActive}>
+
+                        <h2 class="papf-section-title">2. Research Environment</h2>
+
+                        <template lwc:if={isIntermediateScheme}>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">a. Host Institution infrastructure of direct relevance
+                                    to the proposed project. Include core facilities&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={hostInfrastructure}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">b. Alternative arrangements for the facilities not
+                                    available at the Host Institution&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={alternativeArrangements}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">c. If identified External Sponsor(s) for Work Outside
+                                    the Host Institution (WOHI), provide brief details of the plan&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-field-hint">Note: WOHI is mandatory, and complete details must be
+                                    provided in the full application.</div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={wohiPlan}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">d. Status at the Host Institution</div>
+                                <div class="papf-radio-group">
+                                    <div class={facultyOptionClass}>
+                                        <span class="papf-radio-dot"></span>
+                                        <span class="papf-radio-label">Already hold a faculty position at the Host
+                                            Institution</span>
+                                    </div>
+                                    <div class={nonFacultyOptionClass}>
+                                        <span class="papf-radio-dot"></span>
+                                        <span class="papf-radio-label">Do not have a faculty position at the Host
+                                            Institution</span>
+                                    </div>
+                                </div>
+
+                                <template lwc:if={hasFacultyPosition}>
+                                    <div class="papf-field-block papf-card-field-spaced">
+                                        <div class="papf-field-header">Start date of appointment at the Host
+                                            Institution</div>
+                                        <div class="papf-readonly-box">{appointmentDateDisplay}</div>
+                                    </div>
+                                </template>
+
+                                <template lwc:if={doesNotHaveFacultyPosition}>
+                                    <div class="papf-field-block papf-card-field-spaced">
+                                        <div class="papf-field-header">What is your current position at the Host
+                                            Institution&nbsp;
+                                            <span class="papf-field-limit">(50 words)</span>
+                                        </div>
+                                        <div class="papf-readonly-box">{currentPositionAtHost}</div>
+                                    </div>
+                                </template>
+                            </div>
+
+                        </template>
+
+                        <template lwc:else>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">a. Explain why the Fellowship Supervisor/ Host
+                                    Laboratory is a suitable choice to conduct the proposed research work&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={supervisorSuitability}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">b. Host Institution infrastructure of direct relevance
+                                    to the proposed project. Include core facilities&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={hostInfrastructure}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">c. Alternative arrangements for the facilities not
+                                    available at the Host Institution&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={alternativeArrangements}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">d. Have you previously worked with the proposed
+                                    Fellowship Supervisor or in the Host environment? Explain the duration and nature
+                                    of the collaboration: joint outputs, data, publications or methods if any&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={previousCollaboration}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">e. If identified External Sponsor(s) for Work Outside
+                                    the Host Institution (WOHI), provide brief details of the plan&nbsp;
+                                    <span class="papf-field-limit">(200 words)</span>
+                                </div>
+                                <div class="papf-field-hint">Note: WOHI is mandatory, and complete details must be
+                                    provided in the full application.</div>
+                                <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text
+                                        value={wohiPlan}></lightning-formatted-rich-text></div>
+                            </div>
+
+                            <div class="papf-field-block">
+                                <div class="papf-field-header">f. Status at the Host Institution</div>
+                                <div class="papf-radio-group">
+                                    <div class={facultyOptionClass}>
+                                        <span class="papf-radio-dot"></span>
+                                        <span class="papf-radio-label">Already hold a faculty position at the Host
+                                            Institution</span>
+                                    </div>
+                                    <div class={nonFacultyOptionClass}>
+                                        <span class="papf-radio-dot"></span>
+                                        <span class="papf-radio-label">Do not have a faculty position at the Host
+                                            Institution</span>
+                                    </div>
+                                </div>
+
+                                <template lwc:if={hasFacultyPosition}>
+                                    <div class="papf-field-block papf-card-field-spaced">
+                                        <div class="papf-field-header">Start date of appointment at the Host
+                                            Institution</div>
+                                        <div class="papf-readonly-box">{appointmentDateDisplay}</div>
+                                    </div>
+                                </template>
+
+                                <template lwc:if={doesNotHaveFacultyPosition}>
+                                    <div class="papf-field-block papf-card-field-spaced">
+                                        <div class="papf-field-header">What is your current position at the Host
+                                            Institution&nbsp;
+                                            <span class="papf-field-limit">(50 words)</span>
+                                        </div>
+                                        <div class="papf-readonly-box">{currentPositionAtHost}</div>
+                                    </div>
+                                </template>
+                            </div>
+
+                        </template>
+
+                    </template>
+
+                    <template lwc:if={isOtherGrantsActive}>
+
+                        <h2 class="papf-section-title">4. Other Grants and Applications</h2>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">a. Research Grants / Fellowships from Other Funding
+                                Agencies&nbsp;
+                                <span class="papf-field-limit">(Optional question, allow upto 10 entries)</span>
+                            </div>
+                            <template lwc:if={hasResearchGrants}>
+                                <div class="papf-grants-table-wrap">
+                                    <table class="papf-grants-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Start Date</th>
+                                                <th>Duration (Months)</th>
+                                                <th>Currency</th>
+                                                <th>Total Award Amount</th>
+                                                <th>Funding Agency</th>
+                                                <th>Type</th>
+                                                <th>Title</th>
+                                                <th>Role of Applicant</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={researchGrants} for:item="grant">
+                                                <tr key={grant.key}>
+                                                    <td>{grant.startDate}</td>
+                                                    <td>{grant.durationMonths}</td>
+                                                    <td>{grant.currency}</td>
+                                                    <td>{grant.totalAwardAmount}</td>
+                                                    <td>{grant.fundingAgency}</td>
+                                                    <td>{grant.type}</td>
+                                                    <td>{grant.title}</td>
+                                                    <td>{grant.roleOfApplicant}</td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No research grants or fellowships provided.</p>
+                            </template>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">c. Is this your first application to the Alliance?</div>
+                            <div class="papf-radio-group papf-radio-group_horizontal">
+                                <div class={firstApplicationYesClass}>
+                                    <span class="papf-radio-dot"></span>
+                                    <span class="papf-radio-label">Yes</span>
+                                </div>
+                                <div class={firstApplicationNoClass}>
+                                    <span class="papf-radio-dot"></span>
+                                    <span class="papf-radio-label">No</span>
+                                </div>
+                            </div>
+
+                            <template lwc:if={showPreviousApplicationFields}>
+                                <template lwc:if={hasPreviousApplications}>
+                                    <template for:each={previousApplications} for:item="app">
+                                        <div key={app.key} class="papf-participant-card">
+                                            <div class="papf-participant-title papf-participant-title_accent">
+                                                Previous Application {app.number}</div>
+                                            <div class="papf-publication-grid">
+                                                <div>
+                                                    <div class="papf-field-label">Reference Number</div>
+                                                    <div class="papf-field-value">{app.referenceNumber}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="papf-field-label">Scheme</div>
+                                                    <div class="papf-field-value">{app.scheme}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="papf-field-label">Project title</div>
+                                                    <div class="papf-field-value">{app.projectTitle}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="papf-field-label">Decision on previous application
+                                                    </div>
+                                                    <div class="papf-field-value">{app.decision}</div>
+                                                </div>
+                                            </div>
+                                            <div class="papf-field-block papf-card-field-spaced">
+                                                <div class="papf-field-label">State how the current application
+                                                    differs from the previous application <span
+                                                        class="papf-field-limit">(200 words)</span>
+                                                </div>
+                                                <div class="papf-readonly-box papf-readonly-box_tall">
+                                                    <lightning-formatted-rich-text value={app.keyDifference}>
+                                                    </lightning-formatted-rich-text>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template lwc:else>
+                                    <p class="papf-empty-note">No previous application details provided.</p>
+                                </template>
+                            </template>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">d. Other Ongoing Applications</div>
+                            <div class="papf-field-hint">Do you have any grant or fellowship applications in progress
+                                with any other (domestic or international) funding agency?</div>
+                            <div class="papf-radio-group papf-radio-group_horizontal">
+                                <div class={otherOngoingYesClass}>
+                                    <span class="papf-radio-dot"></span>
+                                    <span class="papf-radio-label">Yes</span>
+                                </div>
+                                <div class={otherOngoingNoClass}>
+                                    <span class="papf-radio-dot"></span>
+                                    <span class="papf-radio-label">No</span>
+                                </div>
+                            </div>
+
+                            <template lwc:if={showOngoingApplicationFields}>
+                                <template lwc:if={hasOngoingApplications}>
+                                    <template for:each={ongoingApplications} for:item="app">
+                                        <div key={app.key} class="papf-participant-card">
+                                            <div class="papf-participant-title papf-participant-title_accent">
+                                                Ongoing Application {app.number}</div>
+                                            <div class="papf-publication-grid">
+                                                <div>
+                                                    <div class="papf-field-header">i. Name of the funding agency and
+                                                        Scheme</div>
+                                                    <div class="papf-readonly-box">{app.fundingAgencyAndScheme}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="papf-field-header">ii. Project title</div>
+                                                    <div class="papf-readonly-box">{app.projectTitle}</div>
+                                                </div>
+                                            </div>
+                                            <div class="papf-field-block papf-card-field-spaced">
+                                                <div class="papf-field-header">iii. Abstract&nbsp;
+                                                    <span class="papf-field-limit">(200 words)</span>
+                                                </div>
+                                                <div class="papf-readonly-box papf-readonly-box_tall">
+                                                    <lightning-formatted-rich-text value={app.abstract}>
+                                                    </lightning-formatted-rich-text>
+                                                </div>
+                                            </div>
+                                            <div class="papf-field-block papf-card-field-spaced">
+                                                <div class="papf-field-header">iv. Indicate degree of overlap with
+                                                    current India Alliance application, if any&nbsp;
+                                                    <span class="papf-field-limit">(100 words)</span>
+                                                </div>
+                                                <div class="papf-readonly-box papf-readonly-box_tall">
+                                                    <lightning-formatted-rich-text value={app.overlap}>
+                                                    </lightning-formatted-rich-text>
+                                                </div>
+                                            </div>
+                                            <div class="papf-field-block papf-card-field-spaced">
+                                                <div class="papf-field-header">v. Type of funding:</div>
+                                                <div class="papf-radio-group papf-radio-group_horizontal">
+                                                    <div class={app.fellowshipClass}>
+                                                        <span class="papf-radio-dot"></span>
+                                                        <span class="papf-radio-label">Fellowship</span>
+                                                    </div>
+                                                    <div class={app.grantClass}>
+                                                        <span class="papf-radio-dot"></span>
+                                                        <span class="papf-radio-label">Grant</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="papf-field-block papf-card-field-spaced">
+                                                <div class="papf-field-header">vi. Your Role on the Application</div>
+                                                <div class="papf-radio-group papf-radio-group_horizontal">
+                                                    <div class={app.piClass}>
+                                                        <span class="papf-radio-dot"></span>
+                                                        <span class="papf-radio-label">PI</span>
+                                                    </div>
+                                                    <div class={app.coPiClass}>
+                                                        <span class="papf-radio-dot"></span>
+                                                        <span class="papf-radio-label">CoPI</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="papf-field-block papf-card-field-spaced">
+                                                <div class="papf-field-header">vii. Expected date of decision</div>
+                                                <div class="papf-readonly-box">{app.expectedDate}</div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template lwc:else>
+                                    <p class="papf-empty-note">No ongoing application details provided.</p>
+                                </template>
+                            </template>
+                        </div>
+
+                    </template>
+
+                    <template lwc:if={isApplicantCVActive}>
+
+                        <h2 class="papf-section-title">3. Applicant CV</h2>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">a. Posts held starting with current post first</div>
+                            <template lwc:if={hasPostsHeld}>
+                                <div class="papf-mini-table-wrap">
+                                    <table class="papf-mini-table">
+                                        <thead>
+                                            <tr>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Position</th>
+                                                <th>Organisation</th>
+                                                <th>Reporting To</th>
+                                                <th>Currently Working</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={postsHeld} for:item="post">
+                                                <tr key={post.key}>
+                                                    <td>{post.from}</td>
+                                                    <td>{post.to}</td>
+                                                    <td>{post.position}</td>
+                                                    <td>{post.organisation}</td>
+                                                    <td>{post.reportingTo}</td>
+                                                    <td>
+                                                        <template lwc:if={post.isCurrentlyWorking}>
+                                                            <lightning-icon icon-name="utility:check" size="xx-small">
+                                                            </lightning-icon>
+                                                        </template>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No posts held provided.</p>
+                            </template>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">b. Education / training Undergraduate onwards&nbsp;
+                                <span class="papf-field-limit">(Allow maximum of 10 entries)</span>
+                            </div>
+                            <template lwc:if={hasEducationEntries}>
+                                <template for:each={educationEntries} for:item="edu">
+                                    <div key={edu.key} class="papf-publication-card">
+                                        <div class="papf-publication-number">b{edu.number}</div>
+                                        <div class="papf-publication-grid">
+                                            <div>
+                                                <div class="papf-field-label">From</div>
+                                                <div class="papf-field-value">{edu.from}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">To</div>
+                                                <div class="papf-field-value">{edu.to}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Qualification</div>
+                                                <div class="papf-field-value">{edu.qualification}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Subject</div>
+                                                <div class="papf-field-value">{edu.subject}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Country</div>
+                                                <div class="papf-field-value">{edu.country}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Institution</div>
+                                                <div class="papf-field-value">{edu.institution}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Department/School/Division</div>
+                                                <div class="papf-field-value">{edu.department}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Higher Degree</div>
+                                                <div class="papf-field-hint">Currently pursuing a higher degree
+                                                    (PhD, MD, or equivalent) or an academic course.</div>
+                                                <span class={edu.higherDegreeBoxClass}>
+                                                    <template lwc:if={edu.isHigherDegree}>
+                                                        <lightning-icon icon-name="utility:check" size="xx-small">
+                                                        </lightning-icon>
+                                                    </template>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No education/training entries provided.</p>
+                            </template>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">c. Title of Thesis/Dissertation</div>
+                            <div class="papf-readonly-box">{higherDegreeThesisTitle}</div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">d. Summary of the research work carried out during
+                                PhD/MD or other highest degree&nbsp;
+                                <span class="papf-field-limit">(200 words)</span>
+                            </div>
+                            <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text value={higherDegreeResearchSummary}></lightning-formatted-rich-text></div>
+                        </div>
+
+                        <div class="papf-publication-grid papf-field-block">
+                            <div>
+                                <div class="papf-field-header">e. ORCID ID</div>
+                                <div class="papf-readonly-box">{orcidId}</div>
+                            </div>
+                            <div>
+                                <div class="papf-field-header">f. Provide link to your Google Scholar profile</div>
+                                <div class="papf-readonly-box">{googleScholarLink}</div>
+                            </div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">g. Patents (Max upto 10 entries)</div>
+                            <template lwc:if={hasPatentEntries}>
+                                <template for:each={patentEntries} for:item="patent">
+                                    <div key={patent.key} class="papf-publication-card">
+                                        <div class="papf-publication-number">{patent.number}</div>
+                                        <div class="papf-publication-grid">
+                                            <div>
+                                                <div class="papf-field-label">Title</div>
+                                                <div class="papf-field-value">{patent.title}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Inventors</div>
+                                                <div class="papf-field-value">{patent.inventors}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Granting Agency</div>
+                                                <div class="papf-field-value">{patent.grantingAgency}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Patent Number</div>
+                                                <div class="papf-field-value">{patent.patentNumber}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Filing/Granted Date</div>
+                                                <div class="papf-field-value">{patent.filingDate}</div>
+                                            </div>
+                                            <div>
+                                                <div class="papf-field-label">Status of the Application</div>
+                                                <div class="papf-field-value">{patent.status}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No patents provided.</p>
+                            </template>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">h. Scientific meetings&nbsp;
+                                <span class="papf-field-limit">(300 words)</span>
+                            </div>
+                            <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text value={scientificMeetings}></lightning-formatted-rich-text></div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">i. Scientific career to date&nbsp;
+                                <span class="papf-field-limit">(200 words)</span>
+                            </div>
+                            <div class="papf-readonly-box papf-readonly-box_tall"><lightning-formatted-rich-text value={scientificCareerToDate}></lightning-formatted-rich-text></div>
+                        </div>
+
+                    </template>
+
+                    <template lwc:if={isLettersDeclarationActive}>
+
+                        <h2 class="papf-section-title">6. Additional Section for Letters and Declaration</h2>
+
+                        <template lwc:if={hasParticipants}>
+                            <template for:each={participants} for:item="participant">
+                                <div key={participant.key} class="papf-participant-card">
+                                    <div class="papf-participant-title">Participant {participant.number}</div>
+                                    <div class="papf-publication-grid">
+                                        <div>
+                                            <div class="papf-field-label">Role</div>
+                                            <div class="papf-field-value">{participant.role}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Title</div>
+                                            <div class="papf-field-value">{participant.title}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">First Name</div>
+                                            <div class="papf-field-value">{participant.firstName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Last Name</div>
+                                            <div class="papf-field-value">{participant.lastName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Nationality</div>
+                                            <div class="papf-field-value">{participant.nationality}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Gender</div>
+                                            <div class="papf-field-value">{participant.gender}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Telephone No.</div>
+                                            <div class="papf-field-value">{participant.telephone}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Email Address</div>
+                                            <div class="papf-field-value">{participant.email}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                        <template lwc:else>
+                            <p class="papf-empty-note">No participants added.</p>
+                        </template>
+
+                        <div class="papf-participant-title papf-participant-title_accent papf-card-field-spaced">
+                            Additional Participants</div>
+                        <template lwc:if={hasAdditionalParticipants}>
+                            <template for:each={additionalParticipants} for:item="participant">
+                                <div key={participant.key} class="papf-participant-card">
+                                    <div class="papf-participant-title">Additional Participant
+                                        {participant.number}</div>
+                                    <div class="papf-publication-grid">
+                                        <div>
+                                            <div class="papf-field-label">Role</div>
+                                            <div class="papf-field-value">{participant.role}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Title</div>
+                                            <div class="papf-field-value">{participant.title}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">First Name</div>
+                                            <div class="papf-field-value">{participant.firstName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Last Name</div>
+                                            <div class="papf-field-value">{participant.lastName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Email Address</div>
+                                            <div class="papf-field-value">{participant.email}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                        <template lwc:else>
+                            <p class="papf-empty-note">No additional participants added.</p>
+                        </template>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">Please confirm the following declarations:</div>
+
+                            <div class="papf-checkbox-row">
+                                <span class={declaration1BoxClass}>
+                                    <template lwc:if={declaration1Checked}>
+                                        <lightning-icon icon-name="utility:check" size="xx-small"></lightning-icon>
+                                    </template>
+                                </span>
+                                <span class="papf-checkbox-label">All the information provided in the application is
+                                    accurate and true to the best of my knowledge. I understand that providing
+                                    incorrect or incomplete information could disqualify me from the
+                                    competition.</span>
+                            </div>
+
+                            <div class="papf-checkbox-row">
+                                <span class={declaration2BoxClass}>
+                                    <template lwc:if={declaration2Checked}>
+                                        <lightning-icon icon-name="utility:check" size="xx-small"></lightning-icon>
+                                    </template>
+                                </span>
+                                <span class="papf-checkbox-label">The proposal is free from plagiarism and
+                                    self-plagiarism. Any use of generative AI tools has been limited to
+                                    non-intellectual tasks. The proposal has been checked using a plagiarism-check
+                                    software. I confirm that no plagiarism charges have been filed against me in the
+                                    past five years. I agree to abide by the decision of India Alliance in case any
+                                    plagiarism is detected.</span>
+                            </div>
+                        </div>
+
+                    </template>
+
+                    <template lwc:if={activePlaceholderLabel}>
+                        <div class="papf-placeholder">
+                            <lightning-icon icon-name="utility:info" size="medium"></lightning-icon>
+                            <p>{activePlaceholderLabel} section is coming soon.</p>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+        </template>
+
+        <template lwc:if={showNoData}>
+            <div class="slds-p-around_medium slds-text-color_weak">No proposal record selected.</div>
+        </template>
+
+    </div>
+</template>

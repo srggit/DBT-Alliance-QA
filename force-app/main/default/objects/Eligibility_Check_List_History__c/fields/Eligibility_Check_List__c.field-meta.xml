@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligibility_Check_List__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Eligibility Check List</label>
+    <referenceTo>Eligibility_Check_List__c</referenceTo>
+    <relationshipLabel>Eligibility Check List History</relationshipLabel>
+    <relationshipName>Eligibility_Check_List_History</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

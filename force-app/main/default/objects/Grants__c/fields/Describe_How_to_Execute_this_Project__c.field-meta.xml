@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Describe_How_to_Execute_this_Project__c</fullName>
+    <inlineHelpText>Q2.	Please describe why a team approach is necessary to execute this project. Define roles of all investigators and how the project will be managed and led. (Limit 500 words).</inlineHelpText>
+    <label>Describe How to Execute this Project</label>
+    <length>500</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

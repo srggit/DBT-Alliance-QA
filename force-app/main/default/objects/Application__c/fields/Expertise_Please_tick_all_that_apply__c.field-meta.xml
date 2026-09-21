@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expertise_Please_tick_all_that_apply__c</fullName>
+    <label>Expertise [Please tick all that apply]</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Research Management Leadership</fullName>
+                <default>false</default>
+                <label>Research Management Leadership</label>
+            </value>
+            <value>
+                <fullName>International collaborations</fullName>
+                <default>false</default>
+                <label>International collaborations</label>
+            </value>
+            <value>
+                <fullName>Grant Management</fullName>
+                <default>false</default>
+                <label>Grant Management</label>
+            </value>
+            <value>
+                <fullName>Research Ethics</fullName>
+                <default>false</default>
+                <label>Research Ethics</label>
+            </value>
+            <value>
+                <fullName>Research Uptake Management</fullName>
+                <default>false</default>
+                <label>Research Uptake Management</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

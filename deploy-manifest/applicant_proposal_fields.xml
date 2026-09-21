@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Applicant_Proposal_Association__c.Alternative_arrangements_for_facility__c</members>
+        <members>Applicant_Proposal_Association__c.Decision_on_previous_application__c</members>
+        <members>Applicant_Proposal_Association__c.Expected_date_of_decision__c</members>
+        <members>Applicant_Proposal_Association__c.Key_difference_from_previous_application__c</members>
+        <members>Applicant_Proposal_Association__c.Name_of_the_Ongoing_funding_agency__c</members>
+        <members>Applicant_Proposal_Association__c.Ongoing_Project_Title__c</members>
+        <members>Applicant_Proposal_Association__c.Overlap_with_current_IA_application__c</members>
+        <members>Applicant_Proposal_Association__c.Previous_Application_Project_Title__c</members>
+        <members>Applicant_Proposal_Association__c.Previous_Application_Reference_Number__c</members>
+        <members>Applicant_Proposal_Association__c.Type_of_funding__c</members>
+        <members>Applicant_Proposal_Association__c.Your_Role_on_the_Application__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>62.0</version>
+</Package>

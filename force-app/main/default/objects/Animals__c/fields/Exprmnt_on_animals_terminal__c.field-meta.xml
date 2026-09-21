@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exprmnt_on_animals_terminal__c</fullName>
+    <inlineHelpText>Are the experiments on the animals terminal or will the animal be monitored post procedure?</inlineHelpText>
+    <label>Exprmnt on animals terminal</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

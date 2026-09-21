@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PDF_Link__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  NOT(ISBLANK( Generated_pdf_URL__c ))  , HYPERLINK( Generated_pdf_URL__c , &quot;Click Here&quot;, &quot;_blank&quot;), &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>PDF Link</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

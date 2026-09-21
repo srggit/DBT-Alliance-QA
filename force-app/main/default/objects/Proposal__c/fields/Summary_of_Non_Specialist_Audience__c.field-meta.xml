@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Summary_of_Non_Specialist_Audience__c</fullName>
+    <description>Summary of the proposed research for non-specialist audience.</description>
+    <inlineHelpText>Summary of the proposed research for non-specialist audience.</inlineHelpText>
+    <label>Summary of Non-Specialist Audience</label>
+    <length>13000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

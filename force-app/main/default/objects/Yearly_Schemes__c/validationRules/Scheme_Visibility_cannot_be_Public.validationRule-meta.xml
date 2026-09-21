@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scheme_Visibility_cannot_be_Public</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISCHANGED(Scheme_Visibility__c),
+    ISPICKVAL(Scheme_Visibility__c, &quot;Public&quot;),
+    NOT(ISPICKVAL(Approval_Status__c, &quot;Approved&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Scheme_Visibility__c</errorDisplayField>
+    <errorMessage>Scheme Visibility cannot be set to Public until the Approval Status is Approved.</errorMessage>
+</ValidationRule>

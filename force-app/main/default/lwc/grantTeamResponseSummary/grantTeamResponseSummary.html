@@ -1,0 +1,60 @@
+<template>
+    <div class="gts-page">
+        <template if:true={isLoading}>
+            <div class="slds-text-align_center slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-p-around_small">{error}</div>
+            </template>
+
+            <template if:false={error}>
+                <template if:false={recordId}>
+                    <div class="slds-text-align_center slds-p-around_medium">No proposal record selected.</div>
+                </template>
+
+                <template if:true={recordId}>
+
+                    <!-- ================================================= -->
+                    <!-- PAGE BANNER -->
+                    <!-- ================================================= -->
+                    <div class="gts-banner">
+                        <div class="gts-banner-icon">
+                            <lightning-icon icon-name="utility:task" alternative-text="All Eligibility Checks"
+                                size="small"></lightning-icon>
+                        </div>
+                        <div class="gts-banner-text">
+                            <div class="gts-banner-title">All Eligibility Checks</div>
+                            <div class="gts-banner-subtitle">Grant team eligibility responses for every stage of this
+                                proposal.</div>
+                        </div>
+
+                        <div class="gts-banner-art" aria-hidden="true">
+                            <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="120" cy="35" r="34" fill="#ffffff" opacity="0.18"></circle>
+                                <circle cx="30" cy="105" r="24" fill="#ffffff" opacity="0.14"></circle>
+                                <rect x="42" y="18" width="70" height="94" rx="10" fill="#ffffff" opacity="0.95"></rect>
+                                <rect x="60" y="10" width="34" height="16" rx="4" fill="#8b1e3f"></rect>
+                                <rect x="54" y="40" width="46" height="6" rx="3" fill="#f3d9e0"></rect>
+                                <rect x="54" y="56" width="46" height="6" rx="3" fill="#f3d9e0"></rect>
+                                <rect x="54" y="72" width="30" height="6" rx="3" fill="#f3d9e0"></rect>
+                                <path d="M56 41 l3 3 6 -6" stroke="#8b1e3f" stroke-width="2.5" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M56 57 l3 3 6 -6" stroke="#8b1e3f" stroke-width="2.5" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                <circle cx="104" cy="94" r="16" fill="none" stroke="#8b1e3f" stroke-width="4"></circle>
+                                <line x1="115" y1="105" x2="128" y2="118" stroke="#8b1e3f" stroke-width="4"
+                                    stroke-linecap="round"></line>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <c-grant-team-response-summary-body summary={summary}></c-grant-team-response-summary-body>
+                </template>
+            </template>
+        </template>
+    </div>
+</template>

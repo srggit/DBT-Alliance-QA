@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Infrastructure_Facilities_of_Host_Inst__c</fullName>
+    <description>Host Institution infrastructure of direct relevance to the proposed project. Include core facilities.</description>
+    <inlineHelpText>Host Institution infrastructure of direct relevance to the proposed project. Include core facilities.</inlineHelpText>
+    <label>Infrastructure &amp; Facilities of Host Inst</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Proposal_Carried_out_on_animals__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Does your proposal include procedures to be carried out on animals which require formal approval?</inlineHelpText>
+    <label>Proposal Carried out on animals</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

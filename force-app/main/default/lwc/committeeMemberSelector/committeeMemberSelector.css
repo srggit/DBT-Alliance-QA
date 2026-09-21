@@ -1,0 +1,10 @@
+.table-container {
+    /* Fixed relative to the viewport (not a raw px guess) so it stays a constant size
+       regardless of how many rows the search filters down to, and still fits comfortably
+       under the modal header/footer across different screen sizes. Do NOT set a height on
+       .slds-card itself — it stacks header/body/footer in normal flow, so forcing its
+       height taller than the actual content just leaves dead space below the footer
+       instead of resizing the scrollable area. */
+    height: 60vh;
+    overflow-y: auto;
+}

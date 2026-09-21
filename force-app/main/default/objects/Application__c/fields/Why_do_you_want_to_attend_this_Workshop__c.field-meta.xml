@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Why_do_you_want_to_attend_this_Workshop__c</fullName>
+    <description>Why do you want to attend this Workshop? In what way would it be helpful to you? (in less than 1500 characters)</description>
+    <inlineHelpText>Why do you want to attend this Workshop? In what way would it be helpful to you? (in less than 1500 characters)</inlineHelpText>
+    <label>Why do you want to attend this Workshop?</label>
+    <length>1499</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

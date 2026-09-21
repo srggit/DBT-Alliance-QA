@@ -1,0 +1,299 @@
+﻿{
+  "status": 1,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-17T13:59:01.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-17T13:58:59.000Z",
+    "details": {
+      "componentFailures": [
+        {
+          "changed": false,
+          "componentType": "EmailTemplate",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Alliance_Templates/Application_Submission_Confirmation.email",
+          "fullName": "DBT_Alliance_Templates/Application_Submission_Confirmation",
+          "problem": "HTML Email Template cannot have a Template Style of NONE.",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "EmailTemplate",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Alliance_Templates/User_Registration_Confirmation.email",
+          "fullName": "DBT_Alliance_Templates/User_Registration_Confirmation",
+          "problem": "Cannot find folder:DBT_Alliance_Templates",
+          "problemType": "Error",
+          "success": false
+        }
+      ],
+      "componentSuccesses": [
+        {
+          "changed": false,
+          "componentType": "EmailFolder",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Alliance_Templates-meta.xml",
+          "fullName": "DBT_Alliance_Templates",
+          "id": "00lC3000002SBQnIAO",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "EmailFolder",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates-meta.xml",
+          "fullName": "DBT_Email_Templates",
+          "id": "00lC3000002PQZFIA4",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "EmailTemplate",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Template_Client/X13FullApplicationSubmitted.email",
+          "fullName": "DBT_Email_Template_Client/X13FullApplicationSubmitted",
+          "id": "00XC3000001nkCVMAY",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "EmailTemplate",
+          "created": true,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates/Eligible_for_Full_Stage_Email_Template.email",
+          "fullName": "DBT_Email_Templates/Eligible_for_Full_Stage_Email_Template",
+          "id": "00XC3000001rLCFMA2",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "EmailTemplate",
+          "created": true,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates/Proposal_Participant_Host_Invitation.email",
+          "fullName": "DBT_Email_Templates/Proposal_Participant_Host_Invitation",
+          "id": "00XC3000001rLCGMA2",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "EmailTemplate",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates/Proposal_Submission_Confirmation.email",
+          "fullName": "DBT_Email_Templates/Proposal_Submission_Confirmation",
+          "id": "00XC3000001SHgTMAW",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "EmailTemplate",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates/Reviewer_Invitation_Reminder.email",
+          "fullName": "DBT_Email_Templates/Reviewer_Invitation_Reminder",
+          "id": "00XC3000001VoJJMA0",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "EmailTemplate",
+          "created": true,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates/Section_Reopen_Email_Template.email",
+          "fullName": "DBT_Email_Templates/Section_Reopen_Email_Template",
+          "id": "00XC3000001rLCHMA2",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "EmailTemplate",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "email/DBT_Email_Templates/User_Registration_Confirmation.email",
+          "fullName": "DBT_Email_Templates/User_Registration_Confirmation",
+          "id": "00XC3000001SGndMAG",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-17T13:59:00.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      }
+    },
+    "done": true,
+    "id": "0AfC300000D5SVdKAN",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-17T13:59:01.000Z",
+    "numberComponentErrors": 2,
+    "numberComponentsDeployed": 9,
+    "numberComponentsTotal": 11,
+    "numberFiles": "25",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-17T13:58:59.000Z",
+    "status": "Failed",
+    "success": false,
+    "zipSize": 19374,
+    "files": [
+      {
+        "fullName": "DBT_Alliance_Templates",
+        "type": "EmailFolder",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Alliance_Templates.emailFolder-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates",
+        "type": "EmailFolder",
+        "state": "Changed",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates.emailFolder-meta.xml"
+      },
+      {
+        "fullName": "DBT_Alliance_Templates/Application_Submission_Confirmation",
+        "type": "EmailTemplate",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Alliance_Templates\\Application_Submission_Confirmation.email",
+        "error": "HTML Email Template cannot have a Template Style of NONE."
+      },
+      {
+        "fullName": "DBT_Alliance_Templates/User_Registration_Confirmation",
+        "type": "EmailTemplate",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Alliance_Templates\\User_Registration_Confirmation.email",
+        "error": "Cannot find folder:DBT_Alliance_Templates"
+      },
+      {
+        "fullName": "DBT_Email_Template_Client/X13FullApplicationSubmitted",
+        "type": "EmailTemplate",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Template_Client\\X13FullApplicationSubmitted.email"
+      },
+      {
+        "fullName": "DBT_Email_Template_Client/X13FullApplicationSubmitted",
+        "type": "EmailTemplate",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Template_Client\\X13FullApplicationSubmitted.email-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Eligible_for_Full_Stage_Email_Template",
+        "type": "EmailTemplate",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Eligible_for_Full_Stage_Email_Template.email"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Eligible_for_Full_Stage_Email_Template",
+        "type": "EmailTemplate",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Eligible_for_Full_Stage_Email_Template.email-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Proposal_Participant_Host_Invitation",
+        "type": "EmailTemplate",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Proposal_Participant_Host_Invitation.email"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Proposal_Participant_Host_Invitation",
+        "type": "EmailTemplate",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Proposal_Participant_Host_Invitation.email-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Proposal_Submission_Confirmation",
+        "type": "EmailTemplate",
+        "state": "Changed",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Proposal_Submission_Confirmation.email"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Proposal_Submission_Confirmation",
+        "type": "EmailTemplate",
+        "state": "Changed",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Proposal_Submission_Confirmation.email-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Reviewer_Invitation_Reminder",
+        "type": "EmailTemplate",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Reviewer_Invitation_Reminder.email"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Reviewer_Invitation_Reminder",
+        "type": "EmailTemplate",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Reviewer_Invitation_Reminder.email-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Section_Reopen_Email_Template",
+        "type": "EmailTemplate",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Section_Reopen_Email_Template.email"
+      },
+      {
+        "fullName": "DBT_Email_Templates/Section_Reopen_Email_Template",
+        "type": "EmailTemplate",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\Section_Reopen_Email_Template.email-meta.xml"
+      },
+      {
+        "fullName": "DBT_Email_Templates/User_Registration_Confirmation",
+        "type": "EmailTemplate",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\User_Registration_Confirmation.email"
+      },
+      {
+        "fullName": "DBT_Email_Templates/User_Registration_Confirmation",
+        "type": "EmailTemplate",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\email\\DBT_Email_Templates\\User_Registration_Confirmation.email-meta.xml"
+      }
+    ],
+    "zipFileCount": 21,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D5SVdKAN%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": [
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry"
+  ]
+}

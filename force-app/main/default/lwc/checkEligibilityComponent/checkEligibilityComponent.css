@@ -1,0 +1,11 @@
+.checklist-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.sticky-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    background-color: white;
+}

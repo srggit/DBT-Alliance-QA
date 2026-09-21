@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Your_Role_on_the_Application__c</fullName>
+    <description>Your Role on the Application</description>
+    <inlineHelpText>Your Role on the Application</inlineHelpText>
+    <label>Your Role on the Application</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>PI</fullName>
+                <default>false</default>
+                <label>PI</label>
+            </value>
+            <value>
+                <fullName>CoPI</fullName>
+                <default>false</default>
+                <label>CoPI</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,503 @@
+<template>
+    <div class="myec-shell">
+        <div class="slds-p-around_medium myec-content">
+            <div class="eligibility-banner slds-m-bottom_medium">
+                <div class="eligibility-banner__icon">
+                    <lightning-icon icon-name="utility:task" size="small"></lightning-icon>
+                </div>
+                <div class="eligibility-banner__body">
+                    <h1 class="eligibility-banner__title">My Dashboard</h1>
+                    <p class="eligibility-banner__subtitle">Review your assigned proposals and eligibility checks.</p>
+                </div>
+                <div class="eligibility-banner__art" aria-hidden="true">
+                    <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="120" cy="35" r="34" fill="#ffffff" opacity="0.18"></circle>
+                        <circle cx="30" cy="105" r="24" fill="#ffffff" opacity="0.14"></circle>
+                        <rect x="42" y="18" width="70" height="94" rx="10" fill="#ffffff" opacity="0.95"></rect>
+                        <rect x="60" y="10" width="34" height="16" rx="4" fill="#8b1e3f"></rect>
+                        <rect x="54" y="40" width="46" height="6" rx="3" fill="#f3d9e0"></rect>
+                        <rect x="54" y="56" width="46" height="6" rx="3" fill="#f3d9e0"></rect>
+                        <rect x="54" y="72" width="30" height="6" rx="3" fill="#f3d9e0"></rect>
+                        <path d="M56 41 l3 3 6 -6" stroke="#b0284f" stroke-width="2.5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M56 57 l3 3 6 -6" stroke="#b0284f" stroke-width="2.5" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                        <circle cx="104" cy="94" r="16" fill="none" stroke="#8b1e3f" stroke-width="4"></circle>
+                        <line x1="115" y1="105" x2="128" y2="118" stroke="#8b1e3f" stroke-width="4"
+                            stroke-linecap="round">
+                        </line>
+                    </svg>
+                </div>
+            </div>
+
+            <lightning-card class="myec-card-soft">
+                <div class="myec-toolbar">
+                    <div class="slds-grid slds-grid_vertical-align-center myec-toolbar-tabs">
+                    <span class="eligibility-title-icon">
+                        <lightning-icon icon-name="utility:list" size="x-small" variant="inverse"></lightning-icon>
+                    </span>
+                    <div class="myec-list-tabs">
+                        <button type="button" class={assignedTasksTabClass} data-tab="assigned"
+                            title={assignedTasksTooltip} onclick={handleSelectListTab}>{assignedTasksLabel}</button>
+                        <button type="button" class={underEligibilityCheckTabClass} data-tab="underEligibilityCheck"
+                            title={underEligibilityCheckTooltip}
+                            onclick={handleSelectListTab}>{underEligibilityCheckLabel}</button>
+                        <button type="button" class={eligibilityCheckedTabClass} data-tab="checked"
+                            title={eligibilityCheckedTooltip}
+                            onclick={handleSelectListTab}>{eligibilityCheckedLabel}</button>
+                        <button type="button" class={inProgressTabClass} data-tab="inProgress" title={inProgressTooltip}
+                            onclick={handleSelectListTab}>{inProgressLabel}</button>
+                        <button type="button" class={fullApplicationTabClass} data-tab="fullApplication"
+                            title={fullApplicationTooltip}
+                            onclick={handleSelectListTab}>{fullApplicationLabel}</button>
+                        <button type="button" class={peerEligibilityTabClass} data-tab="peerEligibility"
+                            title={peerEligibilityTooltip}
+                            onclick={handleSelectListTab}>{peerEligibilityLabel}</button>
+                        <button type="button" class={peerReviewTabClass} data-tab="peerReview"
+                            title={peerReviewTooltip}
+                            onclick={handleSelectListTab}>{peerReviewLabel}</button>
+                        <button type="button" class={peerShortlistingTabClass} data-tab="peerShortlisting"
+                            title={peerShortlistingTooltip}
+                            onclick={handleSelectListTab}>{peerShortlistingLabel}</button>
+                        <button type="button" class={committeeReviewTabClass} data-tab="committeeReview"
+                            title={committeeReviewTooltip}
+                            onclick={handleSelectListTab}>{committeeReviewLabel}</button>
+                        <button type="button" class={needsReviewersTabClass} data-tab="needsReviewers"
+                            title={needsReviewersTooltip}
+                            onclick={handleSelectListTab}>{needsReviewersLabel}</button>
+                    </div>
+                    <div class="myec-toolbar-actions">
+                        <template lwc:if={isInProgressTab}>
+                            <template lwc:if={hasSelectedProposals}>
+                                <button type="button" class="myec-open-btn"
+                                    onclick={handleMarkEligibleForFull} disabled={isMarkingEligible}>
+                                    <span>{markEligibleLabel}</span>
+                                    <lightning-icon icon-name="utility:check" size="xx-small"
+                                        class="myec-open-btn-icon"></lightning-icon>
+                                </button>
+                            </template>
+                        </template>
+                        <template lwc:if={showProposalReviewerButton}>
+                            <button type="button" class="myec-open-btn" onclick={handleOpenProposalReviewer}>
+                                <span>Proposal Reviewer</span>
+                                <lightning-icon icon-name="utility:people" size="xx-small"
+                                    class="myec-open-btn-icon"></lightning-icon>
+                            </button>
+                        </template>
+                    </div>
+                    </div>
+                    <div class="slds-grid slds-gutters_x-small slds-grid_vertical-align-center myec-toolbar-filters">
+                    <div class="myec-dd slds-m-right_x-small" style="width: 280px;">
+                        <button type="button" class={schemeItemTriggerClass} onclick={handleToggleSchemeItemDropdown}>
+                            <span class="myec-dd-trigger-label">{selectedSchemeItemLabel}</span>
+                            <lightning-icon icon-name="utility:chevrondown" size="xx-small"
+                                class="myec-dd-caret"></lightning-icon>
+                        </button>
+                        <template lwc:if={isSchemeItemDropdownOpen}>
+                            <ul class="myec-dd-menu">
+                                <template for:each={schemeItemMenuOptions} for:item="opt">
+                                    <li key={opt.value}>
+                                        <button type="button" class={opt.itemClass} data-value={opt.value}
+                                            onclick={handleSelectSchemeItem}>{opt.label}</button>
+                                    </li>
+                                </template>
+                            </ul>
+                        </template>
+                    </div>
+                    <div class="myec-dd slds-m-right_x-small" style="width: 200px;">
+                        <button type="button" class={applicationStageTriggerClass}
+                            onclick={handleToggleApplicationStageDropdown}>
+                            <span class="myec-dd-trigger-label">{selectedApplicationStageLabel}</span>
+                            <lightning-icon icon-name="utility:chevrondown" size="xx-small"
+                                class="myec-dd-caret"></lightning-icon>
+                        </button>
+                        <template lwc:if={isApplicationStageDropdownOpen}>
+                            <ul class="myec-dd-menu">
+                                <template for:each={applicationStageMenuOptions} for:item="opt">
+                                    <li key={opt.value}>
+                                        <button type="button" class={opt.itemClass} data-value={opt.value}
+                                            onclick={handleSelectApplicationStage}>{opt.label}</button>
+                                    </li>
+                                </template>
+                            </ul>
+                        </template>
+                    </div>
+                    <div class="myec-search-wrap" style="width: 220px;">
+                        <lightning-icon icon-name="utility:search" size="xx-small"
+                            class="myec-search-icon"></lightning-icon>
+                        <input type="search" class="myec-search-input" aria-label="Search" placeholder="Search..."
+                            value={searchKey} oninput={handleSearch} />
+                    </div>
+                    </div>
+                </div>
+
+                <template lwc:if={isLoading}>
+                    <div class="slds-is-relative slds-p-around_large">
+                        <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+                <template lwc:elseif={error}>
+                    <div class="slds-text-color_error slds-p-around_medium">
+                        <lightning-icon icon-name="utility:error" size="x-small" variant="error"
+                            class="slds-m-right_x-small">
+                        </lightning-icon>
+                        {error}
+                    </div>
+                </template>
+                <template lwc:else>
+                    <template lwc:if={noData}>
+                        <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                            <lightning-icon icon-name="utility:info" size="small" class="slds-m-bottom_x-small">
+                            </lightning-icon>
+                            <p>No eligibility checks assigned to you.</p>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="eligibility-table-wrap">
+                            <table class="eligibility-table">
+                                <thead>
+                                    <tr>
+                                        <template lwc:if={isInProgressTab}>
+                                            <th class="eligibility-th eligibility-th_checkbox"></th>
+                                        </template>
+                                        <template for:each={columnMeta} for:item="col">
+                                            <th key={col.key} class={col.thClass} data-key={col.key}
+                                                onclick={handleSort}>
+                                                <span class="eligibility-th__label">{col.label}</span>
+                                                <template lwc:if={col.sortable}>
+                                                    <lightning-icon icon-name={col.sortIconName} size="xx-small"
+                                                        class={col.sortIconClass}></lightning-icon>
+                                                </template>
+                                            </th>
+                                        </template>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={paginatedData} for:item="row">
+                                        <tr key={row.responseId} class="eligibility-tr">
+                                            <template lwc:if={isInProgressTab}>
+                                                <td class="eligibility-td eligibility-td_checkbox">
+                                                    <lightning-input type="checkbox" variant="label-hidden"
+                                                        label="Select" data-proposal-id={row.proposalId}
+                                                        checked={row.isSelected}
+                                                        onchange={handleToggleRowSelect}></lightning-input>
+                                                </td>
+                                            </template>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell composite-cell_clickable"
+                                                    data-proposal-id={row.proposalId} onclick={handleOpenProposalRecord}>
+                                                    <div class="composite-cell__icon composite-cell__icon_blue">
+                                                        <lightning-icon icon-name="utility:file" size="x-small">
+                                                        </lightning-icon>
+                                                    </div>
+                                                    <div class="composite-cell__text">
+                                                        <div class="composite-cell__value composite-cell__value_link slds-truncate"
+                                                            title={row.proposalIdDisplay}>{row.proposalIdDisplay}</div>
+                                                        <div class="composite-cell__sub">{row.proposalSubLabel}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell__value slds-truncate"
+                                                    title={row.applicantNameLabel}>{row.applicantNameLabel}</div>
+                                            </td>
+                                            <template lwc:if={showYearlySchemeColumn}>
+                                                <td class="eligibility-td">
+                                                    <div class="composite-cell__text">
+                                                        <div class="composite-cell__value composite-cell__value_link slds-truncate"
+                                                            title={row.yearlyScheme}>{row.yearlyScheme}</div>
+                                                        <div class="composite-cell__sub">{row.yearlySchemeSubLabel}</div>
+                                                    </div>
+                                                </td>
+                                            </template>
+                                            <template lwc:if={showSchemeItemColumn}>
+                                                <td class="eligibility-td">
+                                                    <div class="composite-cell__value slds-truncate"
+                                                        title={row.schemeItemNameLabel}>{row.schemeItemNameLabel}</div>
+                                                </td>
+                                            </template>
+                                            <td class="eligibility-td">
+                                                <span class={row.proposalStatusBadgeClass}>
+                                                    <span class="status-dot"></span>{row.proposalStatus}
+                                                </span>
+                                            </td>
+                                            <td class="eligibility-td">
+                                                <span class={row.appStageBadgeClass}>
+                                                    <span class="status-dot"></span>{row.applicationStage}
+                                                </span>
+                                            </td>
+                                            <template lwc:if={showStatusColumn}>
+                                                <td class="eligibility-td">
+                                                    <span class={row.statusBadgeClass}>
+                                                        <span class="status-dot"></span>{row.statusLabel}
+                                                    </span>
+                                                </td>
+                                            </template>
+                                            <template lwc:if={isPrelimReviewTab}>
+                                                <td class="eligibility-td">
+                                                    <span class={row.eligibilityBadgeClass}>
+                                                        <span class="status-dot"></span>{row.eligibilityLabel}
+                                                    </span>
+                                                </td>
+                                            </template>
+                                            <template lwc:if={showEligibilityColumn}>
+                                                <td class="eligibility-td">
+                                                    <span class={row.displayEligibilityBadgeClass}>
+                                                        <span class="status-dot"></span>{row.displayEligibilityLabel}
+                                                    </span>
+                                                </td>
+                                            </template>
+                                            <template lwc:if={showOfficialEligibilityExtraColumn}>
+                                                <td class="eligibility-td">
+                                                    <span class={row.proposalEligibilityBadgeClass}>
+                                                        <span class="status-dot"></span>{row.proposalEligibilityLabel}
+                                                    </span>
+                                                </td>
+                                            </template>
+                                            <td class="eligibility-td">
+                                                <div class="composite-cell">
+                                                    <div class="composite-cell__icon composite-cell__icon_neutral">
+                                                        <lightning-icon icon-name="utility:event" size="x-small">
+                                                        </lightning-icon>
+                                                    </div>
+                                                    <div class="composite-cell__text">
+                                                        <div class="composite-cell__value slds-truncate">
+                                                            {row.assignedDateLabel}</div>
+                                                        <div class="composite-cell__sub">{row.assignedTimeLabel}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <!-- <td class="eligibility-td">
+                                            <div class="composite-cell">
+                                                <div class="composite-cell__icon composite-cell__icon_neutral">
+                                                    <lightning-icon icon-name="utility:event" size="x-small">
+                                                    </lightning-icon>
+                                                </div>
+                                                <div class="composite-cell__text">
+                                                    <div class="composite-cell__value slds-truncate">
+                                                        {row.dueDateLabel}</div>
+                                                    <template lwc:if={row.dueDateSubLabel}>
+                                                        <div class="composite-cell__sub">{row.dueDateSubLabel}</div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </td> -->
+                                            <td class="eligibility-td eligibility-td_action">
+                                                <div class="slds-grid slds-grid_vertical-align-center myec-action-cell">
+                                                    <button type="button" class="myec-open-btn myec-open-btn_compact"
+                                                        data-proposal-id={row.proposalId} onclick={handleOpenClick}>
+                                                        <span>Open</span>
+                                                        <lightning-icon icon-name="utility:new_window" size="xx-small"
+                                                            class="myec-open-btn-icon"></lightning-icon>
+                                                    </button>
+                                                    <template lwc:if={isAssignedTab}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenCheckEligibility}>
+                                                            <span>Check Eligibility</span>
+                                                            <lightning-icon icon-name="utility:preview" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={isPeerEligibilityTab}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenCheckEligibility}>
+                                                            <span>Check Peer Eligibility</span>
+                                                            <lightning-icon icon-name="utility:preview" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={showGrantTeamResponseButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenGrantTeamResponse}>
+                                                            <span>Grant Team Response</span>
+                                                            <lightning-icon icon-name="utility:groups" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={showReviewerResponseListButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenReviewerMapping}>
+                                                            <span>Reviewer Response</span>
+                                                            <lightning-icon icon-name="utility:identity" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={isInProgressTab}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenReviewerResponse}>
+                                                            <span>Reviewer Response</span>
+                                                            <lightning-icon icon-name="utility:comments" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={isPeerShortlistingTab}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenPeerEvaluation}>
+                                                            <span>Reviewer Response</span>
+                                                            <lightning-icon icon-name="utility:comments" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <!-- <lightning-button label="Application Form" variant="neutral"
+                                                        icon-name="utility:preview" icon-position="right"
+                                                        data-proposal-id={row.proposalId}
+                                                        onclick={handleOpenApplicationFormClick}></lightning-button> -->
+                                                    <!-- <lightning-button-icon icon-name="utility:threedots"
+                                                    alternative-text="More actions" variant="border-filled"
+                                                    data-response-id={row.responseId} onclick={handleMoreClick}>
+                                                </lightning-button-icon> -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+                </template>
+
+                <div slot="footer" class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                    <div class="slds-text-body_small slds-text-color_weak">
+                        Showing {showingFrom} to {showingTo} of {totalRecords} entries
+                    </div>
+                    <div class="slds-grid slds-grid_vertical-align-center eligibility-pager">
+                        <lightning-button-icon icon-name="utility:jump_to_left" alternative-text="First" title="First"
+                            aria-label="First" variant="border-filled" onclick={handleFirstPage}
+                            class="slds-m-right_xxx-small"></lightning-button-icon>
+                        <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Previous"
+                            title="Previous" aria-label="Previous" variant="border-filled" onclick={handlePreviousPage}
+                            class="slds-m-right_xxx-small"></lightning-button-icon>
+                        <template for:each={pageNumbers} for:item="page">
+                            <lightning-button key={page.value} label={page.value} name={page.value}
+                                variant={page.variant} onclick={handlePageSelect}
+                                class="slds-m-horizontal_xxx-small eligibility-page-btn"></lightning-button>
+                        </template>
+                        <lightning-button-icon icon-name="utility:chevronright" alternative-text="Next" title="Next"
+                            aria-label="Next" variant="border-filled" onclick={handleNextPage}
+                            class="slds-m-left_xxx-small"></lightning-button-icon>
+                        <lightning-button-icon icon-name="utility:jump_to_right" alternative-text="Last" title="Last"
+                            aria-label="Last" variant="border-filled" onclick={handleLastPage}
+                            class="slds-m-left_xxx-small"></lightning-button-icon>
+                    </div>
+                </div>
+            </lightning-card>
+        </div>
+    </div>
+
+    <template lwc:if={showGrantTeamResponseModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseGrantTeamResponse}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-grant-team-response-summary record-id={selectedProposalIdForGrantTeamResponse}>
+                    </c-grant-team-response-summary>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showCheckEligibilityModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseCheckEligibility}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-grants-manager-response-items record-id={selectedProposalIdForCheckEligibility}
+                        onclose={handleCloseCheckEligibility}>
+                    </c-grants-manager-response-items>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showReviewerResponseModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseReviewerResponse}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-reviewer-rating-matrix record-id={selectedProposalIdForReviewerResponse}
+                        onclose={handleCloseReviewerResponse}>
+                    </c-reviewer-rating-matrix>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showPeerEvaluationModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleClosePeerEvaluation}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-peer-evaluation-matrix record-id={selectedProposalIdForPeerEvaluation}
+                        onclose={handleClosePeerEvaluation}>
+                    </c-peer-evaluation-matrix>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showReviewerMappingModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseReviewerMapping}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-reviewer-mapping-list application-stage={reviewerMappingApplicationStage}
+                        record-id={selectedProposalIdForReviewerMapping}>
+                    </c-reviewer-mapping-list>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showProposalReviewerModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseProposalReviewer}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-proposal-review-component initial-status-filter={proposalReviewerInitialStatusFilter}></c-proposal-review-component>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+</template>

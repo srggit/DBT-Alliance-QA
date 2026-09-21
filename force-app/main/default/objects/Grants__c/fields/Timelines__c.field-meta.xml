@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Timelines__c</fullName>
+    <inlineHelpText>A Gantt chart showing key stages of the research plans, indicating the location and timelines. Since more than one organisation will be involved in the project, please specify the work that will be undertaken at each organisation.This chart should be plan</inlineHelpText>
+    <label>Timelines</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>11</visibleLines>
+</CustomField>

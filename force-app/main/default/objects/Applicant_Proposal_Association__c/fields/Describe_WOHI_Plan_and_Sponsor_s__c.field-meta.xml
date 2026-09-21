@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Describe_WOHI_Plan_and_Sponsor_s__c</fullName>
+    <description>Note: WOHI is mandatory, and complete details must be provided in the full application.</description>
+    <inlineHelpText>If identified External Sponsor(s) for Work Outside the Host Institution (WOHI), provide brief details of the plan.
+Note: WOHI is mandatory, and complete details must be provided in the full application.</inlineHelpText>
+    <label>Describe WOHI Plan and Sponsor(s)</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

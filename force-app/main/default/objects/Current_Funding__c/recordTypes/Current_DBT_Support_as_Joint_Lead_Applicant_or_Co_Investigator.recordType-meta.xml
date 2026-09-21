@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_DBT_Support_as_Joint_Lead_Applicant_or_Co_Investigator</fullName>
+    <active>true</active>
+    <label>Current DBT Support (as Joint Lead Applicant or Co-Investigator)</label>
+</RecordType>

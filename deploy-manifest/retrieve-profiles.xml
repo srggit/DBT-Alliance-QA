@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Admin</members>
+        <members>Analytics Cloud Integration User</members>
+        <members>Analytics Cloud Security User</members>
+        <members>Anypoint Integration</members>
+        <members>Applicant Member based</members>
+        <members>Applicant Profile</members>
+        <members>CPQ Integration User</members>
+        <members>Chatter External User</members>
+        <members>Chatter Free User</members>
+        <members>Chatter Moderator User</members>
+        <members>ContractManager</members>
+        <members>Custom Customer Community Plus Login User</members>
+        <members>Customer Community Plus Login User</members>
+        <members>Customer Community Plus User</members>
+        <members>DBT Site Profile</members>
+        <members>Grants Manager</members>
+        <members>Guest License User</members>
+        <members>IA Internal Reviewer</members>
+        <members>IA Peer Review Team</members>
+        <members>IA Screening Committee</members>
+        <members>Identity User</members>
+        <members>India Alliance Applicant Portal Profile</members>
+        <members>India Alliance Applicant Portal for CRC Profile</members>
+        <members>India Alliance Peer Reviewers Profile</members>
+        <members>India Alliance Screening Committee Profile</members>
+        <members>MarketingProfile</members>
+        <members>Minimum Access - API Only Integrations</members>
+        <members>Minimum Access - Salesforce</members>
+        <members>Read Only</members>
+        <members>Sales Insights Integration User</members>
+        <members>Salesforce API Only System Integrations</members>
+        <members>SolutionManager</members>
+        <members>Standard</members>
+        <members>peerreviewer Profile</members>
+        <name>Profile</name>
+    </types>
+    <version>62.0</version>
+</Package>

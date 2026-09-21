@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>plan_to_work_on_animal_stem_cells__c</fullName>
+    <inlineHelpText>please provide details of source of stem cells and nature of experiments. The institution where the work is to be carried out should have the IC-SCR or IAEC with required expertise to review the stem cell research in place</inlineHelpText>
+    <label>plan to work on animal stem cells</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

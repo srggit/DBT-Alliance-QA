@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Co_Institution_1__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>Co-Institution 1 - Name of Co-PI 1 and organization</inlineHelpText>
+    <label>Co-Institution 1</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipName>CRC_Checklists1</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

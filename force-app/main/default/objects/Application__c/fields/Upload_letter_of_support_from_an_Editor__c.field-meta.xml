@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Upload_letter_of_support_from_an_Editor__c</fullName>
+    <description>Upload letter of support from an Editor of a media outlet where your work will be published. Freelancers will also need to upload this letter</description>
+    <inlineHelpText>Upload letter of support from an Editor of a media outlet where your work will be published. Freelancers will also need to upload this letter.
+If you are unable to upload the letter here, email it to ISMFellows@gmail.com</inlineHelpText>
+    <label>Upload letter of support from an Editor</label>
+    <length>1000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

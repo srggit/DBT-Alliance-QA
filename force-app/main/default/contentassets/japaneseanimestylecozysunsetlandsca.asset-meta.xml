@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentAsset xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isVisibleByExternalUsers>false</isVisibleByExternalUsers>
+    <language>en_US</language>
+    <masterLabel>japaneseanimestylecozysunsetlandsca</masterLabel>
+    <relationships>
+        <organization>
+            <access>VIEWER</access>
+        </organization>
+    </relationships>
+    <versions>
+        <version>
+            <number>1</number>
+            <pathOnClient>japanese-anime-style-cozy-sunset-landscape-best-4k-desktop-wallpapers-backdrops-and-8k-backgrounds-12k-high-resolution-hd-of-2025-for-apple-mac-windows-pc-linux-chromebooks-10-03-2025-1741644383-hd-wallpap.jpeg</pathOnClient>
+        </version>
+    </versions>
+</ContentAsset>

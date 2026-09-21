@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>plans_for_archiving_and_preserving_data__c</fullName>
+    <inlineHelpText>plans for archiving and preserving data/samples in the longer term</inlineHelpText>
+    <label>plans for archiving and preserving data</label>
+    <length>3000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

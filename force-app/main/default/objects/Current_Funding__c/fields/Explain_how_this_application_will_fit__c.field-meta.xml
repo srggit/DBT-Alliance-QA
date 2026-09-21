@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Explain_how_this_application_will_fit__c</fullName>
+    <inlineHelpText>please briefly explain how this application will fit with any current awards from CRUK or DBT that you hold (to be filled out by Lead Applicants)</inlineHelpText>
+    <label>Explain how this application will fit</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

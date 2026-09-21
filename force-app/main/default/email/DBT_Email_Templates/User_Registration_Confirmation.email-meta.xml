@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>User Registration Confirmation</name>
+    <style>none</style>
+    <subject>User Registration Successful</subject>
+    <textOnly>&lt;html&gt;
+    &lt;body style=&quot;margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif&quot;&gt;
+        &lt;table
+            role=&quot;presentation&quot;
+            width=&quot;100%&quot;
+            cellpadding=&quot;0&quot;
+            cellspacing=&quot;0&quot;
+            style=&quot;background-color: #f4f4f4; padding: 24px 0&quot;
+        &gt;
+            &lt;tr&gt;
+                &lt;td align=&quot;center&quot;&gt;
+                    &lt;table
+                        role=&quot;presentation&quot;
+                        width=&quot;600&quot;
+                        cellpadding=&quot;0&quot;
+                        cellspacing=&quot;0&quot;
+                        style=&quot;background-color: #ffffff; border: 1px solid #e0e0e0&quot;
+                    &gt;
+                        &lt;tr&gt;
+                            &lt;td style=&quot;background-color: #0b3d63; padding: 20px 32px&quot;&gt;
+                                &lt;span style=&quot;color: #ffffff; font-size: 20px; font-weight: bold&quot;&gt;DBT Alliance&lt;/span&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style=&quot;padding: 32px; color: #333333; font-size: 14px; line-height: 1.6&quot;&gt;
+                                &lt;p style=&quot;margin-top: 0&quot;&gt;Dear {!Recipient.FirstName},&lt;/p&gt;
+
+                                &lt;p&gt;
+                                    Thank you for registering with DBT Alliance. We are pleased to confirm that your
+                                    applicant account has been created successfully.
+                                &lt;/p&gt;
+
+                                &lt;p&gt;&lt;strong&gt;Registration details:&lt;/strong&gt;&lt;/p&gt;
+                                &lt;table
+                                    role=&quot;presentation&quot;
+                                    cellpadding=&quot;6&quot;
+                                    cellspacing=&quot;0&quot;
+                                    style=&quot;border-collapse: collapse; margin: 12px 0&quot;
+                                &gt;
+                                    &lt;tr&gt;
+                                        &lt;td style=&quot;color: #666666&quot;&gt;Name:&lt;/td&gt;
+                                        &lt;td style=&quot;color: #333333&quot;&gt;{!Recipient.FirstName} {!Recipient.LastName}&lt;/td&gt;
+                                    &lt;/tr&gt;
+                                    &lt;tr&gt;
+                                        &lt;td style=&quot;color: #666666&quot;&gt;Registered Email:&lt;/td&gt;
+                                        &lt;td style=&quot;color: #333333&quot;&gt;{!Recipient.Email}&lt;/td&gt;
+                                    &lt;/tr&gt;
+                                &lt;/table&gt;
+
+                                &lt;p&gt;
+                                    You can now log in to the DBT Alliance portal using the credentials you set during
+                                    registration to continue with your application.
+                                &lt;/p&gt;
+
+                                &lt;p&gt;
+                                    If you did not initiate this registration, please contact our support team
+                                    immediately.
+                                &lt;/p&gt;
+
+                                &lt;p style=&quot;margin-bottom: 0&quot;&gt;
+                                    Regards,&lt;br /&gt;
+                                    DBT Alliance Team
+                                &lt;/p&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td style=&quot;background-color: #f0f0f0; padding: 16px 32px; color: #999999; font-size: 11px&quot;&gt;
+                                This is an automated message. Please do not reply directly to this email.
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/table&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

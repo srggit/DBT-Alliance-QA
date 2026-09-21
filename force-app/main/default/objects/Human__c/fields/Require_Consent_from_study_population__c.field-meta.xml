@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Consent_from_study_population__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Does your Proposal Require Informed consent from study population</inlineHelpText>
+    <label>Require Consent from study population</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

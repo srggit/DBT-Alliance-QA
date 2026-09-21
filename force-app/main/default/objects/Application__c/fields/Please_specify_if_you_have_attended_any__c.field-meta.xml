@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Please_specify_if_you_have_attended_any__c</fullName>
+    <inlineHelpText>Please specify if you have attended any other conference or workshop in the field of research management, in India or overseas in the last 4 years</inlineHelpText>
+    <label>Please specify if you have attended any</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

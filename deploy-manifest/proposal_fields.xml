@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Proposal_Participant_Association__c.Email_Sent__c</members>
+        <members>Proposal_Participant_Association__c.Invitation_Link__c</members>
+        <members>Proposal_Participant_Association__c.Notify_through_Email__c</members>
+        <members>Proposal__c.Animal_Procedures_Require_Approval__c</members>
+        <members>Proposal__c.Any_Hospital_Clinical_Facility_To_Be_Use__c</members>
+        <members>Proposal__c.Application_Alignment_with_Lab_Research__c</members>
+        <members>Proposal__c.Biohazards_Safety_Precautions_Animal_Exp__c</members>
+        <members>Proposal__c.CCSEA_Registration_Number__c</members>
+        <members>Proposal__c.Details_of_Substantial_Moderate_Procedur__c</members>
+        <members>Proposal__c.Eligible__c</members>
+        <members>Proposal__c.Experiments_Terminal_or_Post_Monitored__c</members>
+        <members>Proposal__c.IAEC_Review_Status_and_Timelines__c</members>
+        <members>Proposal__c.Moved_to_Full_Stage_By_Grant_Team_Member__c</members>
+        <members>Proposal__c.Name_Address_of_Hospital_Clinic__c</members>
+        <members>Proposal__c.Number_of_Postdocs_Trained_In_Your_Lab__c</members>
+        <members>Proposal__c.Other_Regulatory_Bodies_and_Timeline__c</members>
+        <members>Proposal__c.Present_Past_Relevant_Research_Grants__c</members>
+        <members>Proposal__c.Procedure_to_Minimize_Stress_Pain_Animal__c</members>
+        <members>Proposal__c.Project_Data_Management_Sharing_Plan__c</members>
+        <members>Proposal__c.Proposed_source_of_the_animals__c</members>
+        <members>Proposal__c.Protocol_for_waste_management__c</members>
+        <members>Proposal__c.Reason_for_Rejection_before_Committee__c</members>
+        <members>Proposal__c.Recommended_for_Committee_Review__c</members>
+        <members>Proposal__c.Require_Informed_Consent_from_Study_Pop__c</members>
+        <members>Proposal__c.Sample_Size_Justif_Power_Calc_Incl_Excl__c</members>
+        <members>Proposal__c.Severity_of_Procedures_on_Animals__c</members>
+        <members>Proposal__c.What_other_animals_are_to_be_used__c</members>
+        <members>Proposal__c.Which_of_the_following_species_are_used__c</members>
+        <members>Proposal__c.Why_Animal_Use_Necessary_Other_Approach__c</members>
+        <members>Proposal__c.Why_these_species_are_most_appropriate__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>62.0</version>
+</Package>

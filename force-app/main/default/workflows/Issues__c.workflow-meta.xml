@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Post_a_Query_Email_alert</fullName>
+        <ccEmails>masthanvali.n@appistoki.com</ccEmails>
+        <description>Post a Query Email alert to IA</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>IA_Issue_Tracker</recipient>
+            <type>group</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Post_a_Query_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Post_a_Query_Email_alert_back_to_Applicant_upon_query_completion</fullName>
+        <ccEmails>clinical.research@indiaalliance.org</ccEmails>
+        <ccEmails>masthanvali.n@appistoki.com</ccEmails>
+        <ccEmails>ramesh.puri@appistoki.com</ccEmails>
+        <description>Post a Query Email alert back to Applicant upon query completion</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Post_a_Query_Template_Query_Completion_template_to_Applicants</template>
+    </alerts>
+</Workflow>

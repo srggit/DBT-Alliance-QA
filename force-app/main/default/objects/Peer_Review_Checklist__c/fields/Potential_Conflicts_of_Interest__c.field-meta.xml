@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Potential_Conflicts_of_Interest__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Please use this space to share any potential conflicts of interest</inlineHelpText>
+    <label>Potential Conflicts of Interest</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

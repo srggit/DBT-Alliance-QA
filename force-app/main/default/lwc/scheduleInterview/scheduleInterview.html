@@ -1,0 +1,119 @@
+<template>
+    <!-- ============================================================= -->
+    <!-- MODE A: launcher button + custom modal                        -->
+    <!-- Opt-in via "Show Launch Button" when placed on a record/app   -->
+    <!-- page. Not used for the Record Action (screen action).         -->
+    <!-- ============================================================= -->
+    <template lwc:if={showLaunchButton}>
+        <lightning-card title={cardTitle} icon-name="standard:event">
+            <div class="slds-p-horizontal_small slds-p-bottom_x-small">
+                <lightning-button label={buttonLabel} variant="brand" onclick={handleOpen}
+                    disabled={isSaving}></lightning-button>
+            </div>
+        </lightning-card>
+
+        <template lwc:if={isModalOpen}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading"
+                class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCancel}>
+                            <lightning-icon icon-name="utility:close" alternative-text="Close" size="small">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">Schedule Interview</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <template lwc:if={isSaving}>
+                            <lightning-spinner alternative-text="Saving" size="small"></lightning-spinner>
+                        </template>
+                        <div class="slds-form" role="list">
+                            <template lwc:if={showProposalPicker}>
+                                <div class="slds-form-element slds-m-bottom_small">
+                                    <lightning-record-picker label="Proposal" placeholder="Search Proposals..."
+                                        object-api-name="Proposal__c" required value={selectedProposalId}
+                                        onchange={handleProposalChange}></lightning-record-picker>
+                                </div>
+                            </template>
+
+                            <lightning-record-edit-form object-api-name="Interview__c">
+                                <div class="slds-grid slds-gutters slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                        <lightning-input-field field-name="Start_Date_Time__c" required>
+                                        </lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                        <lightning-input-field field-name="End_Date_Time__c"></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                        <lightning-input-field field-name="Status__c" value={defaultStatus}>
+                                        </lightning-input-field>
+                                    </div>
+                                </div>
+                            </lightning-record-edit-form>
+
+                            <template lwc:if={errorMessage}>
+                                <div class="slds-text-color_error slds-m-top_small" role="alert">{errorMessage}</div>
+                            </template>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_x-small"
+                            disabled={isSaving}></lightning-button>
+                        <lightning-button label="Save" variant="brand" onclick={handleSave} disabled={isSaving}>
+                        </lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>
+
+    <!-- ============================================================= -->
+    <!-- MODE B: inline form (default) - used as a Record Action.       -->
+    <!-- Salesforce already supplies the modal + header; we render the  -->
+    <!-- fields immediately and our own footer buttons.                 -->
+    <!-- ============================================================= -->
+    <template lwc:else>
+        <div class="slds-is-relative slds-p-around_medium">
+            <template lwc:if={isSaving}>
+                <lightning-spinner alternative-text="Saving" size="medium"></lightning-spinner>
+            </template>
+
+            <template lwc:if={showProposalPicker}>
+                <div class="slds-form-element slds-m-bottom_small">
+                    <lightning-record-picker label="Proposal" placeholder="Search Proposals..."
+                        object-api-name="Proposal__c" required value={selectedProposalId}
+                        onchange={handleProposalChange}></lightning-record-picker>
+                </div>
+            </template>
+
+            <lightning-record-edit-form object-api-name="Interview__c">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <lightning-input-field field-name="Start_Date_Time__c" required></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <lightning-input-field field-name="End_Date_Time__c"></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <lightning-input-field field-name="Status__c" value={defaultStatus}></lightning-input-field>
+                    </div>
+                </div>
+            </lightning-record-edit-form>
+
+            <template lwc:if={errorMessage}>
+                <div class="slds-text-color_error slds-m-top_small" role="alert">{errorMessage}</div>
+            </template>
+        </div>
+
+        <footer class="slds-modal__footer slds-grid slds-grid_align-end">
+            <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_x-small"
+                disabled={isSaving}></lightning-button>
+            <lightning-button label="Save" variant="brand" onclick={handleSave} disabled={isSaving}>
+            </lightning-button>
+        </footer>
+    </template>
+</template>

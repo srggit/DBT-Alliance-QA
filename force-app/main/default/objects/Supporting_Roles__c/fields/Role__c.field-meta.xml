@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Role__c</fullName>
+    <label>Role</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Collaborator</fullName>
+                <default>false</default>
+                <label>Collaborator</label>
+            </value>
+            <value>
+                <fullName>Co-investigator</fullName>
+                <default>false</default>
+                <label>Co-investigator</label>
+            </value>
+            <value>
+                <fullName>Research Staff</fullName>
+                <default>false</default>
+                <label>Research Staff</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

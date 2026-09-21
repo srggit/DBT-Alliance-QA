@@ -1,0 +1,266 @@
+.gmr-container {
+    padding: 0;
+}
+
+/* ================================================================
+   BANNER
+   ================================================================ */
+
+.gmr-banner {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    height: 88px;
+    padding: 0 20px;
+
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    margin-bottom: 16px;
+}
+
+.gmr-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+}
+
+.gmr-banner-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gmr-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.gmr-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gmr-banner-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.gmr-banner-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.gmr-banner-art {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-12deg);
+    opacity: 0.18;
+    pointer-events: none;
+}
+
+.gmr-banner-art lightning-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+/* ================================================================
+   TABLE HEADER
+   ================================================================ */
+
+.gmr-table-header {
+    display: grid;
+    grid-template-columns: 34px 1fr 260px 28px;
+    gap: 12px;
+
+    padding: 8px 12px;
+
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8b1e3f;
+}
+
+.gmr-col-question {
+    grid-column: 1 / 3;
+}
+
+.gmr-col-answer {
+    grid-column: 3 / 5;
+}
+
+/* ================================================================
+   ROWS
+   ================================================================ */
+
+.gmr-rows {
+    border: 1px solid #e2e8f0;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+}
+
+.gmr-row {
+    display: grid;
+    grid-template-columns: 34px 1fr 260px 28px;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px 12px;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.gmr-row:last-child {
+    border-bottom: none;
+}
+
+.gmr-row-number {
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    background: #8b1e3f;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gmr-row-question {
+    font-size: 13px;
+    color: #1e293b;
+}
+
+.gmr-row-answer {
+    width: 260px;
+}
+
+.gmr-row-status {
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gmr-row-status-filled {
+    background: #dcfce7;
+}
+
+.gmr-status-answered {
+    --slds-c-icon-color-foreground-default: #16a34a;
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+
+.gmr-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: 16px;
+    margin-top: 8px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.gmr-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 18px;
+    margin: 0 0 0 10px;
+    border: none;
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.gmr-pill-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.gmr-pill-btn:first-child {
+    margin-left: 0;
+}
+
+.gmr-pill-btn_primary {
+    background: linear-gradient(120deg, #6c1730 0%, #8b1e3f 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.28);
+}
+
+.gmr-pill-btn_primary:hover:not(:disabled) {
+    background: linear-gradient(120deg, #7a1a37 0%, #9c2547 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(139, 30, 63, 0.35);
+}
+
+.gmr-pill-btn_primary .gmr-pill-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.gmr-pill-btn_secondary {
+    background: #ffffff;
+    color: #8b1e3f;
+    border: 1px solid #e4b8c5;
+}
+
+.gmr-pill-btn_secondary:hover:not(:disabled) {
+    border-color: #8b1e3f;
+    background: #fdf2f4;
+}
+
+.gmr-pill-btn_secondary .gmr-pill-btn-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}

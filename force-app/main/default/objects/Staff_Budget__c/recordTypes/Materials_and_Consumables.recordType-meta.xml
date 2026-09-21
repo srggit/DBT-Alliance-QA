@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Materials_and_Consumables</fullName>
+    <active>true</active>
+    <description>Materials and Consumables</description>
+    <label>Materials and Consumables</label>
+    <picklistValues>
+        <picklist>Job_Title__c</picklist>
+        <values>
+            <fullName>Consultant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Field Worker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Doctoral Fellow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Assistant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Senior Resident</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Student</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technician</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

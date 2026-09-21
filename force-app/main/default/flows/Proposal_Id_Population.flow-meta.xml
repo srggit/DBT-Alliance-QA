@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <formulas>
+        <name>AutoNumberFormula</name>
+        <dataType>String</dataType>
+        <expression>RIGHT(
+    $Record.Name,
+    LEN($Record.Name) - FIND(&quot;-&quot;, $Record.Name)
+)</expression>
+    </formulas>
+    <formulas>
+        <name>FinalProposalId</name>
+        <dataType>String</dataType>
+        <expression>&quot;IA/BRCP/&quot;
+&amp;
+{!SchemeCodeFormula}
+&amp;
+&quot;/&quot;
+&amp;
+{!StageCodeFormula}
+&amp;
+&quot;/&quot;
+&amp;
+{!YearCodeFormula}
+&amp;
+&quot;/&quot;
+&amp;
+{!AutoNumberFormula}</expression>
+    </formulas>
+    <formulas>
+        <name>SchemeCodeFormula</name>
+        <dataType>String</dataType>
+        <expression>MID(
+    $Record.Yearly_Scheme__r.Scheme_Items__r.Name,
+    FIND(
+        &quot;[&quot;,
+        $Record.Yearly_Scheme__r.Scheme_Items__r.Name
+    ) + 1,
+    FIND(
+        &quot;]&quot;,
+        $Record.Yearly_Scheme__r.Scheme_Items__r.Name
+    )
+    -
+    FIND(
+        &quot;[&quot;,
+        $Record.Yearly_Scheme__r.Scheme_Items__r.Name
+    )
+    -1
+)</expression>
+    </formulas>
+    <formulas>
+        <name>StageCodeFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    TEXT($Record.Yearly_Scheme__r.Application_Stages__c) = &quot;Prelims&quot;,
+    &quot;P&quot;,
+    &quot;F&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>YearCodeFormula</name>
+        <dataType>String</dataType>
+        <expression>RIGHT(
+   $Record.Yearly_Scheme__r.Year__r.Name,
+   2
+)</expression>
+    </formulas>
+    <interviewLabel>Proposal Id Population {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Proposal Id Population</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_the_Proposal_Id</name>
+        <label>Update the Proposal Id</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Proposal_Id__c</field>
+            <value>
+                <elementReference>FinalProposalId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_the_Proposal_Id</targetReference>
+        </connector>
+        <object>Proposal__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

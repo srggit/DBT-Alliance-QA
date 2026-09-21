@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grants__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <label>Grants</label>
+    <referenceTo>Grants__c</referenceTo>
+    <relationshipLabel>Assigned Reviewers</relationshipLabel>
+    <relationshipName>Assigned_Reviewers</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

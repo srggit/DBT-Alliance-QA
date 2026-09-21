@@ -1,0 +1,83 @@
+.slds-badge {
+    border-radius: 1rem;
+    padding: 3px 10px 3px 8px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-right: 6px;
+}
+
+.slds-badge_success {
+    background-color: #e3f8ec;
+    color: #1b8a4c;
+}
+
+.slds-badge_warning {
+    background-color: #fff3e0;
+    color: #b7791f;
+}
+
+.slds-badge_error {
+    background-color: #fdeceb;
+    color: #c23934;
+}
+
+.slds-badge_inverse {
+    background-color: #eef4ff;
+    color: #0070d2;
+}
+
+.slds-badge_purple {
+    background-color: #f2e9fd;
+    color: #7c3aed;
+}
+
+.slds-badge_neutral {
+    background-color: #f3f2f2;
+    color: #514f4d;
+}
+
+.composite-cell__icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.composite-cell__icon_blue {
+    background-color: #eef4ff;
+}
+
+.composite-cell__icon_neutral {
+    background-color: #f3f2f2;
+}
+
+.composite-cell__value {
+    font-weight: 600;
+    color: #16325c;
+    font-size: 0.8125rem;
+}
+
+.composite-cell__value_link {
+    color: #0070d2;
+}
+
+.composite-cell__sub {
+    font-size: 0.6875rem;
+    color: #8c8c8c;
+    margin-top: 1px;
+}

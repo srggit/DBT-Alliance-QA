@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Investigators_Type__c</fullName>
+    <label>Investigator Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Principal Investigator</fullName>
+                <default>false</default>
+                <label>Principal Investigator</label>
+            </value>
+            <value>
+                <fullName>Co-Principal Investigator</fullName>
+                <default>false</default>
+                <label>Co-Principal Investigator</label>
+            </value>
+            <value>
+                <fullName>Coordinator 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Coordinator 1</label>
+            </value>
+            <value>
+                <fullName>Coordinator 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Coordinator 2</label>
+            </value>
+            <value>
+                <fullName>Coordinator 3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Coordinator 3</label>
+            </value>
+            <value>
+                <fullName>Lead Principal Investigator</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lead Principal Investigator</label>
+            </value>
+            <value>
+                <fullName>Programme Head</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Programme Head</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

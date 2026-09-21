@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Equipment_Year4__c</fullName>
+    <label>Equipment Year4</label>
+    <summarizedField>Equipment__c.Total_Charges__c</summarizedField>
+    <summaryFilterItems>
+        <field>Equipment__c.Year_Required__c</field>
+        <operation>equals</operation>
+        <value>4</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Equipment__c.Applicant_Proposal_Association__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

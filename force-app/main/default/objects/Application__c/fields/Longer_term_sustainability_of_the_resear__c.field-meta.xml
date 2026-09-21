@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Longer_term_sustainability_of_the_resear__c</fullName>
+    <inlineHelpText>Longer term sustainability of the research office and research office staff</inlineHelpText>
+    <label>Longer term sustainability</label>
+    <length>30000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

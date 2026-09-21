@@ -1,0 +1,165 @@
+﻿{
+  "status": 0,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-17T13:48:44.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-17T13:48:42.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "objects/Reviewer_Mapping__c.object",
+          "fullName": "Reviewer_Mapping__c.Project_Summary__c",
+          "id": "00NC3000004PxWLMA0",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "objects/Scheme_Reviewer__c.object",
+          "fullName": "Scheme_Reviewer__c.Firebase_UID__c",
+          "id": "00NC3000004PxWMMA0",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "objects/Scheme_Reviewer__c.object",
+          "fullName": "Scheme_Reviewer__c.Password__c",
+          "id": "00NC3000004PxWNMA0",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "objects/User_Documents__c.object",
+          "fullName": "User_Documents__c.Case__c",
+          "id": "00NC3000004PxWOMA0",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "objects/User_Documents__c.object",
+          "fullName": "User_Documents__c.Proposal_Participant_Association__c",
+          "id": "00NC3000004PxWPMA0",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "objects/Yearly_Schemes__c.object",
+          "fullName": "Yearly_Schemes__c.Commitee_Deadline_Date__c",
+          "id": "00NC3000004PxWQMA0",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-17T13:48:44.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0AfC300000D5S93KAF",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-17T13:48:44.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 6,
+    "numberComponentsTotal": 6,
+    "numberFiles": "6",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-17T13:48:43.000Z",
+    "status": "Succeeded",
+    "success": true,
+    "zipSize": 5228,
+    "files": [
+      {
+        "fullName": "Reviewer_Mapping__c.Project_Summary__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Reviewer_Mapping__c\\fields\\Project_Summary__c.field-meta.xml"
+      },
+      {
+        "fullName": "Scheme_Reviewer__c.Firebase_UID__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Scheme_Reviewer__c\\fields\\Firebase_UID__c.field-meta.xml"
+      },
+      {
+        "fullName": "Scheme_Reviewer__c.Password__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Scheme_Reviewer__c\\fields\\Password__c.field-meta.xml"
+      },
+      {
+        "fullName": "User_Documents__c.Case__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\User_Documents__c\\fields\\Case__c.field-meta.xml"
+      },
+      {
+        "fullName": "User_Documents__c.Proposal_Participant_Association__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\User_Documents__c\\fields\\Proposal_Participant_Association__c.field-meta.xml"
+      },
+      {
+        "fullName": "Yearly_Schemes__c.Commitee_Deadline_Date__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Yearly_Schemes__c\\fields\\Commitee_Deadline_Date__c.field-meta.xml"
+      }
+    ],
+    "zipFileCount": 5,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D5S93KAF%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": [
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry"
+  ]
+}

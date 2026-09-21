@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Applicant_Number__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(RecordType.DeveloperName =&apos;IRMI_INORMS_Travel_Grant_Application_Form&apos;, &apos;IA&apos; + &apos;/ &apos; + &apos;INORMS&apos; + &apos;/&apos; 
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos;+&apos;/&apos;+Ref_No__c,
+IF(RecordType.DeveloperName =&apos;IRMI_RM_FellowshipApplicationForm&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;RMF&apos; + &apos;/&apos; 
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2)+ &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;IRMI_RM_Grant_Application_Form&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;RMG&apos; + &apos;/&apos; 
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName =&apos;IRMI_INORMS_Travel_Grant_Application_Form_Read_Only&apos;, &apos;IA&apos; + &apos;/ &apos; + &apos;INORMS&apos; + &apos;/&apos; 
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos;+&apos;/&apos;+Ref_No__c,
+IF(RecordType.DeveloperName =&apos;IRMI_RM_Fellowship_Application_Form_Read_Only&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;RMF&apos; + &apos;/&apos; 
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2)+ &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;IRMI_RM_Grant_Application_Form_Read_Only&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;RMG&apos; + &apos;/&apos; 
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;Affordable_Approaches_to_Cancer&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;AAC&apos; + &apos;/&apos;
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;Affordable_Approaches_to_Cancer_Read_Only&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;AAC&apos; + &apos;/&apos;
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;Curriculum_Vitae_Key_Research_Achievements&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;CVR&apos; + &apos;/&apos;
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;Curriculum_Vitae_Key_Research_Achievements_Read_Only&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;CVR&apos; + &apos;/&apos;
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;Programme_Award_Application_Form&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;PAA&apos; + &apos;/&apos;
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,
+IF(RecordType.DeveloperName=&apos;Programme_Award_Application_Form_Read_Only&apos;,&apos;IA&apos; + &apos;/ &apos; + &apos;PAA&apos; + &apos;/&apos;
+			+RIGHT(TEXT(YEAR(DATEVALUE(CreatedDate))),2) + &apos;/&apos; + &apos;1&apos; + &apos;/&apos; +Ref_No__c,&apos;0&apos;))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Applicant Reference Number</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

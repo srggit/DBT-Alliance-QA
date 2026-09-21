@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>A_to_J_Cost_Year2__c</fullName>
+    <formula>BLANKVALUE(Access_Charges_Year2__c, 0) +
+BLANKVALUE(Animal_Associated_cost_Year2__c, 0) +
+BLANKVALUE(Equipment_Year2__c, 0) +
+BLANKVALUE(Exp_Procedure_cost_Year2__c, 0) +
+BLANKVALUE(Maintenance_cost_Year2__c, 0) +
+BLANKVALUE(Materials_and_Consumables_Year2__c, 0) +
+BLANKVALUE(Miscellaneous_Year2__c, 0) +
+BLANKVALUE(Personal_Support_Tab_Cost_Year2__c, 0) +
+BLANKVALUE(Purchase_cost_Year2__c, 0) +
+BLANKVALUE(Staff_Year2__c, 0) +
+BLANKVALUE(Travel_to_Meetings_Cost_Year_2__c, 0) +
+BLANKVALUE(WOHI_Allowance_Year2__c, 0) +
+BLANKVALUE(FA_for_Year2__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>A to J Cost Year2</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

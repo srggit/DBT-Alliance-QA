@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Section_Name__c</columns>
+    <columns>Reviewer_Mapping__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Reviewer_Mapping__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>All</label>
+</ListView>

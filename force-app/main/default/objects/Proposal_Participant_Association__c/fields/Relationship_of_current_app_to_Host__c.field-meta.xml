@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relationship_of_current_app_to_Host__c</fullName>
+    <description>Relationship of current application to other work in the Host Institution/Department</description>
+    <inlineHelpText>Relationship of current application to other work in the Host Institution/Department</inlineHelpText>
+    <label>Relationship of current app to Host</label>
+    <length>12768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

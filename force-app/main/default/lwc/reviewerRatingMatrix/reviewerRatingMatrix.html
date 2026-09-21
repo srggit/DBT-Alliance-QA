@@ -1,0 +1,147 @@
+<template>
+    <lightning-card>
+        <div class="rrm-container">
+
+            <div class="rrm-banner">
+                <div class="rrm-banner-icon">
+                    <lightning-icon icon-name="utility:table" size="small"></lightning-icon>
+                </div>
+                <div class="rrm-banner-text">
+                    <div class="rrm-banner-title">Reviewer Rating and Comments</div>
+                    <div class="rrm-banner-subtitle">Compare section-wise ratings and comments across all submitted
+                        reviewers.</div>
+                </div>
+            </div>
+
+            <template lwc:if={isLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:elseif={error}>
+                <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+            </template>
+
+            <template lwc:elseif={hasData}>
+                <div class="rrm-table-wrap">
+                    <table class="rrm-table">
+                        <thead>
+                            <tr>
+                                <th class="rrm-th rrm-th_section" rowspan="3">Section Name</th>
+                                <th class="rrm-th rrm-th_group" colspan={reviewerColumnCount}>Reviewers</th>
+                            </tr>
+                            <tr>
+                                <template for:each={stageColumnGroups} for:item="group">
+                                    <th key={group.key} class="rrm-th rrm-th_stage" colspan={group.colspan}>
+                                        {group.stage}</th>
+                                </template>
+                            </tr>
+                            <tr>
+                                <template for:each={reviewerColumns} for:item="col">
+                                    <th key={col.key} class="rrm-th rrm-th_reviewer">{col.label}</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={sectionRows} for:item="row">
+                                <tr key={row.key} class="rrm-tr">
+                                    <td class="rrm-td rrm-td_section">{row.sectionName}</td>
+                                    <template for:each={row.cells} for:item="cell">
+                                        <td key={cell.key} class="rrm-td">
+                                            <lightning-formatted-rich-text value={cell.value}>
+                                            </lightning-formatted-rich-text>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+
+                            <tr class="rrm-tr rrm-tr_spacer">
+                                <td class="rrm-td" colspan={totalColumns}></td>
+                            </tr>
+
+                            <tr class="rrm-tr rrm-tr_summary">
+                                <td class="rrm-td rrm-td_section">Overall Comments</td>
+                                <template for:each={overallCommentsCells} for:item="cell">
+                                    <td key={cell.key} class="rrm-td">
+                                        <lightning-formatted-rich-text value={cell.value}>
+                                        </lightning-formatted-rich-text>
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr class="rrm-tr rrm-tr_summary">
+                                <td class="rrm-td rrm-td_section">Overall Ratings</td>
+                                <template for:each={overallRatingCells} for:item="cell">
+                                    <td key={cell.key} class="rrm-td rrm-td_center">{cell.value}</td>
+                                </template>
+                            </tr>
+                            <tr class="rrm-tr rrm-tr_summary">
+                                <td class="rrm-td rrm-td_section">Average Rating</td>
+                                <td class="rrm-td rrm-td_center rrm-td_average" colspan={reviewerColumnCount}>
+                                    {averageRating}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="rrm-decision-panel">
+                    <div class="slds-form-element rrm-feedback-field">
+                        <label class="slds-form-element__label" for="grants-feedback-summary">Grants Feedback
+                            Summary</label>
+                        <div class="slds-form-element__control">
+                            <textarea id="grants-feedback-summary" class="slds-textarea rrm-feedback-textarea"
+                                value={feedbackSummary} onchange={handleFeedbackChange}
+                                placeholder="Enter grants team feedback summary..."></textarea>
+                        </div>
+                    </div>
+                    <template lwc:if={showRejectionReason}>
+                        <div class="slds-form-element rrm-feedback-field">
+                            <label class="slds-form-element__label" for="reason-for-rejection">Reason for
+                                Rejection</label>
+                            <div class="slds-form-element__control">
+                                <textarea id="reason-for-rejection" class="slds-textarea rrm-feedback-textarea"
+                                    value={rejectionReason} onchange={handleRejectionReasonChange}
+                                    placeholder="Enter reason for rejection..."></textarea>
+                            </div>
+                        </div>
+                        <div class="rrm-decision-actions">
+                            <button type="button" class="rrm-decision-btn rrm-decision-btn_neutral"
+                                onclick={handleCancelRejection} disabled={isSavingDecision}>
+                                <span>Cancel</span>
+                            </button>
+                            <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
+                                onclick={handleConfirmRejection} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:close" size="xx-small"
+                                    class="rrm-decision-btn-icon"></lightning-icon>
+                                <span>Confirm Rejection</span>
+                            </button>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="rrm-decision-actions">
+                            <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
+                                onclick={handleRejectedClick} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:close" size="xx-small"
+                                    class="rrm-decision-btn-icon"></lightning-icon>
+                                <span>Reject</span>
+                            </button>
+                            <button type="button" class="rrm-decision-btn rrm-decision-btn_eligible"
+                                onclick={handleEligibleForFull} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:check" size="xx-small"
+                                    class="rrm-decision-btn-icon"></lightning-icon>
+                                <span>Eligible for Full</span>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <template lwc:elseif={showNoData}>
+                <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                    No submitted reviewer responses available for this proposal.
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

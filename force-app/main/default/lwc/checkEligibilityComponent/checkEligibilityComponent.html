@@ -1,0 +1,68 @@
+<template>
+    <lightning-card>
+        <div slot="title" class="slds-grid slds-grid_vertical-align-center slds-gutters">
+            <div class="slds-col slds-grow-none">
+                <!-- <lightning-icon icon-name="action:check" size="x-small" alternative-text="Check"> -->
+                <lightning-icon icon-name="standard:entitlement" alternative-text="Check">
+                </lightning-icon>
+            </div>
+            <div class="slds-col slds-grow">
+                <h2 class="slds-text-heading_small">Eligibility Checklist</h2>
+            </div>
+        </div>
+
+        <hr class="slds-m-vertical_small" />
+
+        <div class="slds-p-around_medium checklist-content">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+
+            <template if:false={isLoading}>
+                <template if:true={hasItems}>
+                    <template for:each={checklistItems} for:item="item">
+                        <div key={item.Id} class="slds-m-bottom_medium slds-box slds-theme_default">
+                            <template if:true={item.isBoolean}>
+                                <div class="slds-grid slds-gutters slds-wrap slds-grid_vertical-align-center">
+                                    <div class="slds-col slds-size_12-of-12 slds-medium-size_9-of-12">
+                                        <div class="slds-text-heading_small">
+                                            {item.Display_Question__c}
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_12-of-12 slds-medium-size_3-of-12">
+                                        <lightning-combobox label="Answer" variant="label-hidden" value={item.Answer__c}
+                                            options={yesNoOptions} data-id={item.Id} onchange={handleInputChange}
+                                            placeholder="Select Yes or No">
+                                        </lightning-combobox>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template if:false={item.isBoolean}>
+                                <div class="slds-text-heading_small slds-m-bottom_small">
+                                    {item.Display_Question__c}
+                                </div>
+                                <lightning-textarea label="Answer" variant="label-hidden" value={item.Answer__c}
+                                    data-id={item.Id} onchange={handleInputChange} placeholder="Enter your answer">
+                                </lightning-textarea>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:false={hasItems}>
+                    <p class="slds-text-color_weak slds-p-around_small slds-text-align_center">
+                        No eligibility checklist items for this stage.
+                    </p>
+                </template>
+            </template>
+        </div>
+
+        <template if:true={hasItems}>
+            <div slot="footer" class="slds-p-around_xx-small slds-text-align_right sticky-footer">
+                <lightning-button label="Save" variant="brand" onclick={handleSave} disabled={isSaving}>
+                </lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

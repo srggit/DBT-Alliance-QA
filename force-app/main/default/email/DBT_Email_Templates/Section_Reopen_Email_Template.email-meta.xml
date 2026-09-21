@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Section Reopen Email Template</name>
+    <style>none</style>
+    <subject>Section(s) Reopened for Proposal {!Proposal__c.Proposal_Id__c}</subject>
+    <textOnly>DBT Alliance
+
+Dear {!Contact.FirstName} {!Contact.LastName},
+
+The following section(s) of your submitted application have been reopened for changes.
+
+Proposal ID:   {!Proposal__c.Proposal_Id__c}
+
+Reopened Section(s):
+{{SECTION_DETAILS}}
+
+Please log in to the DBT Alliance portal to make the required changes.
+
+If you have any questions, please contact our support team.
+
+Regards,
+DBT Alliance Team
+
+This is an automated message. Please do not reply directly to this email.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

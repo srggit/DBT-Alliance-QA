@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Animal_Associated_Costs</fullName>
+    <active>true</active>
+    <description>Animal Associated Costs</description>
+    <label>Animal Associated Costs</label>
+</RecordType>

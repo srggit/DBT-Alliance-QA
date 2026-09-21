@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CRC_Checklist</fullName>
+    <fields>Access_charges__c</fields>
+    <fields>Animal_Number_Calculation_Provided__c</fields>
+    <fields>Any_Experiment_on_big_Animals__c</fields>
+    <fields>Clinical_Trial_Proposed__c</fields>
+    <label>CRC  Checklist</label>
+</CompactLayout>

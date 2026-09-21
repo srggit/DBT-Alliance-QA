@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>India_Alliance_strongly_encourages__c</fullName>
+    <inlineHelpText>India Alliance strongly encourages public dissemination of its funded research. Please share plans for engaging with the general public about your work. (Limit 300 words)</inlineHelpText>
+    <label>India Alliance strongly encourages</label>
+    <length>350</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

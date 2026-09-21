@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>DBT_Email_Template_Client/X13FullApplicationSubmitted</members>
+        <members>DBT_Email_Templates/Eligible_for_Full_Stage_Email_Template</members>
+        <members>DBT_Email_Templates/Proposal_Participant_Host_Invitation</members>
+        <members>DBT_Email_Templates/Proposal_Submission_Confirmation</members>
+        <members>DBT_Email_Templates/Reviewer_Invitation_Reminder</members>
+        <members>DBT_Email_Templates/Section_Reopen_Email_Template</members>
+        <members>DBT_Email_Templates/User_Registration_Confirmation</members>
+        <name>EmailTemplate</name>
+    </types>
+    <version>62.0</version>
+</Package>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Application_JSON_Upload_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Application JSON Upload URL</shortDescription>
+        <value>https://pdf.munark.in/index.php</value>
+    </labels>
+    <labels>
+        <fullName>GrantDefaultStatus</fullName>
+        <categories>Grant</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GrantDefaultStatus</shortDescription>
+        <value>Open</value>
+    </labels>
+    <labels>
+        <fullName>Is_Portal_Peer_Reviewer_Profile</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Is Portal Peer Reviewer Profile</shortDescription>
+        <value>false</value>
+    </labels>
+    <labels>
+        <fullName>Peer_Reviewer_Profile_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Peer Reviewer Profile Name</shortDescription>
+        <value>IA Internal Reviewer</value>
+    </labels>
+    <labels>
+        <fullName>Peer_Reviewer_Site_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Peer Reviewer Site URL</shortDescription>
+        <value>http://indiaallianceportal.force.com/peerreviewer</value>
+    </labels>
+    <labels>
+        <fullName>Reviewer_Profile_Allowed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reviewer Profile Allowed</shortDescription>
+        <value>System Administrator</value>
+    </labels>
+</CustomLabels>

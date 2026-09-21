@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Applicant_Proposal_Association__c</fullName>
+    <label>Applicant Proposal Association</label>
+    <referenceTo>Applicant_Proposal_Association__c</referenceTo>
+    <relationshipLabel>Miscellaneous</relationshipLabel>
+    <relationshipName>Miscellaneous</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

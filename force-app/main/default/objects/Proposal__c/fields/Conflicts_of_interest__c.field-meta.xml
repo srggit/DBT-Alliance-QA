@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conflicts_of_interest__c</fullName>
+    <description>Conflicts of interest: Check if any of your below positions might have an interest in the results of the proposed research?</description>
+    <inlineHelpText>Conflicts of interest: Check if any of your below positions might have an interest in the results of the proposed research?</inlineHelpText>
+    <label>Conflicts of interest</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Research sponsorship agreement</fullName>
+                <default>false</default>
+                <label>Research sponsorship agreement</label>
+            </value>
+            <value>
+                <fullName>Consultancies</fullName>
+                <default>false</default>
+                <label>Consultancies</label>
+            </value>
+            <value>
+                <fullName>Equity holdings</fullName>
+                <default>false</default>
+                <label>Equity holdings</label>
+            </value>
+            <value>
+                <fullName>Directorships</fullName>
+                <default>false</default>
+                <label>Directorships</label>
+            </value>
+            <value>
+                <fullName>Other affiliations</fullName>
+                <default>false</default>
+                <label>Other affiliations</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

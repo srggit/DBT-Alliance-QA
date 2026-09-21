@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scientific_Justification_for_WOHI_lab__c</fullName>
+    <inlineHelpText>Scientific Justification for the choice of the WOHI laboratory/ group</inlineHelpText>
+    <label>Scientific Justification for WOHI lab</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

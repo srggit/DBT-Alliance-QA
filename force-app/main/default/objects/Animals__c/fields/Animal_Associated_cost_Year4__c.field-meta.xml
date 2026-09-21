@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Animal_Associated_cost_Year4__c</fullName>
+    <label>Animal Associated cost Year4</label>
+    <summarizedField>Animal_Associated_costs__c.Year_4_Cost__c</summarizedField>
+    <summaryForeignKey>Animal_Associated_costs__c.Animals__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Mandatory_for_Application_Stages</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+    AND(
+        TEXT(Application_Stages__c) = &quot;Prelims&quot;,
+        OR(
+            ISBLANK(Scheme_Start_Date__c),
+            ISBLANK(Scheme_End_Date__c)
+        )
+    ),
+    AND(
+        TEXT(Application_Stages__c) = &quot;Full&quot;,
+        OR(
+            ISBLANK(Scheme_Start_Date__c),
+            ISBLANK(Scheme_End_Date__c),
+            ISBLANK(Second_Stage_Start_Date__c),
+            ISBLANK(Second_Stage_End_Date__c)
+        )
+    )
+)</errorConditionFormula>
+    <errorMessage>Please populate all required Start and End dates for the selected Application Stage.</errorMessage>
+</ValidationRule>

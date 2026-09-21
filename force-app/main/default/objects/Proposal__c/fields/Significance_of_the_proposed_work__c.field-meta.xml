@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Significance_of_the_proposed_work__c</fullName>
+    <description>Describe the significance of the proposed work to the field and its role in establishing you in the area, and your capability to deliver the proposed objectives.</description>
+    <inlineHelpText>Describe the significance of the proposed work to the field and its role in establishing you in the area, and your capability to deliver the proposed objectives.</inlineHelpText>
+    <label>Significance of the proposed work</label>
+    <length>12768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

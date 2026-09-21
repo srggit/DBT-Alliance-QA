@@ -1,0 +1,78 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <template if:false={isLoading}>
+                <h2 class="slds-text-heading_small slds-m-bottom_medium">{masterTabLabel}</h2>
+
+                <template if:true={noMasterRows}>
+                    <p class="slds-text-body_regular slds-p-vertical_small">
+                        No active Committee Master records found.
+                    </p>
+                </template>
+
+                <template if:false={noMasterRows}>
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th style="width:2.5rem;">
+                                    <lightning-input type="checkbox" checked={selectAll} onchange={handleSelectAll}
+                                        variant="label-hidden"></lightning-input>
+                                </th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Organisation</th>
+                                <th style="width:9rem;">Role (Type)</th>
+                                <th style="width:12rem;">Is Committee Review</th>
+                                <th style="width:14rem;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={masterRows} for:item="row">
+                                <tr key={row.masterId}>
+                                    <td>
+                                        <lightning-input type="checkbox" data-id={row.masterId} checked={row.selected}
+                                            disabled={row.alreadyAdded} onchange={handleRowToggle}
+                                            variant="label-hidden"></lightning-input>
+                                    </td>
+                                    <td>{row.fullName}</td>
+                                    <td>{row.email}</td>
+                                    <td>{row.phone}</td>
+                                    <td>{row.organisationName}</td>
+                                    <td>
+                                        <lightning-combobox data-id={row.masterId} value={row.typePicklist}
+                                            options={typeOptions} placeholder="Select Type" disabled={row.alreadyAdded}
+                                            onchange={handleTypeChange} variant="label-hidden"></lightning-combobox>
+                                    </td>
+                                    <td class="slds-text-align_center">
+                                        <lightning-input type="checkbox" data-id={row.masterId}
+                                            checked={row.isCommitteeReview} disabled={row.alreadyAdded}
+                                            onchange={handleReviewChange} variant="label-hidden"></lightning-input>
+                                    </td>
+                                    <td>
+                                        <template if:true={row.alreadyAdded}>
+                                            <lightning-badge label="Added"></lightning-badge>
+                                            <div class="slds-text-body_small slds-text-color_weak">{row.addedMessage}
+                                            </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </template>
+            </template>
+        </div>
+
+        <div slot="footer" class="slds-grid slds-grid_align-end">
+            <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_small"
+                disabled={isSaving}></lightning-button>
+            <lightning-button label="Clone Selected" variant="brand" onclick={handleSave}
+                disabled={isSaving}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

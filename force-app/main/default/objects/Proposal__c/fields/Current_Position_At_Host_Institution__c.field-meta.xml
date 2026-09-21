@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Position_At_Host_Institution__c</fullName>
+    <description>What is your current position at the Host Institution, if any?</description>
+    <inlineHelpText>What is your current position at the Host Institution, if any?</inlineHelpText>
+    <label>Current Position At Host Institution</label>
+    <length>12768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

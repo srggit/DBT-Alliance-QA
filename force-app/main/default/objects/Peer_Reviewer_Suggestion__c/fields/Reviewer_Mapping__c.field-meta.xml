@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reviewer_Mapping__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Reviewer Mapping</label>
+    <referenceTo>Reviewer_Mapping__c</referenceTo>
+    <relationshipLabel>Peer Reviewer Suggestions</relationshipLabel>
+    <relationshipName>Peer_Reviewer_Suggestions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>How_will_you_be_participating_in_INORMS__c</fullName>
+    <inlineHelpText>How will you be participating in INORMS 2020 (poster, panel discussion, presentation, chairing a session, participation in relevant pre-conference sessions, others)</inlineHelpText>
+    <label>How will you be participating in INORMS</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

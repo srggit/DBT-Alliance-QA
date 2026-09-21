@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Cost_Formula__c</fullName>
+    <formula>BLANKVALUE(Year_1_Cost__c, 0) +
+BLANKVALUE(Year_2_Cost__c, 0) +
+BLANKVALUE(Year_3_Cost__c, 0) +
+BLANKVALUE(Year_4_Cost__c, 0) +
+BLANKVALUE(Year_5_Cost__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Cost Formula</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

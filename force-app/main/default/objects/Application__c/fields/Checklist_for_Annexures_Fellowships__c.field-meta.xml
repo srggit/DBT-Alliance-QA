@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Checklist_for_Annexures_Fellowships__c</fullName>
+    <label>Checklist for Annexures(Fellowships))</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Online IRMI institutional registration form 2019 completed for all participating Institutions</fullName>
+                <default>false</default>
+                <label>Online IRMI institutional registration form 2019 completed for all participating Institutions</label>
+            </value>
+            <value>
+                <fullName>Letter of support from Sponsor for nominee, also undertaking to recruit the nominee for the full duration of the fellowship if successful and subject to meeting in stitutional performance standards</fullName>
+                <default>false</default>
+                <label>Letter of support from Sponsor for nominee, also undertaking to recruit the nominee for the full duration of the fellowship if successful and subject to meeting in stitutional performance standards</label>
+            </value>
+            <value>
+                <fullName>Letter of support from Supervisor for nominee</fullName>
+                <default>false</default>
+                <label>Letter of support from Supervisor for nominee</label>
+            </value>
+            <value>
+                <fullName>Personal statement from Nominee</fullName>
+                <default>false</default>
+                <label>Personal statement from Nominee</label>
+            </value>
+            <value>
+                <fullName>Nominee CV</fullName>
+                <default>true</default>
+                <label>Nominee CV</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

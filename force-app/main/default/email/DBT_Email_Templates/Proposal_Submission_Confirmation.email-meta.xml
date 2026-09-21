@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Proposal Submission Confirmation</name>
+    <style>none</style>
+    <subject>Proposal_Submission_Confirmation</subject>
+    <textOnly>DBT Alliance
+
+Dear {!Contact.FirstName} {!Contact.LastName},
+
+We are pleased to confirm that your application has been submitted successfully to DBT Alliance.
+
+Submission details:
+
+Proposal ID:   {!Proposal__c.Proposal_Id__c}
+Project Title:   {!Proposal__c.Project_Title__c}
+Status:   {!Proposal__c.Proposal_Status__c}
+
+You can log in to the DBT Alliance portal at any time to track the status of your application.
+
+If you did not initiate this submission, please contact our support team immediately.
+
+Regards,
+DBT Alliance Team
+
+This is an automated message. Please do not reply directly to this email.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

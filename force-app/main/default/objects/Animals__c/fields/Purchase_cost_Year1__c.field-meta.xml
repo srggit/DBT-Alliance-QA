@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Purchase_cost_Year1__c</fullName>
+    <label>Purchase cost Year1</label>
+    <summarizedField>Animal_Species__c.Purchase_Total_cost__c</summarizedField>
+    <summaryFilterItems>
+        <field>Animal_Species__c.Purchase_Year_Required__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Animal_Species__c.Animals__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

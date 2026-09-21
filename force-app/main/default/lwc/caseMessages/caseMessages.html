@@ -1,0 +1,129 @@
+<template>
+    <div class="cm-container slds-is-relative">
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <!-- ===================== Header ===================== -->
+        <div class="cm-header slds-p-around_medium">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-wrap">
+                <h2 class="slds-text-heading_small">
+                    Ticket Details:&nbsp;<strong>{header.caseNumber}</strong>
+                </h2>
+                <template lwc:if={header.status}>
+                    <lightning-badge label={header.status}></lightning-badge>
+                </template>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-gutters_small slds-m-top_x-small">
+                <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+                    <p class="cm-label">Applicant Information</p>
+                    <template lwc:if={header.applicantName}>
+                        <p class="cm-value">{header.applicantName}</p>
+                    </template>
+                    <template lwc:if={header.committeeMemberName}>
+                        <p class="cm-sub">
+                            Committee Member: {header.committeeMemberName}
+                            <template lwc:if={header.committeeMemberOrg}>
+                                &nbsp;&middot;&nbsp;{header.committeeMemberOrg}
+                            </template>
+                        </p>
+                    </template>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+                    <p class="cm-label">Subject</p>
+                    <p class="cm-value">{header.subject}</p>
+                    <p class="cm-sub">
+                        Raised:&nbsp;
+                        <lightning-formatted-date-time
+                            value={header.createdDate}
+                            year="numeric" month="2-digit" day="2-digit"
+                            hour="2-digit" minute="2-digit">
+                        </lightning-formatted-date-time>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== Conversation ===================== -->
+        <div class="msg-scroll slds-p-horizontal_medium slds-p-vertical_small">
+            <p class="slds-text-title_caps slds-m-bottom_small">Conversation History</p>
+
+            <template lwc:if={hasMessages}>
+                <template for:each={messages} for:item="m">
+                    <div key={m.key} class={m.rowClass}>
+                        <div class={m.bubbleClass}>
+                            <div class="msg-meta">
+                                <span class="msg-sender">{m.senderName}</span>
+                                <span class="msg-time">
+                                    <lightning-formatted-date-time
+                                        value={m.sentDateTime}
+                                        year="numeric" month="2-digit" day="2-digit"
+                                        hour="2-digit" minute="2-digit">
+                                    </lightning-formatted-date-time>
+                                </span>
+                            </div>
+                            <lightning-formatted-rich-text value={m.body}></lightning-formatted-rich-text>
+
+                            <template lwc:if={m.showStatus}>
+                                <div class={m.statusClass}>
+                                    {m.statusLabel}
+                                    <template lwc:if={m.readByCommittee}>
+                                        &nbsp;&middot;&nbsp;
+                                        <lightning-formatted-date-time
+                                            value={m.readByCommitteeDateTime}
+                                            year="numeric" month="2-digit" day="2-digit"
+                                            hour="2-digit" minute="2-digit">
+                                        </lightning-formatted-date-time>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak">No messages yet.</p>
+            </template>
+        </div>
+
+        <!-- ===================== Reply ===================== -->
+        <div class="cm-reply slds-p-around_medium">
+            <lightning-input-rich-text
+                value={replyBody}
+                placeholder="Type your reply to the committee member"
+                onchange={handleReplyChange}
+                disabled={isSending}>
+            </lightning-input-rich-text>
+
+            <div class="slds-m-top_small">
+                <lightning-file-upload
+                    label="Attach Document or image"
+                    name="caseMessageAttachments"
+                    record-id={recordId}
+                    onuploadfinished={handleUploadFinished}
+                    multiple>
+                </lightning-file-upload>
+            </div>
+
+            <template lwc:if={errorMessage}>
+                <div class="slds-text-color_error slds-m-top_small" role="alert">{errorMessage}</div>
+            </template>
+        </div>
+
+        <footer class="slds-modal__footer slds-grid slds-grid_align-end">
+            <lightning-button
+                label="Close"
+                onclick={handleClose}
+                class="slds-m-right_x-small"
+                disabled={isSending}>
+            </lightning-button>
+            <lightning-button
+                label="Send Reply"
+                variant="brand"
+                onclick={handleSend}
+                disabled={sendDisabled}>
+            </lightning-button>
+        </footer>
+    </div>
+</template>

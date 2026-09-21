@@ -1,0 +1,77 @@
+<template>
+    <lightning-card title="Active Committee Members" icon-name="standard:people">
+        <div slot="actions">
+            <lightning-input type="search" label="Search" variant="label-hidden" placeholder="Search by name"
+                value={searchTerm} onchange={handleSearch}></lightning-input>
+        </div>
+
+        <hr class="slds-m-vertical_small" />
+
+        <div class="slds-p-around_medium table-container">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <template if:false={isLoading}>
+                <template if:true={error}>
+                    <p class="slds-text-color_error slds-m-bottom_small">{error}</p>
+                </template>
+
+                <template if:true={noData}>
+                    <p class="slds-text-body_regular">No active Committee Master records found.</p>
+                </template>
+
+                <template if:true={noSearchResults}>
+                    <p class="slds-text-body_regular">No Committee Master records match "{searchTerm}".</p>
+                </template>
+
+                <template if:true={hasVisibleRows}>
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th style="width:2.5rem;">
+                                    <lightning-input type="checkbox" checked={selectAll} onchange={handleSelectAll}
+                                        variant="label-hidden"></lightning-input>
+                                </th>
+                                <th style="width:4rem;">Seq</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Organisation</th>
+                                <th style="width:12rem;">Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={visibleRows} for:item="row">
+                                <tr key={row.masterId} class="slds-hint-parent">
+                                    <td>
+                                        <lightning-input type="checkbox" data-id={row.masterId} checked={row.selected}
+                                            disabled={row.alreadyAdded} onchange={handleRowSelect}
+                                            variant="label-hidden"></lightning-input>
+                                    </td>
+                                    <td class="slds-text-align_center">{row.sequenceNumber}</td>
+                                    <td>{row.fullName}</td>
+                                    <td>{row.email}</td>
+                                    <td>{row.phone}</td>
+                                    <td>{row.organisationName}</td>
+                                    <td>
+                                        <lightning-combobox data-id={row.masterId} value={row.type}
+                                            options={typeOptions} placeholder="Select Type" disabled={row.alreadyAdded}
+                                            onchange={handleTypeChange} variant="label-hidden"></lightning-combobox>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </template>
+            </template>
+        </div>
+
+        <div slot="footer" class="slds-grid slds-grid_align-end">
+            <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_small"
+                disabled={isSaving}></lightning-button>
+            <lightning-button label="Create Committee Members" variant="brand" onclick={handleCreate}
+                disabled={createDisabled}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

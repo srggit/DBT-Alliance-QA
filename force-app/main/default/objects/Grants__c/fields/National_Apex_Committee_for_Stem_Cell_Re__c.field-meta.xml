@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>National_Apex_Committee_for_Stem_Cell_Re__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>National Apex Committee for Stem Cell Research and Therapy (NAC-SCRT)</description>
+    <inlineHelpText>National Apex Committee for Stem Cell Research and Therapy (NAC-SCRT)</inlineHelpText>
+    <label>National Apex Committee for Stem Cell Re</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

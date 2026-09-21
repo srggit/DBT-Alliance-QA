@@ -1,0 +1,219 @@
+﻿{
+  "status": 0,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-17T14:24:38.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-17T14:24:35.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": true,
+          "componentType": "ApexClass",
+          "created": true,
+          "createdDate": "2026-09-17T14:24:36.000Z",
+          "deleted": false,
+          "fileName": "classes/ContactWelcomeEmailQueueable.cls",
+          "fullName": "ContactWelcomeEmailQueueable",
+          "id": "01pC3000001T6ZJIA0",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "ApexClass",
+          "created": true,
+          "createdDate": "2026-09-17T14:24:38.000Z",
+          "deleted": false,
+          "fileName": "classes/PeerEvaluationMatrixController.cls",
+          "fullName": "PeerEvaluationMatrixController",
+          "id": "01pC3000001T6ZKIA0",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "ApexClass",
+          "created": true,
+          "createdDate": "2026-09-17T14:24:38.000Z",
+          "deleted": false,
+          "fileName": "classes/ProposalCommitteeTriggerHandler.cls",
+          "fullName": "ProposalCommitteeTriggerHandler",
+          "id": "01pC3000001T6ZLIA0",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "ApexClass",
+          "created": true,
+          "createdDate": "2026-09-17T14:24:38.000Z",
+          "deleted": false,
+          "fileName": "classes/ProposalParticipantTriggerHandler.cls",
+          "fullName": "ProposalParticipantTriggerHandler",
+          "id": "01pC3000001T6ZMIA0",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "LightningComponentBundle",
+          "created": true,
+          "createdDate": "2026-09-17T14:24:38.000Z",
+          "deleted": false,
+          "fileName": "lwc/peerEvaluationMatrix",
+          "fullName": "peerEvaluationMatrix",
+          "id": "0RbC3000000LQabKAG",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "LightningComponentBundle",
+          "created": true,
+          "createdDate": "2026-09-17T14:24:38.000Z",
+          "deleted": false,
+          "fileName": "lwc/scheduleInterview",
+          "fullName": "scheduleInterview",
+          "id": "0RbC3000000LQacKAG",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-17T14:24:38.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0AfC300000D5T8LKAV",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-17T14:24:38.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 6,
+    "numberComponentsTotal": 6,
+    "numberFiles": "20",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-17T14:24:35.000Z",
+    "status": "Succeeded",
+    "success": true,
+    "zipSize": 16335,
+    "files": [
+      {
+        "fullName": "ContactWelcomeEmailQueueable",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ContactWelcomeEmailQueueable.cls"
+      },
+      {
+        "fullName": "ContactWelcomeEmailQueueable",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ContactWelcomeEmailQueueable.cls-meta.xml"
+      },
+      {
+        "fullName": "PeerEvaluationMatrixController",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\PeerEvaluationMatrixController.cls"
+      },
+      {
+        "fullName": "PeerEvaluationMatrixController",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\PeerEvaluationMatrixController.cls-meta.xml"
+      },
+      {
+        "fullName": "ProposalCommitteeTriggerHandler",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ProposalCommitteeTriggerHandler.cls"
+      },
+      {
+        "fullName": "ProposalCommitteeTriggerHandler",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ProposalCommitteeTriggerHandler.cls-meta.xml"
+      },
+      {
+        "fullName": "ProposalParticipantTriggerHandler",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ProposalParticipantTriggerHandler.cls"
+      },
+      {
+        "fullName": "ProposalParticipantTriggerHandler",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ProposalParticipantTriggerHandler.cls-meta.xml"
+      },
+      {
+        "fullName": "peerEvaluationMatrix",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\peerEvaluationMatrix\\peerEvaluationMatrix.css"
+      },
+      {
+        "fullName": "peerEvaluationMatrix",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\peerEvaluationMatrix\\peerEvaluationMatrix.html"
+      },
+      {
+        "fullName": "peerEvaluationMatrix",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\peerEvaluationMatrix\\peerEvaluationMatrix.js"
+      },
+      {
+        "fullName": "peerEvaluationMatrix",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\peerEvaluationMatrix\\peerEvaluationMatrix.js-meta.xml"
+      },
+      {
+        "fullName": "scheduleInterview",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\scheduleInterview\\scheduleInterview.html"
+      },
+      {
+        "fullName": "scheduleInterview",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\scheduleInterview\\scheduleInterview.js"
+      },
+      {
+        "fullName": "scheduleInterview",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\scheduleInterview\\scheduleInterview.js-meta.xml"
+      }
+    ],
+    "zipFileCount": 16,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D5T8LKAV%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": [
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry"
+  ]
+}

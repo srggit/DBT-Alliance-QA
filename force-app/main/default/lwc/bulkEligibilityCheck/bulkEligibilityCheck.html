@@ -1,0 +1,150 @@
+<template>
+    <div class="bec-container">
+        <div class="bec-header">
+            <div class="bec-header-icon">
+                <lightning-icon icon-name="standard:user" size="small" variant="inverse"></lightning-icon>
+            </div>
+            <div class="bec-header-text">
+                <h2 class="bec-title">Bulk Eligibility Check</h2>
+                <p class="bec-subtitle">Notify Grant Team Members about the selected proposals.</p>
+            </div>
+            <lightning-icon icon-name="utility:info" size="x-small" class="bec-info-icon"></lightning-icon>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-p-around_medium slds-is-relative" style="min-height: 6rem;">
+                <lightning-spinner alternative-text="Loading Grant Team Members" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:elseif={error}>
+            <div class="slds-p-around_medium slds-text-color_error">
+                {error}
+            </div>
+        </template>
+
+        <template lwc:elseif={hasGroups}>
+            <template for:each={groups} for:item="group">
+                <div key={group.schemeId} class="bec-scheme-card">
+                    <div class="bec-info-bar">
+                        <div class="bec-info-item">
+                            <p class="bec-info-label">Yearly Scheme Name</p>
+                            <p class="bec-info-value">{group.schemeLabel}</p>
+                        </div>
+                        <div class="bec-info-item">
+                            <p class="bec-info-label">Yearly Scheme Number</p>
+                            <p class="bec-info-value">{group.schemeNumber}</p>
+                        </div>
+                    </div>
+
+                    <div class="bec-section">
+                        <div class="bec-section-header">
+                            <lightning-icon icon-name="utility:groups" size="x-small"></lightning-icon>
+                            <h3 class="bec-section-title">Associated Grant Team Members</h3>
+                            <span class="bec-count-pill">{group.memberCountLabel}</span>
+                        </div>
+
+                        <template lwc:if={group.hasMembers}>
+                            <table class="bec-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={group.members} for:item="member">
+                                        <tr key={member.userId}>
+                                            <td>
+                                                <div class="bec-name-cell">
+                                                    <span class="bec-avatar">{member.initials}</span>
+                                                    <span>{member.name}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href={member.emailHref}>{member.email}</a>
+                                            </td>
+                                            <td>{member.role}</td>
+                                            <td>{member.phone}</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template lwc:else>
+                            <p class="slds-text-body_small slds-text-color_weak slds-p-around_small">
+                                No Grant Team Members found for this scheme.
+                            </p>
+                        </template>
+                    </div>
+
+                    <div class="bec-section">
+                        <div class="bec-section-header">
+                            <lightning-icon icon-name="utility:file" size="x-small"></lightning-icon>
+                            <h3 class="bec-section-title">Selected Proposals</h3>
+                            <span class="bec-count-pill">{group.proposalCountLabel}</span>
+                        </div>
+
+                        <table class="bec-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Proposal Number</th>
+                                    <th scope="col">Proposal Title</th>
+                                    <th scope="col">Submitted By</th>
+                                    <th scope="col">Submitted Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={group.proposals} for:item="proposal">
+                                    <tr key={proposal.proposalId}>
+                                        <td>{proposal.name}</td>
+                                        <td>{proposal.title}</td>
+                                        <td>{proposal.submittedBy}</td>
+                                        <td>
+                                            <lightning-formatted-date-time
+                                                value={proposal.submittedDate}
+                                                year="numeric"
+                                                month="short"
+                                                day="2-digit"
+                                            ></lightning-formatted-date-time>
+                                        </td>
+                                        <td>
+                                            <span class={proposal.statusClass}>{proposal.status}</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </template>
+
+            <div class="bec-footer">
+                <template lwc:if={hasSent}>
+                    <span class="slds-text-color_success slds-m-right_small">Notifications sent.</span>
+                </template>
+                <lightning-button
+                    variant="brand"
+                    label="Notify Grant Team"
+                    onclick={handleNotifyClick}
+                    disabled={isSendDisabled}
+                ></lightning-button>
+            </div>
+
+            <template lwc:if={isSending}>
+                <div class="slds-is-relative" style="min-height: 3rem;">
+                    <lightning-spinner alternative-text="Sending notifications" size="small"></lightning-spinner>
+                </div>
+            </template>
+        </template>
+
+        <template lwc:else>
+            <div class="slds-p-around_medium">
+                No Yearly Scheme information found for the selected Proposals.
+            </div>
+        </template>
+    </div>
+</template>

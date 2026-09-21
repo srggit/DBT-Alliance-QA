@@ -1,0 +1,899 @@
+.papf-container {
+    background: #ffffff;
+}
+
+.papf-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 20px;
+}
+
+/* ================================================================
+   PATH (horizontal step nav)
+   ================================================================ */
+
+.papf-path {
+    display: flex;
+    align-items: flex-start;
+
+    margin-bottom: 28px;
+    padding: 4px 4px 20px;
+
+    box-shadow: 0 1px 0 0 rgba(148, 163, 184, 0.25);
+
+    overflow-x: auto;
+}
+
+.papf-nav-item {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 110px;
+    gap: 6px;
+
+    padding: 6px 8px 0;
+
+    cursor: pointer;
+    text-align: center;
+}
+
+.papf-nav-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #e5e9f0;
+    border-radius: 2px;
+    z-index: -1;
+}
+
+.papf-nav-item:hover .papf-nav-label {
+    color: #8b1e3f;
+}
+
+.papf-nav-icon-wrap {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    border: 2px solid #dbe0e8;
+    transition: all 0.15s ease;
+}
+
+.papf-nav-number {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.papf-nav-label {
+    font-size: 12px;
+    color: #64748b;
+    max-width: 140px;
+}
+
+.papf-nav-item_active .papf-nav-icon-wrap {
+    background: #8b1e3f;
+    border-color: #8b1e3f;
+    animation: papf-pulse 2s ease-out infinite;
+}
+
+@keyframes papf-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(139, 30, 63, 0.35);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(139, 30, 63, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(139, 30, 63, 0);
+    }
+}
+
+.papf-nav-item_active .papf-nav-number {
+    color: #ffffff;
+}
+
+.papf-nav-item_active .papf-nav-label {
+    color: #8b1e3f;
+    font-weight: 700;
+}
+
+/* ================================================================
+   MAIN CONTENT
+   ================================================================ */
+
+.papf-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.papf-section-title {
+    color: #8b1e3f;
+    font-size: 15px;
+    font-weight: 700;
+
+    margin: 0 0 16px;
+}
+
+.papf-field-block {
+    margin-bottom: 22px;
+}
+
+.papf-field-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: #172554;
+
+    margin-bottom: 4px;
+}
+
+.papf-field-limit {
+    font-weight: 400;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.papf-field-hint {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.papf-field-hint-list {
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.papf-field-hint-list li {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 16px;
+    margin-bottom: 2px;
+}
+
+.papf-readonly-box {
+    min-height: 42px;
+
+    box-sizing: border-box;
+    width: 100%;
+
+    padding: 10px 14px;
+
+    border: 1px solid #eef1f6;
+    border-radius: 8px;
+
+    background: #f8fafc;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
+
+    color: #334155;
+    font-size: 13px;
+    line-height: 18px;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.papf-readonly-box_tall {
+    min-height: 90px;
+}
+
+.papf-readonly-box:empty::before {
+    content: '\2014';
+    color: #94a3b8;
+}
+
+/* ================================================================
+   RADIO OPTIONS (read-only Yes/No display)
+   ================================================================ */
+
+.papf-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+.papf-radio-group_horizontal {
+    flex-direction: row;
+}
+
+.papf-radio-group_horizontal .papf-radio-option {
+    flex: 1;
+    padding: 14px 18px;
+}
+
+.papf-radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 16px;
+
+    border: 1px solid #eef1f6;
+    border-radius: 8px;
+
+    background: #ffffff;
+    transition: all 0.15s ease;
+}
+
+.papf-radio-dot {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+
+    box-sizing: border-box;
+    position: relative;
+}
+
+.papf-radio-option_selected {
+    border-color: #8b1e3f;
+}
+
+.papf-radio-option_selected .papf-radio-dot {
+    border-color: #8b1e3f;
+}
+
+.papf-radio-option_selected .papf-radio-dot::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #8b1e3f;
+}
+
+.papf-radio-label {
+    font-size: 13px;
+    color: #334155;
+}
+
+/* ================================================================
+   CHECKBOXES (read-only display)
+   ================================================================ */
+
+.papf-checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    padding: 12px 16px;
+    margin-bottom: 10px;
+
+    background: #ffffff;
+    border: 1px solid #eef1f6;
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Border-highlight the whole row when its checkbox is checked - derived from the
+   inner .papf-checkbox-box_checked class so every existing checkbox-row usage
+   picks this up automatically, no per-usage class changes needed. */
+.papf-checkbox-row:has(.papf-checkbox-box_checked) {
+    border-color: #8b1e3f;
+}
+
+.papf-checkbox-box {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    margin-top: 2px;
+
+    border: 2px solid #cbd5e1;
+    border-radius: 3px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.papf-checkbox-box_checked {
+    background: #8b1e3f;
+    border-color: #8b1e3f;
+}
+
+.papf-checkbox-box_checked lightning-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.papf-checkbox-label {
+    font-size: 12px;
+    line-height: 18px;
+    color: #334155;
+}
+
+.papf-checkbox-row_inline {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 0;
+    align-items: center;
+    border: none;
+    box-shadow: none;
+}
+
+.papf-checkbox-row_highlight {
+    background: #f9d7de;
+}
+
+/* ================================================================
+   BUDGET SUB-TABS (Section 12)
+   ================================================================ */
+
+.papf-budget-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid #eef1f6;
+}
+
+.papf-budget-tab {
+    padding: 8px 16px;
+
+    border: 1px solid #dbe0e8;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.papf-budget-tab:hover {
+    border-color: #8b1e3f;
+    color: #8b1e3f;
+}
+
+.papf-budget-tab_active {
+    background: #8b1e3f;
+    border-color: #8b1e3f;
+    color: #ffffff;
+}
+
+.papf-budget-tab_active:hover {
+    color: #ffffff;
+}
+
+/* ================================================================
+   INFO BANNER (e.g. Travel Guidelines)
+   ================================================================ */
+
+.papf-info-banner {
+    display: flex;
+    gap: 10px;
+
+    padding: 14px 16px;
+    margin-bottom: 20px;
+
+    background: #eff6ff;
+    border-radius: 8px;
+
+    color: #1e3a8a;
+}
+
+.papf-info-banner lightning-icon {
+    --slds-c-icon-color-foreground-default: #2563eb;
+    margin-top: 2px;
+}
+
+.papf-info-banner-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.papf-info-banner ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.papf-info-banner li {
+    font-size: 12px;
+    line-height: 18px;
+}
+
+/* ================================================================
+   ANIMAL BUDGET SUB-TABS (within F. Animals only)
+   ================================================================ */
+
+.papf-animal-subtabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+
+    margin-bottom: 20px;
+    padding: 3px;
+
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+.papf-animal-subtab {
+    padding: 6px 14px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.papf-animal-subtab:hover {
+    color: #8b1e3f;
+}
+
+.papf-animal-subtab_active {
+    background: #ffffff;
+    color: #172554;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+/* ================================================================
+   BUDGET TABLE (Salary Breakdown, etc.)
+   ================================================================ */
+
+.papf-budget-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #eef1f6;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.papf-budget-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.papf-budget-table th {
+    background: #f8fafc;
+    color: #64748b;
+
+    text-align: left;
+    padding: 0.65rem 0.9rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+    border-bottom: 1px solid #eef1f6;
+}
+
+.papf-budget-table td {
+    padding: 0.6rem 0.9rem;
+    vertical-align: middle;
+
+    font-size: 0.8125rem;
+    color: #334155;
+
+    border-bottom: 1px solid #eef1f6;
+    white-space: nowrap;
+}
+
+.papf-budget-table tr:last-child td {
+    border-bottom: none;
+}
+
+.papf-budget-amount {
+    color: #8b1e3f;
+    font-weight: 700;
+}
+
+.papf-budget-table-total-row {
+    background: #fdf2f4;
+    font-weight: 700;
+}
+
+.papf-budget-table-total-row td {
+    color: #172554;
+}
+
+.papf-budget-row-hint {
+    color: #94a3b8;
+    font-size: 0.6875rem;
+    white-space: nowrap;
+}
+
+.papf-yesno-toggle {
+    display: inline-flex;
+    gap: 8px;
+}
+
+.papf-yesno-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 20px;
+
+    border: 1px solid #eef1f6;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.papf-yesno-option_selected {
+    background: #8b1e3f;
+    border-color: #8b1e3f;
+    color: #ffffff;
+}
+
+.papf-yesno-option_selected lightning-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.papf-checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+.papf-checkbox-grid .papf-checkbox-row {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 900px) {
+    .papf-checkbox-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.papf-checkbox-grid_5col {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+.papf-checkbox-grid_5col .papf-checkbox-row {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 1100px) {
+    .papf-checkbox-grid_5col {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .papf-checkbox-grid_5col {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================================================
+   ALERT NOTE (e.g. "To be filled by Fellowship Supervisor")
+   ================================================================ */
+
+.papf-alert-note {
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+/* ================================================================
+   STATUS BADGE (e.g. Document Upload Status)
+   ================================================================ */
+
+.papf-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 3px 10px;
+    border-radius: 1rem;
+
+    font-size: 0.6875rem;
+    font-weight: 700;
+}
+
+.papf-status-badge_pending {
+    background: #fce7ea;
+    color: #b91c3c;
+}
+
+.papf-status-badge_pending lightning-icon {
+    --slds-c-icon-color-foreground-default: #b91c3c;
+}
+
+.papf-status-badge_uploaded {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.papf-status-badge_uploaded lightning-icon {
+    --slds-c-icon-color-foreground-default: #15803d;
+}
+
+/* ================================================================
+   GRANTS TABLE (Research Grants / Fellowships)
+   ================================================================ */
+
+.papf-grants-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #eef1f6;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.papf-grants-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.papf-grants-table th {
+    background: #8b1e3f;
+    color: #ffffff;
+
+    text-align: left;
+    padding: 0.65rem 0.9rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.papf-grants-table td {
+    padding: 0.6rem 0.9rem;
+    vertical-align: top;
+
+    font-size: 0.8125rem;
+    color: #334155;
+
+    border-bottom: 1px solid #eef1f6;
+    white-space: nowrap;
+}
+
+.papf-grants-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ================================================================
+   PARTICIPANT / APPLICATION CARDS (Previous / Ongoing Applications)
+   ================================================================ */
+
+.papf-participant-card {
+    padding: 16px;
+    margin-bottom: 16px;
+
+    border: 1px solid #eef1f6;
+    border-radius: 10px;
+
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.papf-participant-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #172554;
+
+    margin-bottom: 12px;
+}
+
+.papf-participant-title_accent {
+    color: #8b1e3f;
+}
+
+.papf-card-field-spaced {
+    margin-top: 18px;
+}
+
+/* ================================================================
+   MINI TABLES (Project Milestones, etc.)
+   ================================================================ */
+
+.papf-mini-table-wrap {
+    overflow-x: auto;
+    border: 1px solid #eef1f6;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.papf-mini-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.papf-mini-table th {
+    background: #8b1e3f;
+    color: #ffffff;
+
+    text-align: left;
+    padding: 0.55rem 0.75rem;
+
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+
+    white-space: nowrap;
+}
+
+.papf-mini-table td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: top;
+
+    font-size: 0.8125rem;
+    color: #334155;
+
+    border-bottom: 1px solid #eef1f6;
+    white-space: nowrap;
+}
+
+.papf-mini-table tr:last-child td {
+    border-bottom: none;
+}
+
+.papf-mini-table-td_wrap {
+    white-space: normal;
+    word-break: break-word;
+    min-width: 220px;
+}
+
+.papf-empty-note {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+/* ================================================================
+   KEY PUBLICATIONS / REPEATABLE CARDS (Education, Patents, etc.)
+   ================================================================ */
+
+.papf-publication-card {
+    display: flex;
+    gap: 12px;
+
+    padding: 14px;
+    margin-bottom: 12px;
+
+    border: 1px solid #eef1f6;
+    border-radius: 10px;
+
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.papf-publication-number {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.papf-publication-grid {
+    flex: 1;
+    min-width: 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+}
+
+.papf-field-label {
+    font-size: 10px;
+    color: #64748b;
+    margin-bottom: 3px;
+}
+
+.papf-field-value {
+    font-size: 13px;
+    color: #172554;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+/* ================================================================
+   KEYWORD CHIPS
+   ================================================================ */
+
+.papf-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.papf-chip {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 12px;
+    border-radius: 1rem;
+
+    background: #f3d9e0;
+    color: #8b1e3f;
+
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* ================================================================
+   PLACEHOLDER SECTION
+   ================================================================ */
+
+.papf-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 60px 20px;
+
+    color: #64748b;
+    font-size: 13px;
+    text-align: center;
+}
+
+.papf-placeholder-icon {
+    --slds-c-icon-color-foreground-default: #d8dde5;
+}
+
+@media screen and (max-width: 900px) {
+    .papf-path {
+        flex-wrap: wrap;
+    }
+
+    .papf-nav-item:not(:last-child)::after {
+        display: none;
+    }
+
+    .papf-publication-grid {
+        grid-template-columns: 1fr;
+    }
+}

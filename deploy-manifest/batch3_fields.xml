@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Additional_Partcipant__c.Invitation_Link__c</members>
+        <members>Committee_Master__c.UUID__c</members>
+        <members>External_Participants__c.Notify__c</members>
+        <members>Grants_Team_Response__c.Moved_to_Full_Stage_By_Grant_Team_Member__c</members>
+        <members>Human__c.Regulatory_bodies_for_ethical_review__c</members>
+        <members>Notification__c.Committee_Master__c</members>
+        <members>Notification__c.Committee_Member__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>62.0</version>
+</Package>

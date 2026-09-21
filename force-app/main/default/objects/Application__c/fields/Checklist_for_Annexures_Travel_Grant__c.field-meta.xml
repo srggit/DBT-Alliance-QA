@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Checklist_for_Annexures_Travel_Grant__c</fullName>
+    <label>Checklist for Annexures (Travel Grant))</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>IRMI institutional registration form 2019 for employing institution completed online</fullName>
+                <default>true</default>
+                <label>IRMI institutional registration form 2019 for employing institution completed online</label>
+            </value>
+            <value>
+                <fullName>Letter of support from employing institution</fullName>
+                <default>false</default>
+                <label>Letter of support from employing institution</label>
+            </value>
+            <value>
+                <fullName>Applicant CV</fullName>
+                <default>false</default>
+                <label>Applicant CV</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

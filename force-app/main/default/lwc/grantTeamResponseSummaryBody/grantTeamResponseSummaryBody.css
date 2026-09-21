@@ -1,0 +1,253 @@
+.gts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 8px 10px 10px;
+}
+
+/* ================================================================
+   STAGE CARD
+   ================================================================ */
+
+.gts-stage-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    scroll-margin-top: 12px;
+}
+
+.gts-stage-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    padding: 14px 18px;
+
+    background: linear-gradient(135deg, #fdf2f4 0%, #f8dee5 100%);
+}
+
+.gts-stage-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    border-radius: 50%;
+
+    background: #8b1e3f;
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.25);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gts-stage-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.gts-stage-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #172554;
+}
+
+.gts-stage-subtitle {
+    margin: 2px 0 0;
+    font-size: 0.8125rem;
+    color: #475569;
+}
+
+.stage-summary-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 12px;
+    border-radius: 1rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.stage-summary-badge_complete {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.stage-summary-badge_complete lightning-icon {
+    --slds-c-icon-color-foreground-default: #16a34a;
+}
+
+.stage-summary-badge_pending {
+    background: #fdf2f4;
+    color: #8b1e3f;
+}
+
+.stage-summary-badge_pending lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+/* ================================================================
+   TABLE
+   ================================================================ */
+
+.gts-table-wrap {
+    overflow-x: auto;
+}
+
+.gts-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.gts-table thead tr {
+    background: #f4f6fb;
+}
+
+.gts-th {
+    text-align: left;
+    padding: 0.65rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #8b1e3f;
+    white-space: nowrap;
+    border-bottom: 1px solid #e2e8f4;
+}
+
+.gts-th_num {
+    width: 40px;
+}
+
+.gts-th_member {
+    text-align: center;
+    min-width: 160px;
+}
+
+.member-name {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    color: #172554;
+    text-transform: none;
+}
+
+.member-status {
+    margin-top: 2px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.member-status_eligible {
+    color: #16a34a;
+}
+
+.member-status_not-eligible {
+    color: #c23934;
+}
+
+.member-status_pending {
+    color: #94a3b8;
+}
+
+.gts-tr:not(:last-child) .gts-td {
+    border-bottom: 1px solid #eef1f6;
+}
+
+.gts-tr:hover {
+    background: #f7fafe;
+}
+
+.gts-td {
+    padding: 0.65rem 1rem;
+    vertical-align: middle;
+    font-size: 0.8125rem;
+    color: #334155;
+}
+
+.gts-td_num {
+    text-align: center;
+}
+
+.gts-td_question {
+    min-width: 300px;
+}
+
+.gts-td_member {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.gts-td_member-wrap {
+    text-align: center;
+    white-space: normal;
+    min-width: 160px;
+}
+
+.gts-row-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fdf2f4;
+    color: #8b1e3f;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.answer-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 3px 10px;
+    border-radius: 1rem;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.answer-pill_yes {
+    background: #e3f8ec;
+    color: #1b8a4c;
+}
+
+.answer-pill_yes lightning-icon {
+    --slds-c-icon-color-foreground-default: #1b8a4c;
+}
+
+.answer-pill_no {
+    background: #fdeceb;
+    color: #c23934;
+}
+
+.answer-pill_no lightning-icon {
+    --slds-c-icon-color-foreground-default: #c23934;
+}
+
+.answer-pill_pending {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.answer-pill_pending lightning-icon {
+    --slds-c-icon-color-foreground-default: #64748b;
+}
+
+.answer-pill_text {
+    background: #f1f5f9;
+    color: #334155;
+    max-width: 240px;
+    white-space: normal;
+    text-align: left;
+    line-height: 1.3;
+}

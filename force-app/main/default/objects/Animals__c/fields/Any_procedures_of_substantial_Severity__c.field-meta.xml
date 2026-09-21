@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Any_procedures_of_substantial_Severity__c</fullName>
+    <inlineHelpText>Provide details of any procedures of substantial or moderate severity. (250 words)*</inlineHelpText>
+    <label>Any procedures of substantial Severity</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

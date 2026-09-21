@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Name_of_Host_Institution__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>Name of Host Institution (of the person receiving the funds)</inlineHelpText>
+    <label>Name of Host Institution</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Cost Associates (Name of Host Institution)</relationshipLabel>
+    <relationshipName>Cost_Associates1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

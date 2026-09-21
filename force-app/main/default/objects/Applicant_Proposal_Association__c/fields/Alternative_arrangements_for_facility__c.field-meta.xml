@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Alternative_arrangements_for_facility__c</fullName>
+    <description>Alternative arrangements for the facilities not available at the Host Institution.</description>
+    <inlineHelpText>Alternative arrangements for the facilities not available at the Host Institution.</inlineHelpText>
+    <label>Alternative arrangements for facility</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

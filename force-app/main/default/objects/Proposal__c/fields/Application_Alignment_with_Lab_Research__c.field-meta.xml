@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Alignment_with_Lab_Research__c</fullName>
+    <description>How does the application align with your lab’s research?</description>
+    <inlineHelpText>How does the application align with your lab’s research?</inlineHelpText>
+    <label>Application Alignment with Lab Research</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

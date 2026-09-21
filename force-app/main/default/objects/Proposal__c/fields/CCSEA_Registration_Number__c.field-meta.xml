@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCSEA_Registration_Number__c</fullName>
+    <description>Provide the CCSEA registration number for the institution where the animal work will be conducted.</description>
+    <inlineHelpText>Provide the CCSEA registration number for the institution where the animal work will be conducted.</inlineHelpText>
+    <label>CCSEA Registration Number</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

@@ -1,0 +1,182 @@
+﻿{
+  "status": 0,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-17T13:45:25.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-17T13:45:23.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/Additional_Partcipant__c.object",
+          "fullName": "Additional_Partcipant__c.Invitation_Link__c",
+          "id": "00NC3000004LGFZMA4",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/Committee_Master__c.object",
+          "fullName": "Committee_Master__c.UUID__c",
+          "id": "00NC3000004PxQnMAK",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/External_Participants__c.object",
+          "fullName": "External_Participants__c.Notify__c",
+          "id": "00NC3000004PxQoMAK",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/Grants_Team_Response__c.object",
+          "fullName": "Grants_Team_Response__c.Moved_to_Full_Stage_By_Grant_Team_Member__c",
+          "id": "00NC3000004PxVoMAK",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/Human__c.object",
+          "fullName": "Human__c.Regulatory_bodies_for_ethical_review__c",
+          "id": "00NC3000004PxVpMAK",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/Notification__c.object",
+          "fullName": "Notification__c.Committee_Master__c",
+          "id": "00NC3000004Px4DMAS",
+          "success": true
+        },
+        {
+          "changed": false,
+          "componentType": "CustomField",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "objects/Notification__c.object",
+          "fullName": "Notification__c.Committee_Member__c",
+          "id": "00NC3000004Pv8tMAC",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-17T13:45:25.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0AfC300000D5QNPKA3",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-17T13:45:25.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 7,
+    "numberComponentsTotal": 7,
+    "numberFiles": "8",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-17T13:45:23.000Z",
+    "status": "Succeeded",
+    "success": true,
+    "zipSize": 7357,
+    "files": [
+      {
+        "fullName": "Additional_Partcipant__c.Invitation_Link__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Additional_Partcipant__c\\fields\\Invitation_Link__c.field-meta.xml"
+      },
+      {
+        "fullName": "Committee_Master__c.UUID__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Committee_Master__c\\fields\\UUID__c.field-meta.xml"
+      },
+      {
+        "fullName": "External_Participants__c.Notify__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\External_Participants__c\\fields\\Notify__c.field-meta.xml"
+      },
+      {
+        "fullName": "Grants_Team_Response__c.Moved_to_Full_Stage_By_Grant_Team_Member__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Grants_Team_Response__c\\fields\\Moved_to_Full_Stage_By_Grant_Team_Member__c.field-meta.xml"
+      },
+      {
+        "fullName": "Human__c.Regulatory_bodies_for_ethical_review__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Human__c\\fields\\Regulatory_bodies_for_ethical_review__c.field-meta.xml"
+      },
+      {
+        "fullName": "Notification__c.Committee_Master__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Notification__c\\fields\\Committee_Master__c.field-meta.xml"
+      },
+      {
+        "fullName": "Notification__c.Committee_Member__c",
+        "type": "CustomField",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Notification__c\\fields\\Committee_Member__c.field-meta.xml"
+      }
+    ],
+    "zipFileCount": 7,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D5QNPKA3%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": [
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry",
+    "Unable to find type GenOpAgentConfig in registry"
+  ]
+}

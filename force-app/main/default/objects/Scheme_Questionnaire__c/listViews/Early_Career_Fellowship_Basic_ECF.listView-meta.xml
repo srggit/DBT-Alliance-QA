@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Early_Career_Fellowship_Basic_ECF</fullName>
+    <columns>NAME</columns>
+    <columns>Display_Name__c</columns>
+    <columns>Scheme_Items__c</columns>
+    <columns>Type__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Section__c</columns>
+    <columns>SL_No__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Scheme_Items__c</field>
+        <operation>equals</operation>
+        <value>Early Career Fellowship - Basic [ECF]</value>
+    </filters>
+    <label>Early Career Fellowship - Basic [ECF]</label>
+</ListView>

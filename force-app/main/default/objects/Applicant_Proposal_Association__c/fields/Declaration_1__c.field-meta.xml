@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Declaration_1__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>All the Information provided in the application is accurate and true to the best of my knowledge. I understand that providing incorrect or incomplete information could disqualify me from the competition</inlineHelpText>
+    <label>Declaration 1</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

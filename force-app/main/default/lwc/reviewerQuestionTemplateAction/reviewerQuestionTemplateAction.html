@@ -1,0 +1,341 @@
+<template>
+    <div class="slds-p-around_medium slds-is-relative action-container">
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <template if:true={schemeInfo}>
+            <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                <h2 class="slds-text-heading_large slds-m-bottom_x-small">
+                    Add Reviewer Question Templates
+                </h2>
+                <p class="slds-text-body_small slds-text-color_weak">
+                    Yearly Scheme: {schemeInfo.Name} &nbsp;|&nbsp;
+                    Scheme Item: {schemeInfo.Scheme_Items__r.Name}
+                </p>
+            </div>
+
+            <template if:true={noSchemeItem}>
+                <p class="slds-text-color_weak slds-p-around_small">
+                    This Yearly Scheme has no Scheme Item selected, so there are no Scheme Questionnaires to show.
+                </p>
+            </template>
+
+            <template if:false={noSchemeItem}>
+
+                <!-- ============= STAGE TAB BAR (custom, 50/50 width) ============= -->
+                <div class="stage-tab-bar">
+                    <button type="button" class={prelimsTabButtonClass} data-stage="prelims"
+                        onclick={handleStageTabClick}>
+                        {prelimsTabLabel}
+                    </button>
+                    <button type="button" class={fullTabButtonClass} data-stage="full"
+                        onclick={handleStageTabClick}>
+                        {fullTabLabel}
+                    </button>
+                </div>
+
+                <!-- ===================== PRELIMS CONTENT ===================== -->
+                <template if:true={isPrelimsStageActive}>
+                    <template if:true={noPrelimsRecords}>
+                        <p class="slds-text-color_weak slds-p-around_small">
+                            No Prelims stage Scheme Questionnaires found for this Scheme Item.
+                        </p>
+                    </template>
+
+                    <template if:false={noPrelimsRecords}>
+                        <lightning-tabset variant="scoped" class="slds-m-top_small">
+                            <template for:each={prelimsSectionGroups} for:item="group">
+                                <lightning-tab key={group.key} value={group.key} label={group.tabLabel}>
+                                    <div class="question-table-wrapper">
+                                        <table
+                                            class="slds-table slds-table_bordered slds-table_cell-buffer question-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:50px">
+                                                        <lightning-input type="checkbox" variant="label-hidden"
+                                                            data-stage={group.stage} data-section={group.section}
+                                                            checked={group.allSelected}
+                                                            onchange={handleSelectAll}>
+                                                        </lightning-input>
+                                                    </th>
+                                                    <th style="width:90px">SL No</th>
+                                                    <th style="min-width:280px">Question (Display Name)</th>
+                                                    <th style="width:220px">Section</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={group.records} for:item="item">
+                                                    <tr key={item.Id} class="question-row">
+                                                        <td>
+                                                            <lightning-input type="checkbox" data-id={item.Id}
+                                                                checked={item.selected}
+                                                                disabled={item.alreadyAdded}
+                                                                onchange={handleRowToggle}>
+                                                            </lightning-input>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-input type="number" variant="label-hidden"
+                                                                data-id={item.Id} data-field="SL_No__c"
+                                                                value={item.SL_No__c} disabled
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-input>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-textarea variant="label-hidden"
+                                                                data-id={item.Id} data-field="Question__c"
+                                                                value={item.Question__c}
+                                                                disabled
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-textarea>
+
+                                                            <template if:true={item.alreadyAdded}>
+                                                                <div
+                                                                    class="slds-text-body_small slds-text-color_success slds-m-top_xx-small">
+                                                                    <lightning-icon icon-name="utility:success"
+                                                                        size="xx-small"
+                                                                        class="slds-m-right_xx-small">
+                                                                    </lightning-icon>
+                                                                    {item.addedMessage}
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-input type="text" variant="label-hidden"
+                                                                data-id={item.Id} data-field="Section__c"
+                                                                value={item.Section__c}
+                                                                disabled
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-input>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </lightning-tab>
+                            </template>
+                        </lightning-tabset>
+                    </template>
+                </template>
+
+                <!-- ===================== FULL CONTENT ===================== -->
+                <template if:true={isFullStageActive}>
+                    <template if:true={noFullRecords}>
+                        <p class="slds-text-color_weak slds-p-around_small">
+                            No Full stage Scheme Questionnaires found for this Scheme Item.
+                        </p>
+                    </template>
+
+                    <template if:false={noFullRecords}>
+                        <lightning-tabset variant="scoped" class="slds-m-top_small">
+                            <template for:each={fullSectionGroups} for:item="group">
+                                <lightning-tab key={group.key} value={group.key} label={group.tabLabel}>
+                                    <div class="question-table-wrapper">
+                                        <table
+                                            class="slds-table slds-table_bordered slds-table_cell-buffer question-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:50px">
+                                                        <lightning-input type="checkbox" variant="label-hidden"
+                                                            data-stage={group.stage} data-section={group.section}
+                                                            checked={group.allSelected}
+                                                            onchange={handleSelectAll}>
+                                                        </lightning-input>
+                                                    </th>
+                                                    <th style="width:90px">SL No</th>
+                                                    <th style="min-width:280px">Question (Display Name)</th>
+                                                    <th style="width:220px">Section</th>
+                                                    <th style="width:170px">Is Visible To Peer Reviewer</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={group.records} for:item="item">
+                                                    <tr key={item.Id} class="question-row">
+                                                        <td>
+                                                            <lightning-input type="checkbox" data-id={item.Id}
+                                                                checked={item.selected}
+                                                                disabled={item.alreadyAdded}
+                                                                onchange={handleRowToggle}>
+                                                            </lightning-input>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-input type="number" variant="label-hidden"
+                                                                data-id={item.Id} data-field="SL_No__c"
+                                                                value={item.SL_No__c} disabled
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-input>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-textarea variant="label-hidden"
+                                                                data-id={item.Id} data-field="Question__c"
+                                                                value={item.Question__c}
+                                                                disabled
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-textarea>
+
+                                                            <template if:true={item.alreadyAdded}>
+                                                                <div
+                                                                    class="slds-text-body_small slds-text-color_success slds-m-top_xx-small">
+                                                                    <lightning-icon icon-name="utility:success"
+                                                                        size="xx-small"
+                                                                        class="slds-m-right_xx-small">
+                                                                    </lightning-icon>
+                                                                    {item.addedMessage}
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-input type="text" variant="label-hidden"
+                                                                data-id={item.Id} data-field="Section__c"
+                                                                value={item.Section__c}
+                                                                disabled
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-input>
+                                                        </td>
+                                                        <td>
+                                                            <lightning-input type="checkbox" data-id={item.Id}
+                                                                data-field="Is_Visible_To_Peer_Reviewer__c"
+                                                                checked={item.Is_Visible_To_Peer_Reviewer__c}
+                                                                disabled={item.alreadyAdded}
+                                                                onchange={handleFieldChange}>
+                                                            </lightning-input>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </lightning-tab>
+                            </template>
+                        </lightning-tabset>
+                    </template>
+                </template>
+
+            </template>
+        </template>
+
+        <div class="slds-m-top_medium slds-text-align_right slds-border_top slds-p-top_small">
+            <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_small">
+            </lightning-button>
+            <lightning-button variant="brand" label="Save" onclick={handleSave} disabled={isSaving}>
+            </lightning-button>
+        </div>
+    </div>
+</template>
+
+
+
+
+
+
+
+
+
+
+<!-- <template>
+    <div class="slds-p-around_medium slds-is-relative action-container">
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <template if:true={schemeInfo}>
+            <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                <h2 class="slds-text-heading_large slds-m-bottom_x-small">
+                    Add Reviewer Question Templates
+                </h2>
+                <p class="slds-text-body_small slds-text-color_weak">
+                    Yearly Scheme: {schemeInfo.Name} &nbsp;|&nbsp;
+                    Scheme Item: {schemeInfo.Scheme_Items__r.Name}
+                </p>
+            </div>
+
+            <template if:true={noSchemeItem}>
+                <p class="slds-text-color_weak slds-p-around_small">
+                    This Yearly Scheme has no Scheme Item selected, so there are no Scheme Questionnaires to show.
+                </p>
+            </template>
+
+            <template if:false={noSchemeItem}>
+                <div class="question-table-wrapper">
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer question-table">
+                        <thead>
+                            <tr>
+                                <th style="width:50px">
+                                    <lightning-input type="checkbox" variant="label-hidden"
+                                        checked={selectAll} onchange={handleSelectAll}>
+                                    </lightning-input>
+                                </th>
+                                <th style="width:90px">SL No</th>
+                                <th style="min-width:280px">Question (Display Name)</th>
+                                <th style="width:220px">Section</th>
+                                <th style="width:170px">Is Visible To Peer Reviewer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={templateRecords} for:item="item">
+                                <tr key={item.Id} class="question-row">
+                                    <td>
+                                        <lightning-input type="checkbox" data-id={item.Id} checked={item.selected}
+                                            disabled={item.alreadyAdded} onchange={handleRowToggle}>
+                                        </lightning-input>
+                                    </td>
+                                    <td>
+                                        <lightning-input type="number" variant="label-hidden" data-id={item.Id}
+                                            data-field="SL_No__c" value={item.SL_No__c}
+                                            disabled={item.alreadyAdded} onchange={handleFieldChange}>
+                                        </lightning-input>
+                                    </td>
+                                    <td>
+                                        <lightning-textarea variant="label-hidden" data-id={item.Id}
+                                            data-field="Question__c" value={item.Question__c}
+                                            disabled={item.alreadyAdded} onchange={handleFieldChange}>
+                                        </lightning-textarea>
+
+                                        <!- Friendly inline notice for rows already saved ->
+                                        <template if:true={item.alreadyAdded}>
+                                            <div
+                                                class="slds-text-body_small slds-text-color_success slds-m-top_xx-small">
+                                                <lightning-icon icon-name="utility:success" size="xx-small"
+                                                    class="slds-m-right_xx-small">
+                                                </lightning-icon>
+                                                {item.addedMessage}
+                                            </div>
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <lightning-input type="text" variant="label-hidden" data-id={item.Id}
+                                            data-field="Section__c" value={item.Section__c}
+                                            disabled={item.alreadyAdded} onchange={handleFieldChange}>
+                                        </lightning-input>
+                                    </td>
+                                    <td>
+                                        <lightning-input type="checkbox" data-id={item.Id}
+                                            data-field="Is_Visible_To_Peer_Reviewer__c"
+                                            checked={item.Is_Visible_To_Peer_Reviewer__c}
+                                            disabled={item.alreadyAdded} onchange={handleFieldChange}>
+                                        </lightning-input>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <template if:true={noRecords}>
+                    <p class="slds-text-color_weak slds-p-around_small">
+                        No Scheme Questionnaires found for this Scheme Item.
+                    </p>
+                </template>
+            </template>
+        </template>
+
+        <div class="slds-m-top_medium slds-text-align_right slds-border_top slds-p-top_small">
+            <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-right_small">
+            </lightning-button>
+            <lightning-button variant="brand" label="Save" onclick={handleSave} disabled={isSaving}>
+            </lightning-button>
+        </div>
+    </div>
+</template> -->

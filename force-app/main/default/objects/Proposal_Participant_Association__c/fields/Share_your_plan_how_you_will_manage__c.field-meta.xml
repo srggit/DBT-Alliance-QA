@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Share_your_plan_how_you_will_manage__c</fullName>
+    <description>Share your plan how you will manage and share the data generated from this project</description>
+    <inlineHelpText>Share your plan how you will manage and share the data generated from this project</inlineHelpText>
+    <label>Share your plan how you will manage</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Queries</fullName>
+    <columns>NAME</columns>
+    <columns>Choose_Grant_Form__c</columns>
+    <columns>Choose_Date_Time__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Mine</filterScope>
+    <label>My Queries</label>
+    <sharedTo>
+        <portalRole>IndiaAllianceCustomerUser</portalRole>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_outcome_from_each_visit__c</fullName>
+    <inlineHelpText>Expected outcome from each visit. How does it fit with overall Project milestone</inlineHelpText>
+    <label>Expected outcome from each visit</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

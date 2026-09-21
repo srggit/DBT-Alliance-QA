@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Which_Repositories__c</fullName>
+    <description>Which repositories will you use (e.g., Indian Biological Data Centre [IBDC], international genomics/proteomics databases such as NCBI, EMBL-EBI, PRIDE, GEO).</description>
+    <inlineHelpText>Which repositories will you use (e.g., Indian Biological Data Centre [IBDC], international genomics/proteomics databases such as NCBI, EMBL-EBI, PRIDE, GEO).</inlineHelpText>
+    <label>Which Repositories</label>
+    <length>5000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

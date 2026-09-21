@@ -1,0 +1,132 @@
+<template>
+    <lightning-card>
+        <div class="pem-container">
+
+            <div class="pem-banner">
+                <div class="pem-banner-icon">
+                    <lightning-icon icon-name="utility:table" size="small"></lightning-icon>
+                </div>
+                <div class="pem-banner-text">
+                    <div class="pem-banner-title">Peer Evaluation Responses</div>
+                    <div class="pem-banner-subtitle">Compare Peer Evaluation question answers across all submitted
+                        Full-stage reviewers.</div>
+                </div>
+            </div>
+
+            <template lwc:if={isLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:elseif={error}>
+                <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+            </template>
+
+            <template lwc:elseif={hasData}>
+                <div class="pem-table-wrap">
+                    <table class="pem-table">
+                        <thead>
+                            <tr>
+                                <th class="pem-th pem-th_question">Question</th>
+                                <template for:each={reviewerColumns} for:item="col">
+                                    <th key={col.key} class="pem-th pem-th_reviewer">{col.label}</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={questionRows} for:item="row">
+                                <tr key={row.key} class="pem-tr">
+                                    <td class="pem-td pem-td_question">
+                                        <div class="pem-question-text">{row.question}</div>
+                                        <template lwc:if={row.description}>
+                                            <div class="pem-question-description">{row.description}</div>
+                                        </template>
+                                    </td>
+                                    <template for:each={row.cells} for:item="cell">
+                                        <td key={cell.key} class="pem-td">
+                                            <lightning-formatted-rich-text value={cell.value}>
+                                            </lightning-formatted-rich-text>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pem-decision-panel">
+                    <template lwc:if={showRejectionReason}>
+                        <div class="slds-form-element pem-feedback-field">
+                            <label class="slds-form-element__label" for="reason-for-rejection">Reason for
+                                Rejection</label>
+                            <div class="slds-form-element__control">
+                                <textarea id="reason-for-rejection" class="slds-textarea pem-feedback-textarea"
+                                    value={rejectionReason} onchange={handleRejectionReasonChange}
+                                    placeholder="Enter reason for rejection..."></textarea>
+                            </div>
+                        </div>
+                        <div class="pem-decision-actions">
+                            <button type="button" class="pem-decision-btn pem-decision-btn_neutral"
+                                onclick={handleCancelRejection} disabled={isSavingDecision}>
+                                <span>Cancel</span>
+                            </button>
+                            <button type="button" class="pem-decision-btn pem-decision-btn_reject"
+                                onclick={handleConfirmRejection} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:close" size="xx-small"
+                                    class="pem-decision-btn-icon"></lightning-icon>
+                                <span>Confirm Rejection</span>
+                            </button>
+                        </div>
+                    </template>
+                    <template lwc:elseif={showFeedbackSummary}>
+                        <div class="slds-form-element pem-feedback-field">
+                            <label class="slds-form-element__label" for="reviewer-feedback-summary">Reviewer Feedback
+                                Summary</label>
+                            <div class="slds-form-element__control">
+                                <textarea id="reviewer-feedback-summary" class="slds-textarea pem-feedback-textarea"
+                                    value={feedbackSummary} onchange={handleFeedbackSummaryChange}
+                                    placeholder="Summarize the Peer Evaluation responses above for the Committee..."></textarea>
+                            </div>
+                        </div>
+                        <div class="pem-decision-actions">
+                            <button type="button" class="pem-decision-btn pem-decision-btn_neutral"
+                                onclick={handleCancelProcessToCommittee} disabled={isSavingDecision}>
+                                <span>Cancel</span>
+                            </button>
+                            <button type="button" class="pem-decision-btn pem-decision-btn_committee"
+                                onclick={handleConfirmProcessToCommittee} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:forward" size="xx-small"
+                                    class="pem-decision-btn-icon"></lightning-icon>
+                                <span>Confirm & Process to Committee</span>
+                            </button>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                    <div class="pem-decision-actions">
+                        <button type="button" class="pem-decision-btn pem-decision-btn_reject"
+                            onclick={handleReject} disabled={isSavingDecision}>
+                            <lightning-icon icon-name="utility:close" size="xx-small"
+                                class="pem-decision-btn-icon"></lightning-icon>
+                            <span>Reject</span>
+                        </button>
+                        <button type="button" class="pem-decision-btn pem-decision-btn_committee"
+                            onclick={handleProcessToCommittee} disabled={isSavingDecision}>
+                            <lightning-icon icon-name="utility:forward" size="xx-small"
+                                class="pem-decision-btn-icon"></lightning-icon>
+                            <span>Process to Committee</span>
+                        </button>
+                    </div>
+                    </template>
+                </div>
+            </template>
+
+            <template lwc:elseif={showNoData}>
+                <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                    No submitted Peer Evaluation responses available for this proposal.
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

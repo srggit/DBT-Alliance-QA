@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Do_not_Change_Values_in_Submitted_Stage</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( OR(
+$Profile.Name =&apos;IA Internal Reviewer&apos;,
+$Profile.Name =&apos;IA Screening Committee&apos;,
+$Profile.Name =&apos;IA Peer Review Team&apos;),
+OR( 
+AND(
+ISPICKVAL(PRIORVALUE(Status__c),&quot;Submitted&quot;),
+OR(ISCHANGED(Enter_a_Note__c), ISCHANGED(Status__c),
+ISCHANGED(Grants__c))
+)))</errorConditionFormula>
+    <errorMessage>In Submitted Status Modifications is not Possible Please Contact System Administrator</errorMessage>
+</ValidationRule>

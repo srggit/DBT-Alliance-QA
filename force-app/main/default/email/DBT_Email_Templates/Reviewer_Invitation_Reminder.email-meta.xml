@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Reviewer Invitation Reminder</name>
+    <style>none</style>
+    <subject>Reminder: Action Required on Your Reviewer Invitation - {!Reviewer_Mapping__c.Proposal_Id__c}</subject>
+    <textOnly>DBT Alliance
+
+Dear {!Reviewer_Mapping__c.Reviewer_Name__c},
+
+This is a friendly reminder that you were invited to review a proposal for DBT Alliance, and we have not yet received your response.
+
+Invitation details:
+
+Proposal ID:   {!Reviewer_Mapping__c.Proposal_Id__c}
+Scheme:   {!Reviewer_Mapping__c.Scheme_Name__c}
+Application Stage:   {!Reviewer_Mapping__c.Application_Stages__c}
+Reviewer Type:   {!Reviewer_Mapping__c.Reviewer_Type__c}
+Status:   {!Reviewer_Mapping__c.Status__c}
+Invited On:   {!Reviewer_Mapping__c.Invitation_Sent_Date__c}
+Review Deadline:   {!Reviewer_Mapping__c.Deadline_Date__c}
+
+Please log in to the DBT Alliance portal at your earliest convenience to accept or decline this review invitation.
+
+If you believe you have received this message in error, please contact our support team.
+
+Regards,
+DBT Alliance Team
+
+This is an automated message. Please do not reply directly to this email.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

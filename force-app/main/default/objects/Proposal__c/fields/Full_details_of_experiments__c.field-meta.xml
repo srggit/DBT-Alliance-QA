@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Full_details_of_experiments__c</fullName>
+    <description>Full details of experiments (humans, animals, organoids etc.)</description>
+    <inlineHelpText>Full details of experiments (humans, animals, organoids etc.)</inlineHelpText>
+    <label>Full details of experiments</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

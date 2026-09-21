@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Eligible for Full Stage Email Template</name>
+    <style>none</style>
+    <subject>Your Proposal {{ProposalId}} is Eligible for Full Application</subject>
+    <textOnly>DBT Alliance
+
+Dear {{Applicant_Name}},
+
+Congratulations! Your proposal has moved forward in the review process.
+
+Application Details:
+- Application ID: {{ProposalId}}
+- Scheme: {{SchemeName}}
+
+You are now eligible to proceed to the Full Application stage. Please log in to the applicant portal to complete and submit your Full Application.
+
+{{PortalLink}}
+
+If you have any questions, please contact us at grants@indiaalliance.org, quoting your Application ID.
+
+Regards,
+Grants Team
+India Alliance</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

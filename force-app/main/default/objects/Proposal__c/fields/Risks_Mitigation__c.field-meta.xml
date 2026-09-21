@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Risks_Mitigation__c</fullName>
+    <description>Risks &amp; Mitigation</description>
+    <inlineHelpText>Risks &amp; Mitigation</inlineHelpText>
+    <label>Risks &amp; Mitigation</label>
+    <length>12768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

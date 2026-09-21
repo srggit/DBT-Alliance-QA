@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Need_to_add_in_specific_questions__c</fullName>
+    <inlineHelpText>Need to add in specific questions about proposed studies-this section is for teams to provide more detail than on the application form</inlineHelpText>
+    <label>Need to add in specific questions</label>
+    <length>2000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

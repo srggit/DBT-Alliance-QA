@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scientific_career_to_date__c</fullName>
+    <description>Personal statement describing your scientific trajectory, highlighting your expertise summarizing your achievements.</description>
+    <inlineHelpText>Personal statement describing your scientific trajectory, highlighting your expertise summarizing your achievements.</inlineHelpText>
+    <label>Scientific career to date</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

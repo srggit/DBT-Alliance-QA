@@ -1,0 +1,727 @@
+:host {
+    --slds-c-button-radius-border: 0.375rem;
+    --slds-c-button-icon-radius-border: 0.375rem;
+    --slds-c-button-brand-color-background: #8b1e3f;
+    --slds-c-button-brand-color-border: #8b1e3f;
+    --slds-c-button-brand-color-background-hover: #741832;
+    --slds-c-button-brand-color-border-hover: #741832;
+    --slds-c-button-brand-color-background-active: #5f1329;
+    --slds-c-button-brand-color-border-active: #5f1329;
+}
+
+/* Toolbar: always two stacked rows.
+   Row 1 = tab pills (horizontal scroll when they overflow) + action button(s)
+           pinned to the right.
+   Row 2 = the filter dropdowns + search, always on their own line. */
+.myec-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.myec-toolbar-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    min-width: 0;
+    padding-left: 12px;
+}
+
+.myec-toolbar-actions {
+    flex-shrink: 0;
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 16px;
+}
+
+.myec-toolbar-filters {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    padding-left: 24px;
+}
+
+.myec-list-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+
+    padding: 4px;
+
+    border-radius: 10px;
+    background: #f8fafc;
+
+    /* pills may grow in number - scroll horizontally instead of wrapping */
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.myec-list-tabs::-webkit-scrollbar {
+    height: 6px;
+}
+
+.myec-list-tabs::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.myec-tab-btn {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    padding: 6px 14px;
+    margin: 0;
+    border: none;
+    border-radius: 7px;
+
+    background: transparent;
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.myec-tab-btn:hover {
+    color: #8b1e3f;
+    background: #fdf2f4;
+}
+
+.myec-tab-btn_active,
+.myec-tab-btn_active:hover {
+    background: linear-gradient(120deg, #6c1730 0%, #8b1e3f 100%);
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(139, 30, 63, 0.28);
+}
+
+
+.myec-shell {
+    border: 1px solid #e5e9f0;
+    border-radius: 0.5rem;
+
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06);
+}
+
+.myec-content {
+    padding-top: 12px !important;
+}
+
+.myec-card-soft {
+    --slds-c-card-color-border: #eef1f6;
+    --slds-c-card-radius-border: 12px;
+    --slds-c-card-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* ================================================================
+   FILTER DROPDOWNS (animated, replaces lightning-combobox)
+   ================================================================ */
+
+.myec-dd {
+    position: relative;
+}
+
+.myec-dd-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 32px;
+    padding: 0 0.75rem;
+    margin: 0;
+
+    border: 1px solid #d8dde5;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #172554;
+
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    text-align: left;
+
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.myec-dd-trigger:hover {
+    border-color: #8b1e3f;
+}
+
+.myec-dd-trigger_open {
+    border-color: #8b1e3f;
+    box-shadow: 0 0 0 3px rgba(139, 30, 63, 0.12);
+}
+
+.myec-dd-trigger-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.myec-dd-caret {
+    --slds-c-icon-color-foreground-default: #64748b;
+    flex-shrink: 0;
+    transition: transform 0.18s ease;
+}
+
+.myec-dd-trigger_open .myec-dd-caret {
+    transform: rotate(180deg);
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.myec-dd-menu {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+
+    max-height: 260px;
+    overflow-y: auto;
+
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+
+    border-radius: 10px;
+    border: 1px solid #eef1f6;
+
+    background: #ffffff;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+
+    transform-origin: top center;
+    animation: myec-dd-open 0.16s ease-out;
+}
+
+@keyframes myec-dd-open {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scaleY(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+.myec-dd-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    margin: 0;
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #334155;
+
+    font-size: 13px;
+    font-family: inherit;
+    text-align: left;
+
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+}
+
+.myec-dd-item:hover {
+    background: #fdf2f4;
+    color: #8b1e3f;
+}
+
+.myec-dd-item_selected {
+    background: #8b1e3f;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.myec-dd-item_selected:hover {
+    background: #741832;
+    color: #ffffff;
+}
+
+.myec-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.myec-search-icon {
+    position: absolute;
+    left: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    --slds-c-icon-color-foreground-default: #64748b;
+}
+
+.myec-search-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 32px;
+    padding: 0 0.6rem 0 2rem;
+    margin: 0;
+
+    border: 1px solid #d8dde5;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #172554;
+
+    font-size: 13px;
+    font-family: inherit;
+
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.myec-search-input::placeholder {
+    color: #94a3b8;
+}
+
+.myec-search-input:hover {
+    border-color: #8b1e3f;
+}
+
+.myec-search-input:focus {
+    border-color: #8b1e3f;
+    box-shadow: 0 0 0 3px rgba(139, 30, 63, 0.12);
+}
+
+/* ================================================================
+   ROW "OPEN" BUTTON
+   ================================================================ */
+
+.myec-open-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 7px 14px;
+    margin: 0;
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(120deg, #6c1730 0%, #8b1e3f 100%);
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.28);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.myec-open-btn:hover {
+    background: linear-gradient(120deg, #7a1a37 0%, #9c2547 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(139, 30, 63, 0.35);
+}
+
+.myec-open-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(139, 30, 63, 0.3);
+}
+
+.myec-open-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.myec-action-cell {
+    gap: 8px;
+}
+
+.myec-open-btn_compact {
+    padding: 5px 10px;
+    font-size: 11px;
+}
+
+.eligibility-banner {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 88px;
+    padding: 0 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.eligibility-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+}
+
+.eligibility-banner__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.eligibility-banner__icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.eligibility-banner__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.eligibility-banner__title {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.eligibility-banner__subtitle {
+    margin: 0.125rem 0 0;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.eligibility-banner__art {
+    flex-shrink: 0;
+    width: 70px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+}
+
+.eligibility-banner__art svg {
+    width: 100%;
+    height: auto;
+}
+
+lightning-card {
+    display: block;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.eligibility-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: #8b1e3f;
+    margin-right: 0.5rem;
+}
+
+.eligibility-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 8px;
+    border-radius: 1rem;
+    background: #f3d9e0;
+    color: #8b1e3f;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.eligibility-pager {
+    flex-wrap: nowrap;
+}
+
+.eligibility-page-btn {
+    min-width: 2rem;
+}
+
+/* Custom table */
+.eligibility-table-wrap {
+    overflow-x: auto;
+}
+
+.eligibility-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.eligibility-table thead tr {
+    background: #f4f7fc;
+}
+
+.eligibility-th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #16325c;
+    white-space: nowrap;
+    border-bottom: 1px solid #e2e8f4;
+    user-select: none;
+}
+
+.eligibility-th__label {
+    vertical-align: middle;
+}
+
+.eligibility-th_sortable {
+    cursor: pointer;
+}
+
+.eligibility-sort-icon {
+    margin-left: 0.25rem;
+    vertical-align: middle;
+    opacity: 0.35;
+}
+
+.eligibility-sort-icon_active {
+    opacity: 1;
+}
+
+.eligibility-tr {
+    background: #ffffff;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.eligibility-tr:hover {
+    background: #f7fafe;
+}
+
+.eligibility-tr:not(:last-child) .eligibility-td {
+    border-bottom: 1px solid #eef1f6;
+}
+
+.eligibility-td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    font-size: 0.8125rem;
+}
+
+.eligibility-td_action {
+    white-space: nowrap;
+}
+
+.eligibility-th_checkbox,
+.eligibility-td_checkbox {
+    width: 40px;
+    padding-right: 0;
+}
+
+/* Composite cell (icon + value + sublabel) */
+.composite-cell {
+    display: flex;
+    align-items: center;
+}
+
+.composite-cell__icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.composite-cell__icon_blue {
+    background-color: #f3d9e0;
+}
+
+.composite-cell__icon_blue lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.composite-cell__icon_neutral {
+    background-color: #f3f2f2;
+}
+
+.composite-cell__value {
+    font-weight: 600;
+    color: #16325c;
+    font-size: 0.8125rem;
+}
+
+.composite-cell__value_link {
+    color: #8b1e3f;
+}
+
+.composite-cell_clickable {
+    cursor: pointer;
+}
+
+.composite-cell_clickable .composite-cell__value_link:hover {
+    text-decoration: underline;
+}
+
+.composite-cell__sub {
+    font-size: 0.6875rem;
+    color: #8c8c8c;
+    margin-top: 1px;
+}
+
+/* Status badges */
+.slds-badge {
+    border-radius: 1rem;
+    padding: 3px 10px 3px 8px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    margin-right: 6px;
+}
+
+.slds-badge_success {
+    background-color: #e3f8ec;
+    color: #1b8a4c;
+}
+
+.slds-badge_warning {
+    background-color: #fff3e0;
+    color: #b7791f;
+}
+
+.slds-badge_error {
+    background-color: #fdeceb;
+    color: #c23934;
+}
+
+.slds-badge_inverse {
+    background-color: #f3d9e0;
+    color: #8b1e3f;
+}
+
+.slds-badge_purple {
+    background-color: #f2e9fd;
+    color: #7c3aed;
+}
+
+.slds-badge_neutral {
+    background-color: #f3f2f2;
+    color: #514f4d;
+}
+
+.slds-badge_lightblue {
+    background-color: #e3f1fd;
+    color: #0b5cab;
+}
+
+/* ================================================================
+   GRANT TEAM RESPONSE MODAL (backdrop blur + pop animation)
+   ================================================================ */
+
+.myec-backdrop-blur {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(15, 8, 12, 0.45);
+}
+
+.myec-backdrop-anim {
+    animation: myec-backdrop-fade 0.25s ease-out;
+}
+
+@keyframes myec-backdrop-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.myec-modal-anim {
+    animation: myec-modal-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.myec-modal-anim .slds-modal__container {
+    animation: myec-modal-container-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+@keyframes myec-modal-pop {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes myec-modal-container-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.myec-modal-header-plain {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 16px;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.myec-large-modal {
+    width: 100%;
+    max-width: 80%;
+    height: 100vh;
+    max-height: 100vh;
+}
+
+.myec-large-modal .slds-modal__content {
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .myec-large-modal {
+        max-width: 100%;
+    }
+}

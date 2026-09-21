@@ -1,0 +1,256 @@
+/*@RestResource(urlMapping='/profileInfoApi')
+global without sharing class ProfileInfoAPI {
+	
+    @HttpPost
+    global static ProfileResponse saveProfileInfo(){
+        
+        ProfileResponse response = new ProfileResponse();
+        
+        try{
+            ProfileDataRequest req = (ProfileDataRequest) JSON.deserialize(RestContext.request.requestBody.toString(), ProfileDataRequest.class);
+            System.debug('Received Req : ' + req);
+            
+            List<Contact> contacts = [
+                SELECT Id, FirstName, LastName, Email, BirthDate, Nationality__c, Gender__c, Position__c, Department, Phone, MailingCity, 
+                MailingState, MailingCountry, MailingPostalCode, Google_Scholar_Profile__c
+                FROM Contact 
+                WHERE Email = :req.email
+                LIMIT 1
+            ];
+            
+            if(contacts.isEmpty()) {
+                response.success = false;
+                response.message = 'User not found';
+
+                return response;
+            }
+            
+            Contact con = contacts[0];
+            
+            con.FirstName = req.firstName;
+            con.LastName = req.lastName;
+            con.Email = req.email;
+            con.Phone = req.mobileNumber;
+            con.BirthDate = req.dob;
+
+            con.AccountId = req.currentOrg; // Account Id
+            con.Department = req.department;
+            con.Position__c = req.designationRole;
+
+            con.Qualifying_Degree__c = req.qualifyingDegree;
+            con.Qualifying_Degree_Viva_Date__c = req.qualifyingDegreeVivaDate;
+            con.Research_Experience_After_Viva_Date_Yrs__c = req.durationOfResearchExperienceAfterQualifyingVivaDate_Years;
+            con.Research_Experience_After_Viva_Date_Mont__c = req.durationOfResearchExperienceAfterQualifyingVivaDate_Months;
+
+            con.Non_Research_Career_Break_From__c = req.nonResearchCareerBreak_From;
+            con.Non_Research_Career_Break_To__c = req.nonResearchCareerBreak_To;
+            con.Non_Research_Career_Break_Explanation__c = req.nonReserchCareerBreak_Explaination;
+
+            con.ORCID_ID__c = req.orcidID;
+            con.Google_Scholar_Profile__c = req.googleScholarProfileLink;
+            update con;
+            
+            response.success = true;
+            response.message = 'Profile data updated successfully !!';
+            response.contactId = con.Id;
+            
+            return response;
+        }
+        catch(Exception ex){
+            response.success = false;
+            response.message = ex.getMessage();
+            
+            return response;
+        }
+    }
+    
+    
+    global class ProfileDataRequest{
+        public String firstName;
+        public String lastName;
+        public String email;
+        public String mobileNumber;
+        public Date dob;
+
+        public String qualifyingDegree;
+        public Date qualifyingDegreeVivaDate;
+
+        public String currentOrg;
+        public String department;
+        public String designationRole;
+        public Integer durationOfResearchExperienceAfterQualifyingVivaDate_Years;
+        public Integer durationOfResearchExperienceAfterQualifyingVivaDate_Months;
+        public Date nonResearchCareerBreak_From;
+        public Date nonResearchCareerBreak_To;
+        public String nonReserchCareerBreak_Explaination;     
+        public String orcidID;
+        public String googleScholarProfileLink;
+    }
+    
+    global class ProfileResponse{
+        public Boolean success;
+        public String message;
+        public String contactId;
+    }
+    
+}
+*/
+
+
+@RestResource(urlMapping='/profileInfoApi')
+global without sharing class ProfileInfoAPI {
+	
+    @HttpPost
+    global static ProfileResponse saveProfileInfo(){
+        
+        ProfileResponse response = new ProfileResponse();
+        
+        try{
+            ProfileDataRequest req = (ProfileDataRequest) JSON.deserialize(RestContext.request.requestBody.toString(), ProfileDataRequest.class);
+            System.debug('Received Req : ' + req);
+            
+            if(String.isBlank(req.contactId) && String.isBlank(req.email)){
+                response.success = false;
+                response.message = 'Missing required parameter: contactId or email';
+
+                return response;
+            }
+
+            List<Contact> contacts = [
+                SELECT Id, FirstName, LastName, Email, BirthDate, Nationality__c, Gender__c, Position__c, Department, Phone, MailingCity, 
+                MailingState, MailingCountry, MailingPostalCode, Google_Scholar_Profile__c
+                FROM Contact 
+                WHERE Id = :req.contactId AND Email = :req.email
+                LIMIT 1
+            ];
+            
+            if(contacts.isEmpty()) {
+                response.success = false;
+                response.message = 'User not found';
+
+                return response;
+            }
+            
+            Contact con = contacts[0];
+            
+            con.FirstName = req.firstName;
+            con.LastName = req.lastName;
+            con.Email = req.email;
+            con.Phone = req.mobileNumber;
+            con.BirthDate = req.dob;
+
+            if(String.isNotBlank(req.currentOrg)){
+                con.AccountId = resolveAccountId(req.currentOrg);
+            }
+            con.Department = req.department;
+            con.Position__c = req.designationRole;
+
+            con.Qualifying_Degree__c = req.qualifyingDegree;
+            con.Qualifying_Degree_Viva_Date__c = req.qualifyingDegreeVivaDate;
+            con.Research_Experience_After_Viva_Date_Yrs__c = req.durationOfResearchExperienceAfterQualifyingVivaDate_Years;
+            con.Research_Experience_After_Viva_Date_Mont__c = req.durationOfResearchExperienceAfterQualifyingVivaDate_Months;
+
+            con.ORCID_ID__c = req.orcidID;
+            con.Google_Scholar_Profile__c = req.googleScholarProfileLink;
+            update con;
+
+            // Replace existing career break records with the ones sent in the request
+            List<Career_Break__c> existingBreaks = [
+                SELECT Id FROM Career_Break__c WHERE Contact__c = :con.Id
+            ];
+            if(!existingBreaks.isEmpty()){
+                delete existingBreaks;
+            }
+
+            if(req.careerBreaks != null && !req.careerBreaks.isEmpty()){
+                List<Career_Break__c> newBreaks = new List<Career_Break__c>();
+                for(CareerBreakRequest cb : req.careerBreaks){
+                    Career_Break__c breakRecord = new Career_Break__c();
+                    breakRecord.Contact__c = con.Id;
+                    breakRecord.Start_Date__c = cb.startDate;
+                    breakRecord.End_Date__c = cb.endDate;
+                    breakRecord.Explanation__c = cb.explanation;
+                    newBreaks.add(breakRecord);
+                }
+                insert newBreaks;
+            }
+            
+            response.success = true;
+            response.message = 'Profile data updated successfully !!';
+            response.contactId = con.Id;
+            
+            return response;
+        }
+        catch(Exception ex){
+            response.success = false;
+            response.message = ex.getMessage();
+            
+            return response;
+        }
+    }
+    
+    
+    // Accepts either a valid Account Id or an Account Name.
+    // If it's an Id, returns it as-is. If it's a name, finds a matching
+    // Account or creates a new one and returns its Id.
+    private static Id resolveAccountId(String currentOrg){
+        // Check if the value is already a valid Account Id (starts with '001')
+        if(currentOrg.length() == 15 || currentOrg.length() == 18){
+            try {
+                Id possibleId = (Id) currentOrg;
+                if(String.valueOf(possibleId).startsWith('001')){
+                    return possibleId;
+                }
+            } catch(Exception e) {
+                // Not a valid Id, fall through to name-based lookup
+            }
+        }
+
+        // Treat currentOrg as an Account Name
+        // List<Account> matchingAccounts = [
+        //     SELECT Id FROM Account WHERE Name = :currentOrg LIMIT 1
+        // ];
+
+        // if(!matchingAccounts.isEmpty()){
+        //     return matchingAccounts[0].Id;
+        // }
+
+        Account newAccount = new Account(Name = currentOrg,Type='Other');        
+        insert newAccount;
+        return newAccount.Id;
+    }
+
+    global class ProfileDataRequest{
+        public String contactId;
+        public String firstName;
+        public String lastName;
+        public String email;
+        public String mobileNumber;
+        public Date dob;
+
+        public String qualifyingDegree;
+        public Date qualifyingDegreeVivaDate;
+
+        public String currentOrg;
+        public String department;
+        public String designationRole;
+        public Integer durationOfResearchExperienceAfterQualifyingVivaDate_Years;
+        public Integer durationOfResearchExperienceAfterQualifyingVivaDate_Months;
+        public List<CareerBreakRequest> careerBreaks;
+        public String orcidID;
+        public String googleScholarProfileLink;
+    }
+
+    global class CareerBreakRequest{
+        public Date startDate;
+        public Date endDate;
+        public String explanation;
+    }
+    
+    global class ProfileResponse{
+        public Boolean success;
+        public String message;
+        public String contactId;
+    }
+    
+}

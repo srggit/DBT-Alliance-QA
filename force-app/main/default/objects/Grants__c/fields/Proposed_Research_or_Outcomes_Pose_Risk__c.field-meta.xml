@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Proposed_Research_or_Outcomes_Pose_Risk__c</fullName>
+    <inlineHelpText>If you have identified potential “non-hypothetical” risks, please describe briefly the steps that you and your institution will take to manage them (Limit 250 words).</inlineHelpText>
+    <label>Proposed Research or Outcomes Pose Risk</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

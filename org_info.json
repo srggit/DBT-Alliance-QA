@@ -1,0 +1,17 @@
+﻿{
+  "status": 0,
+  "result": {
+    "id": "00DC3000003lCs1MAE",
+    "apiVersion": "68.0",
+    "accessToken": "[REDACTED] Use 'sf org auth show-access-token' to view",
+    "instanceUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com",
+    "username": "saurabh2000.rg@utilitarianlabs.com",
+    "clientId": "PlatformCLI",
+    "connectedStatus": "Connected",
+    "sfdxAuthUrl": "[REDACTED] Use 'sf org auth show-sfdx-auth-url' to view",
+    "alias": "DBT QA Org"
+  },
+  "warnings": [
+    "Secrets are now hidden from 'sf org display' command output. Use the 'sf org auth' commands instead. As a temporary workaround, you can set SF_TEMP_SHOW_SECRETS=true to render these secrets. This workaround will be removed in an upcoming release."
+  ]
+}

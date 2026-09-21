@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Regulatory_bodies_for_ethical_review__c</fullName>
+    <inlineHelpText>Identify the regulatory bodies responsible for ethical review, indicate the expected timeline, and confirm whether the host institution has the required regulatory committees in place. List any additional regulatory approvals obtained or anticipated.</inlineHelpText>
+    <label>Regulatory bodies for ethical review</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

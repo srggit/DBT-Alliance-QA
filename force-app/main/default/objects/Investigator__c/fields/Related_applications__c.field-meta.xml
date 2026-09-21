@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_applications__c</fullName>
+    <inlineHelpText>Has a similar application been submitted / will be submitted for funding elsewhere? If yes, please provide following details: (i) Name of the funding organisation; (ii) Expected decision date; and (iii) Brief summary</inlineHelpText>
+    <label>Related applications</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

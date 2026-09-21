@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>if_not_reviewed_by_IAEC_With_Timelines__c</fullName>
+    <inlineHelpText>If not, list the regulatory bodies responsible for ethical review of the project and indicate the expected timeline. Any additional regulatory approval obtained or anticipated may be listed.</inlineHelpText>
+    <label>if not reviewed by IAEC, With Timelines</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

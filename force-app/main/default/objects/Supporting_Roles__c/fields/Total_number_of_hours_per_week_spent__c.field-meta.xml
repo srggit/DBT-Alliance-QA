@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_number_of_hours_per_week_spent__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Total number of hours per week spent on all research projects:</inlineHelpText>
+    <label>Hours / week spent on research project</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_will_any_hospital_clinical_facil__c</fullName>
+    <label>Any hospital/clinical facility be used</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>I propose to use facilities within a hospital/clinic.</fullName>
+                <default>false</default>
+                <label>I propose to use facilities within a hospital/clinic.</label>
+            </value>
+            <value>
+                <fullName>My research does not require hospital/clinic facility.</fullName>
+                <default>false</default>
+                <label>My research does not require hospital/clinic facility.</label>
+            </value>
+            <value>
+                <fullName>My research involves patients being cared for by a hospital/clinical facility.</fullName>
+                <default>false</default>
+                <label>My research involves patients being cared for by a hospital/clinical facility.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

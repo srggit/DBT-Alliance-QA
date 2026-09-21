@@ -1,0 +1,106 @@
+:host {
+    display: block;
+}
+
+.gts-page {
+    padding-top: 1px;
+}
+
+/* ================================================================
+   PAGE BANNER
+   ================================================================ */
+
+.gts-banner {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    height: 88px;
+    padding: 0 20px;
+    margin: 0 10px 6px;
+
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.gts-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+}
+
+.gts-banner-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gts-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.gts-banner-text {
+    min-width: 0;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gts-banner-art {
+    position: absolute;
+    top: 0;
+    right: 24px;
+    bottom: 0;
+    width: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.18;
+    pointer-events: none;
+}
+
+.gts-banner-art svg {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 700px) {
+    .gts-banner-art {
+        display: none;
+    }
+}
+
+.gts-banner-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.gts-banner-subtitle {
+    margin-top: 2px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+}

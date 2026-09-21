@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PersonalRegulatorybodiesethicalreview__c</fullName>
+    <inlineHelpText>Personal List the regulatory bodies responsible for ethical review of the project and indicate the expected timeline. Any additional regulatory approval obtained or anticipated may be listed.*</inlineHelpText>
+    <label>Personal Regulatry bodies ethical review</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

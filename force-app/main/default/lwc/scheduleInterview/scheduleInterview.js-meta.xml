@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordAction</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__Tab</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Proposal__c</object>
+            </objects>
+            <property name="showLaunchButton" type="Boolean" default="true" label="Show Launch Button"
+                description="Show a button that opens the form in a popup. Turn off to show the form inline." />
+            <property name="buttonLabel" type="String" default="Schedule Interview" label="Button Label" />
+            <property name="cardTitle" type="String" default="Schedule Interview" label="Card Title" />
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage">
+            <property name="showLaunchButton" type="Boolean" default="true" label="Show Launch Button"
+                description="Show a button that opens the form in a popup. Turn off to show the form inline." />
+            <property name="buttonLabel" type="String" default="Schedule Interview" label="Button Label" />
+            <property name="cardTitle" type="String" default="Schedule Interview" label="Card Title" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

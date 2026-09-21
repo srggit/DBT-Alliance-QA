@@ -1,0 +1,7 @@
+<apex:page controller="FormLinkBuilderVfController">
+    <p><strong>Encoded URL:</strong></p>
+    <p>{!encodedUrl}</p>
+ 
+    <br/>
+    <a href="{!encodedUrl}" target="_blank">Open Form</a>
+</apex:page>

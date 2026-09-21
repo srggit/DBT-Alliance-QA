@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_role_of_candidate_and_fit_to_i__c</fullName>
+    <inlineHelpText>Expected role of candidate and fit to institutional requirements</inlineHelpText>
+    <label>Expected role of candidate and fit</label>
+    <length>20000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,55 @@
+<template>
+    <div class="rml-container">
+        <div class="rml-banner">
+            <div class="rml-banner-icon">
+                <lightning-icon icon-name="utility:identity" size="small"></lightning-icon>
+            </div>
+            <div class="rml-banner-text">
+                <div class="rml-banner-title">Reviewer Mapping</div>
+                <div class="rml-banner-subtitle">All reviewers mapped to this proposal.</div>
+            </div>
+            <div class="rml-banner-art" aria-hidden="true">
+                <lightning-icon icon-name="utility:people" size="large"></lightning-icon>
+            </div>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading reviewer mappings..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:elseif={hasMappings}>
+            <div class="rml-table-wrap">
+                <table class="rml-table">
+                    <thead>
+                        <tr>
+                            <th>Reviewer Name</th>
+                            <th>Reviewer Type</th>
+                            <th>Application Stage</th>
+                            <th>Status</th>
+                            <th>Invitation Sent Date</th>
+                            <th>Overall Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={mappings} for:item="rm">
+                            <tr key={rm.key} class={rm.rowClass}>
+                                <td>{rm.reviewerFullName}</td>
+                                <td>{rm.reviewerType}</td>
+                                <td>{rm.applicationStage}</td>
+                                <td>{rm.status}</td>
+                                <td>{rm.invitationSentDate}</td>
+                                <td>{rm.overallScore}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template lwc:if={showEmptyState}>
+            <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                No reviewer mappings found for this proposal.
+            </p>
+        </template>
+    </div>
+</template>

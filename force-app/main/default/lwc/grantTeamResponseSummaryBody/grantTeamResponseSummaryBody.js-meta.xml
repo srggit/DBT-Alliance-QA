@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata"
+    fqn="grantTeamResponseSummaryBody">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>false</isExposed>
+    <masterLabel>Grant Team Response Summary Body</masterLabel>
+    <description>Internal: renders the stage nav and tables for grantTeamResponseSummary. Not for standalone use.</description>
+</LightningComponentBundle>
