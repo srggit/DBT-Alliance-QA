@@ -1,72 +1,193 @@
 <template>
     <div class="pcl-container">
-        <div class="pcl-banner">
-            <div class="pcl-banner-icon">
-                <lightning-icon icon-name="utility:groups" size="small"></lightning-icon>
-            </div>
-            <div class="pcl-banner-text">
-                <div class="pcl-banner-title">Proposal Committee</div>
-                <div class="pcl-banner-subtitle">All committee members assigned to this proposal.</div>
-            </div>
-            <div class="pcl-banner-art" aria-hidden="true">
-                <lightning-icon icon-name="utility:people" size="large"></lightning-icon>
-            </div>
-        </div>
 
-        <template lwc:if={isLoading}>
-            <div class="slds-is-relative slds-p-around_large">
-                <lightning-spinner alternative-text="Loading committee members..." size="medium"></lightning-spinner>
+        <!-- Add Committee Members: swaps in for the committee list inside the same modal (no second
+             modal on top, so nothing else on screen competes for focus). -->
+        <template lwc:if={showAddModal}>
+            <div class="pcl-banner">
+                <div class="pcl-banner-icon">
+                    <lightning-icon icon-name="utility:adduser" size="small"></lightning-icon>
+                </div>
+                <div class="pcl-banner-text">
+                    <div class="pcl-banner-title">Add Committee Members</div>
+                    <div class="pcl-banner-subtitle">Select committee members and choose a type for each.</div>
+                </div>
+                <div class="pcl-banner-art" aria-hidden="true">
+                    <lightning-icon icon-name="utility:people" size="large"></lightning-icon>
+                </div>
             </div>
-        </template>
-        <template lwc:elseif={error}>
-            <div class="slds-text-color_error slds-p-around_medium">{error}</div>
-        </template>
-        <template lwc:elseif={hasRecords}>
-            <div class="pcl-table-wrap">
-                <table class="pcl-table">
-                    <thead>
-                        <tr>
-                            <th>Committee Member</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Committee Reviewer</th>
-                            <th>Reviewer Response</th>
-                            <th>Conflict Status</th>
-                            <th>Overall Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template for:each={rows} for:item="row">
-                            <tr key={row.key}>
-                                <td>{row.memberName}</td>
-                                <td class="pcl-type-cell">
-                                    <lightning-combobox variant="label-hidden" label="Type" value={row.type}
-                                        options={row.typeOptions} data-id={row.key}
-                                        onchange={handleTypeChange}></lightning-combobox>
-                                </td>
-                                <td>{row.status}</td>
-                                <td>{row.committeeReviewerLabel}</td>
-                                <td>{row.reviewerResponse}</td>
-                                <td>{row.conflictStatus}</td>
-                                <td>{row.overallScore}</td>
+
+            <template lwc:if={isMastersLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading committee members..." size="medium">
+                    </lightning-spinner>
+                </div>
+            </template>
+            <template lwc:elseif={mastersError}>
+                <div class="slds-text-color_error slds-p-around_medium">{mastersError}</div>
+            </template>
+            <template lwc:elseif={hasMasters}>
+                <div class="pcl-table-wrap pcl-table-wrap_scroll">
+                    <table class="pcl-table">
+                        <thead>
+                            <tr>
+                                <th class="pcl-th_checkbox">Select</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Organization</th>
+                                <th>Type</th>
+                                <th class="pcl-th_checkbox">Reviewer</th>
                             </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <template for:each={masterRows} for:item="row">
+                                <tr key={row.key} class={row.rowClass}>
+                                    <td class="pcl-td_checkbox">
+                                        <lightning-input type="checkbox" variant="label-hidden"
+                                            label="Select Committee Member" checked={row.selected}
+                                            disabled={row.alreadyAdded} data-id={row.key}
+                                            onchange={handleMasterSelect}>
+                                        </lightning-input>
+                                    </td>
+                                    <td>
+                                        {row.name}
+                                        <template lwc:if={row.alreadyAdded}>
+                                            <span class="pcl-added-badge">Already added</span>
+                                        </template>
+                                    </td>
+                                    <td>{row.email}</td>
+                                    <td>{row.organization}</td>
+                                    <td class="pcl-type-cell">
+                                        <lightning-combobox variant="label-hidden" label="Type" value={row.type}
+                                            options={typeOptions} data-id={row.key} disabled={row.typeDisabled}
+                                            onchange={handleMasterTypeChange}>
+                                        </lightning-combobox>
+                                    </td>
+                                    <td class="pcl-td_checkbox">
+                                        <lightning-input type="checkbox" variant="label-hidden"
+                                            label="Committee Reviewer" checked={row.committeeReviewer}
+                                            disabled={row.alreadyAdded} data-id={row.key}
+                                            onchange={handleMasterReviewerChange}>
+                                        </lightning-input>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                    No Committee Masters found.
+                </p>
+            </template>
+
             <div class="pcl-actions">
-                <button type="button" class="pcl-save-btn" disabled={saveDisabled} onclick={handleSave}>
-                    <template lwc:if={isSaving}>
-                        <lightning-spinner alternative-text="Saving..." size="x-small" variant="inverse"></lightning-spinner>
+                <button type="button" class="pcl-ghost-btn" onclick={handleCloseAdd} disabled={isAdding}>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="pcl-save-btn" disabled={addSaveDisabled} onclick={handleAddSave}>
+                    <template lwc:if={isAdding}>
+                        <lightning-spinner alternative-text="Saving..." size="x-small" variant="inverse">
+                        </lightning-spinner>
                     </template>
                     <span>Save</span>
+                    <lightning-icon icon-name="utility:check" size="xx-small" class="pcl-btn-icon">
+                    </lightning-icon>
                 </button>
             </div>
         </template>
+
         <template lwc:else>
-            <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
-                No Proposal Committee records found for this proposal.
-            </p>
+            <div class="pcl-banner">
+                <div class="pcl-banner-icon">
+                    <lightning-icon icon-name="utility:groups" size="small"></lightning-icon>
+                </div>
+                <div class="pcl-banner-text">
+                    <div class="pcl-banner-title">Proposal Committee</div>
+                    <div class="pcl-banner-subtitle">All committee members assigned to this proposal.</div>
+                </div>
+                <div class="pcl-banner-art" aria-hidden="true">
+                    <lightning-icon icon-name="utility:people" size="large"></lightning-icon>
+                </div>
+            </div>
+
+            <template lwc:if={isLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading committee members..." size="medium">
+                    </lightning-spinner>
+                </div>
+            </template>
+            <template lwc:elseif={error}>
+                <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+            </template>
+            <template lwc:elseif={hasRecords}>
+                <div class="pcl-table-wrap">
+                    <table class="pcl-table">
+                        <thead>
+                            <tr>
+                                <th>Committee Member</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Committee Reviewer</th>
+                                <th>Reviewer Response</th>
+                                <th>Conflict Status</th>
+                                <th>Overall Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={rows} for:item="row">
+                                <tr key={row.key} class={row.rowClass}>
+                                    <td>{row.memberName}</td>
+                                    <td class="pcl-type-cell">
+                                        <lightning-combobox variant="label-hidden" label="Type" value={row.type}
+                                            options={row.typeOptions} data-id={row.key}
+                                            onchange={handleTypeChange}></lightning-combobox>
+                                    </td>
+                                    <td>{row.status}</td>
+                                    <td class="pcl-reviewer-cell">
+                                        <lightning-input type="checkbox" variant="label-hidden"
+                                            label="Committee Reviewer" checked={row.committeeReviewer}
+                                            data-id={row.key} onchange={handleReviewerChange}>
+                                        </lightning-input>
+                                    </td>
+                                    <td>{row.reviewerResponse}</td>
+                                    <td>{row.conflictStatus}</td>
+                                    <td>{row.overallScore}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                    No Proposal Committee records found for this proposal.
+                </p>
+            </template>
+
+            <template lwc:if={showActions}>
+                <div class="pcl-actions">
+                    <button type="button" class="pcl-ghost-btn" onclick={handleCancel}>
+                        <span>Cancel</span>
+                    </button>
+                    <button type="button" class="pcl-add-btn" onclick={handleOpenAdd}>
+                        <span>Add</span>
+                        <lightning-icon icon-name="utility:adduser" size="xx-small" class="pcl-btn-icon">
+                        </lightning-icon>
+                    </button>
+                    <template lwc:if={hasRecords}>
+                        <button type="button" class="pcl-save-btn" disabled={saveDisabled} onclick={handleSave}>
+                            <template lwc:if={isSaving}>
+                                <lightning-spinner alternative-text="Saving..." size="x-small" variant="inverse">
+                                </lightning-spinner>
+                            </template>
+                            <span>Save</span>
+                        </button>
+                    </template>
+                </div>
+            </template>
         </template>
+
     </div>
 </template>

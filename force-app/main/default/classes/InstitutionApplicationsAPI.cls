@@ -42,9 +42,9 @@ global without sharing class InstitutionApplicationsAPI {
             // participant/endorser sitting directly on the proposal
             // (e.g. Supervisor/Sponsor), not resolved via any Account/host.
             List<Proposal_Participant_Association__c> ppaList = [
-                SELECT Id, Participant__c,Participant__r.Name,Document_Status__c, Document_Uploaded__c, Document_URL__c,Roles__c,Proposal__r.Peer_Application_Stage__c,
-					   Proposal__c,Proposal__r.Name,Proposal__r.Proposal_Id__c,Proposal__r.Proposal_Status__c,Proposal__r.Application_Stages__c,
-                       Proposal__r.Yearly_Scheme__r.Scheme_Items__r.Name
+                SELECT Id, Participant__c,Participant__r.Name,Document_Status__c, Document_Uploaded__c, Document_URL__c,Document_Status_for_Full__c,Document_Uploaded_for_Full__c,Document_URL_for_Full__c,Roles__c,Proposal__r.Peer_Application_Stage__c,
+					   Proposal__c,Proposal__r.Name,Proposal__r.Proposal_Id__c,Proposal__r.Proposal_Status__c,Proposal__r.Application_Stages__c,Added_for_Full__c,
+                       Proposal__r.Yearly_Scheme__r.Scheme_Items__r.Name,CreatedDate
                 FROM Proposal_Participant_Association__c
                 WHERE Participant__c = :conId
                 AND Proposal__c != null
@@ -100,6 +100,10 @@ global without sharing class InstitutionApplicationsAPI {
                 item.status            = ppa.Proposal__r.Proposal_Status__c;
                 item.documentStatus    = ppa.Document_Status__c;
                 item.documentUrl       = ppa.Document_URL__c;
+                item.documentStatusForFull = ppa.Document_Status_for_Full__c;
+                item.documentUrlForFull = ppa.Document_URL_for_Full__c;
+                item.createdDate       = ppa.CreatedDate != null ? ppa.CreatedDate.format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'', 'UTC') : null;
+                item.addedForFull      = ppa.Added_for_Full__c;
                 item.participantCanSubmit = computeCanSubmit(item.scheme, item.participantRole);
                 applications.add(item);
             }
@@ -158,6 +162,10 @@ global without sharing class InstitutionApplicationsAPI {
         global String status;
         global String documentStatus;
         global String documentUrl;
+        global String documentStatusForFull;
+        global String documentUrlForFull;
+        global String createdDate;
+        global Boolean addedForFull;
         global Boolean participantCanSubmit; // true if this participant's role matches the scheme's required submitter role
     }
 }

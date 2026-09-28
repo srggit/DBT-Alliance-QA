@@ -897,3 +897,58 @@
         grid-template-columns: 1fr;
     }
 }
+.papf-flowchart-item {
+    margin-bottom: 12px;
+}
+
+.papf-flowchart-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background: #ffffff;
+}
+
+.papf-document-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.papf-document-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0.4rem 0;
+    font-size: 0.8125rem;
+}
+
+.papf-document-item a {
+    color: #8b1e3f;
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.papf-document-item .papf-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 0.2rem 0.6rem;
+
+    border-radius: 999px;
+    background: #8b1e3f;
+    color: #ffffff;
+
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-decoration: none;
+    word-break: normal;
+}
+
+.papf-view-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}

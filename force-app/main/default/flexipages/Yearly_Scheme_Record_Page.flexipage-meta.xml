@@ -7,16 +7,22 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>Yearly_Schemes__c.Add_Grant_Members</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Yearly_Schemes__c.Assign_Reviewers</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Yearly_Schemes__c.Assign_Committee_Members</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Yearly_Schemes__c.Add_Documents</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Yearly_Schemes__c.CloneChild</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Yearly_Schemes__c.Create_Criteria_Rule</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Yearly_Schemes__c.Create_Criteria_v3</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Yearly_Schemes__c.Add_Reviewer_Question_Templates</value>
@@ -26,18 +32,6 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Yearly_Schemes__c.Add_SchemeQuestions</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Yearly_Schemes__c.Add_Grant_Members</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Yearly_Schemes__c.Add_Documents</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Edit</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Delete</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Yearly_Schemes__c.Submit_Yearly_Scheme_For_Approval</value>
@@ -59,6 +53,12 @@
                                     <rightValue>Sent for Approval</rightValue>
                                 </criteria>
                             </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Edit</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Delete</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -162,6 +162,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Round__c</fieldItem>
                 <identifier>RecordRound__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_Committee_Can_See_Peer_Review__c</fieldItem>
+                <identifier>RecordIs_Committee_Can_See_Peer_Review__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-389c4690-64f9-4845-b377-698de8b10586</name>
@@ -750,6 +760,78 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Prelim_Grants_Responses_Required__c</fieldItem>
+                <identifier>RecordPrelim_Grants_Responses_Required_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Prelim_Reviewers_Required__c</fieldItem>
+                <identifier>RecordPrelim_Reviewers_Required_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-b2daf1fc-c158-4769-b974-ee4319ec9fb2</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Full_Grants_Responses_Required__c</fieldItem>
+                <identifier>RecordFull_Grants_Responses_Required_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Full_Reviewers_Required__c</fieldItem>
+                <identifier>RecordFull_Reviewers_Required_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-0f01033d-ce94-403f-b5a4-15d9375dad56</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b2daf1fc-c158-4769-b974-ee4319ec9fb2</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column17</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-0f01033d-ce94-403f-b5a4-15d9375dad56</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column18</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-481e63ff-04c8-4866-b8dd-53293923d406</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Round_Robin_Pointer__c</fieldItem>
                 <identifier>RecordRound_Robin_Pointer_cField</identifier>
             </fieldInstance>
@@ -985,6 +1067,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-481e63ff-04c8-4866-b8dd-53293923d406</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Required Counts (blank = default)</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection9</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1307,31 +1407,25 @@
                             <value>NAME</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>First_Name__c</value>
+                            <value>Reviewer__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Last_Name__c</value>
+                            <value>Reviewer_Full_Name__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Is_Active__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Reviewer_Type__c</value>
+                            <value>Reviewer_Email_Address__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Organisation__c</value>
+                            <value>Type_of_Reviewer__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Email_Address__c</value>
+                            <value>CREATED_DATE</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Mobile_Number__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Department__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Designation__c</value>
+                            <value>LAST_UPDATE</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

@@ -675,31 +675,18 @@ export default class ProposalApplicationForm extends LightningElement {
         return this.additionalParticipants.length > 0;
     }
 
-    // WOHI_Collaboration__c holds two kinds of records under one object, told apart
-    // by Type__c ('WOHI' vs 'Collaborator') - split into two card lists here the same
-    // way Participants/Additional Participants are, mirroring their card layout.
+    // Mirrors GetProposalDeclarationAPI (the portal's Prelims declaration payload), which
+    // only ever surfaces WOHI_Collaboration__c records with Application_Stage__c = 'Prelims'
+    // AND Type__c = 'WOHI' (as "External Sponsor" unless Roles__c says otherwise) - never
+    // Collaborators, and never records from other/blank stages.
     get wohiEntries() {
-        return this.wohiCollaborationsByType('WOHI');
-    }
-
-    get hasWohiEntries() {
-        return this.wohiEntries.length > 0;
-    }
-
-    get collaboratorEntries() {
-        return this.wohiCollaborationsByType('Collaborator');
-    }
-
-    get hasCollaboratorEntries() {
-        return this.collaboratorEntries.length > 0;
-    }
-
-    wohiCollaborationsByType(type) {
-        const records = (this.data?.wohiCollaborations || []).filter((record) => record.Type__c === type);
+        const records = (this.data?.wohiCollaborations || []).filter(
+            (record) => record.Application_Stage__c === 'Prelims' && record.Type__c === 'WOHI'
+        );
         return records.map((record, index) => ({
             key: record.Id || String(index),
             number: index + 1,
-            role: record.Roles__c || '-',
+            role: record.Roles__c || 'External Sponsor',
             title: record.Title__c || '-',
             firstName: record.FirstName__c || '-',
             lastName: record.Last_Name__c || '-',
@@ -708,6 +695,10 @@ export default class ProposalApplicationForm extends LightningElement {
             telephone: record.TelephoneNo__c || '-',
             email: record.Email__c || '-'
         }));
+    }
+
+    get hasWohiEntries() {
+        return this.wohiEntries.length > 0;
     }
 
     get declaration1Checked() {

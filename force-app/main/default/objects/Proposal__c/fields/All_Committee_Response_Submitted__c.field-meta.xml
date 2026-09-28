@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Committee_Response_Submitted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Becomes true, when all the Committee Members submits their response.</description>
+    <label>All Committee Response Submitted</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

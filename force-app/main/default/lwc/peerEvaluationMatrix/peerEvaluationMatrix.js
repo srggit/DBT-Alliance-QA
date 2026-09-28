@@ -14,6 +14,12 @@ export default class PeerEvaluationMatrix extends LightningElement {
     rejectionReason = '';
     showFeedbackSummary = false;
     feedbackSummary = '';
+    @api hideDecisionPanel = false;
+    @api hideBanner = false;
+
+    get showBanner() {
+        return !this.hideBanner;
+    }
 
     @api
     get recordId() {
@@ -62,13 +68,15 @@ export default class PeerEvaluationMatrix extends LightningElement {
     // Evaluation data to show yet, so the Grants Team can still make a committee decision
     // even when no Full-stage reviewer has responded.
     get showDecisionPanel() {
-        return !this.isLoading && !this.error;
+        return !this.isLoading && !this.error && !this.hideDecisionPanel;
     }
 
     get reviewerColumns() {
         return (this.reviewers || []).map((reviewer) => ({
             key: reviewer.mappingId,
-            label: reviewer.reviewerName || 'Unnamed Reviewer'
+            label: reviewer.reviewerName || 'Unnamed Reviewer',
+            reviewerType: reviewer.reviewerType || '—',
+            status: reviewer.status || '—'
         }));
     }
 

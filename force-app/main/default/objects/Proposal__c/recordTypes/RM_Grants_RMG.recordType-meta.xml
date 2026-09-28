@@ -280,6 +280,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Recommended_for_Chair_Co_Chair_Stage__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Recommended_for_Committee_Review__c</picklist>
         <values>
             <fullName>No</fullName>

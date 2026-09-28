@@ -8,6 +8,21 @@ public with sharing class GrantsTeamResponseHandler {
     private static final Integer PRELIMS_REQUIRED_RESPONSES = 2;
     private static final Integer FULL_REQUIRED_RESPONSES = 2;
 
+    // The required counts above are only the defaults - each Yearly Scheme can override them via
+    // Prelim_Grants_Responses_Required__c / Full_Grants_Responses_Required__c (blank = default).
+    private static Integer requiredResponses(Proposal__c proposal, Boolean prelims) {
+        Decimal configured = null;
+        if (proposal != null && proposal.Yearly_Scheme__r != null) {
+            configured = prelims
+                ? proposal.Yearly_Scheme__r.Prelim_Grants_Responses_Required__c
+                : proposal.Yearly_Scheme__r.Full_Grants_Responses_Required__c;
+        }
+        if (configured != null) {
+            return Integer.valueOf(configured);
+        }
+        return prelims ? PRELIMS_REQUIRED_RESPONSES : FULL_REQUIRED_RESPONSES;
+    }
+
     public static void updateProposalStatus(List<Grants_Team_Response__c> newResponses, Map<Id, Grants_Team_Response__c> oldMap) {
         Set<Id> prelimProposalIds = new Set<Id>();
         Set<Id> fullProposalIds = new Set<Id>();
@@ -43,7 +58,9 @@ public with sharing class GrantsTeamResponseHandler {
 
         // Eligibility is locked once decided, so skip stages that already have an outcome.
         Map<Id, Proposal__c> proposalsById = new Map<Id, Proposal__c>([
-            SELECT Id, Eligible_For_Prelim__c, Eligible_For_Full__c, Proposal_Status__c
+            SELECT Id, Eligible_For_Prelim__c, Eligible_For_Full__c, Proposal_Status__c,
+                   Yearly_Scheme__r.Prelim_Grants_Responses_Required__c,
+                   Yearly_Scheme__r.Full_Grants_Responses_Required__c
             FROM Proposal__c
             WHERE Id IN :allProposalIds
         ]);
@@ -75,13 +92,14 @@ public with sharing class GrantsTeamResponseHandler {
                 }
 
                 List<Grants_Team_Response__c> submitted = prelimResponsesByProposal.get(proposalId);
-                if (submitted.size() < PRELIMS_REQUIRED_RESPONSES) {
+                Integer requiredPrelims = requiredResponses(proposalsById.get(proposalId), true);
+                if (submitted.size() < requiredPrelims) {
                     // Threshold not reached yet - wait for more submissions.
                     continue;
                 }
 
                 String eligibility = 'Eligible';
-                for (Integer i = 0; i < PRELIMS_REQUIRED_RESPONSES; i++) {
+                for (Integer i = 0; i < requiredPrelims; i++) {
                     if (submitted[i].Eligible_For_Prelim__c != 'Eligible') {
                         eligibility = 'Not Eligible';
                         break;
@@ -121,13 +139,14 @@ public with sharing class GrantsTeamResponseHandler {
                 }
 
                 List<Grants_Team_Response__c> submitted = fullResponsesByProposal.get(proposalId);
-                if (submitted.size() < FULL_REQUIRED_RESPONSES) {
+                Integer requiredFull = requiredResponses(proposalsById.get(proposalId), false);
+                if (submitted.size() < requiredFull) {
                     // Threshold not reached yet - wait for more submissions.
                     continue;
                 }
 
                 String eligibility = 'Eligible';
-                for (Integer i = 0; i < FULL_REQUIRED_RESPONSES; i++) {
+                for (Integer i = 0; i < requiredFull; i++) {
                     if (submitted[i].Eligible_For_Full__c != 'Eligible') {
                         eligibility = 'Not Eligible';
                         break;

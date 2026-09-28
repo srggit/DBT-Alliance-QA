@@ -1,0 +1,130 @@
+.gantt-card {
+    max-width: 100%;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e4e6ed;
+    border-radius: 16px;
+}
+
+.gantt-wrap {
+    display: flex;
+    border: 1px solid #e7e9f0;
+    border-radius: 10px;
+}
+
+.gantt-label-col {
+    flex-shrink: 0;
+    border-right: 1px solid #e7e9f0;
+}
+
+.gantt-label-header {
+    background: #fafafc;
+    border-top-left-radius: 10px;
+}
+
+.gantt-label-cell {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 12px;
+    border-top: 1px solid #e7e9f0;
+    font-size: 0.875rem;
+    color: #1e2333;
+}
+
+.gantt-dot {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 999px;
+}
+
+.gantt-label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gantt-scroll {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+.gantt-header-row {
+    display: flex;
+}
+
+.gantt-hcell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    background: #fafafc;
+}
+
+.gantt-hcell_year {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.gantt-hcell_half {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.gantt-hcell_month {
+    font-size: 9px;
+    background: #ffffff;
+}
+
+.gantt-row {
+    position: relative;
+    box-sizing: border-box;
+    border-top: 1px solid #e7e9f0;
+}
+
+.gantt-track {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    background: #f4f5f9;
+    border-radius: 7px;
+}
+
+.gantt-gridline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.gantt-bar {
+    position: absolute;
+    top: 50%;
+    height: 14px;
+    transform: translateY(-50%);
+    border-radius: 7px;
+}
+
+.gantt-tooltip {
+    position: absolute;
+    z-index: 30;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #1e2333;
+    color: #ffffff;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.gantt-empty {
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #8791a8;
+}

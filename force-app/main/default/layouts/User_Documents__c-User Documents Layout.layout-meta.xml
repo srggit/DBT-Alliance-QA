@@ -53,6 +53,10 @@
                 <behavior>Edit</behavior>
                 <field>Proposal__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Documen_type__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

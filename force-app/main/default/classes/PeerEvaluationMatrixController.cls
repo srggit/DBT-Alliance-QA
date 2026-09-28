@@ -49,7 +49,7 @@ public with sharing class PeerEvaluationMatrixController {
         }
 
         List<Reviewer_Mapping__c> mappings = [
-            SELECT Id, Reviewer_Name__c,
+            SELECT Id, Reviewer_Name__c, Reviewer_Type__c, Status__c,
                    Reviewer__r.Title__c, Reviewer__r.First_Name__c, Reviewer__r.Last_Name__c
             FROM Reviewer_Mapping__c
             WHERE Proposal__c = :proposalId
@@ -89,7 +89,7 @@ public with sharing class PeerEvaluationMatrixController {
                     answers.add(new QuestionAnswerWrapper(pe.Question__c, pe.Description__c, pe.Answer__c));
                 }
             }
-            result.add(new ReviewerPeerEvaluationWrapper(mapping.Id, resolveReviewerName(mapping), answers));
+            result.add(new ReviewerPeerEvaluationWrapper(mapping.Id, resolveReviewerName(mapping), mapping.Reviewer_Type__c, mapping.Status__c, answers));
         }
         return result;
     }
@@ -115,11 +115,15 @@ public with sharing class PeerEvaluationMatrixController {
     public class ReviewerPeerEvaluationWrapper {
         @AuraEnabled public Id mappingId;
         @AuraEnabled public String reviewerName;
+        @AuraEnabled public String reviewerType;
+        @AuraEnabled public String status;
         @AuraEnabled public List<QuestionAnswerWrapper> answers;
 
-        public ReviewerPeerEvaluationWrapper(Id mappingId, String reviewerName, List<QuestionAnswerWrapper> answers) {
+        public ReviewerPeerEvaluationWrapper(Id mappingId, String reviewerName, String reviewerType, String status, List<QuestionAnswerWrapper> answers) {
             this.mappingId = mappingId;
             this.reviewerName = reviewerName;
+            this.reviewerType = reviewerType;
+            this.status = status;
             this.answers = answers;
         }
     }

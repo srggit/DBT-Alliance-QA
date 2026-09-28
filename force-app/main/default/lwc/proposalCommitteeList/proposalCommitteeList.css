@@ -102,9 +102,79 @@
 .pcl-actions {
     display: flex;
     justify-content: flex-end;
+    gap: 10px;
     margin-top: 14px;
 }
 
+.pcl-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+    --sds-c-icon-color-foreground-default: #ffffff;
+}
+
+.pcl-ghost-btn {
+    padding: 0.5rem 1.25rem;
+
+    border: 1px solid #d8dde3;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.pcl-ghost-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Add view: only the table scrolls (header stays put), so Cancel / Save stay on screen. */
+.pcl-table-wrap_scroll {
+    max-height: calc(100vh - 330px);
+    overflow-y: auto;
+}
+
+.pcl-table-wrap_scroll .pcl-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.pcl-th_checkbox,
+.pcl-td_checkbox {
+    width: 60px;
+    text-align: center;
+}
+
+/* Committee members whose Status__c is Submitted */
+.pcl-row_submitted td {
+    background: #ecf8f0;
+}
+
+.pcl-row_submitted td:first-child {
+    box-shadow: inset 3px 0 0 #24a45d;
+}
+
+.pcl-reviewer-cell {
+    white-space: normal;
+}
+
+.pcl-row_added td {
+    opacity: 0.6;
+}
+
+.pcl-added-badge {
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: #eef1f6;
+    color: #64748b;
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+
+.pcl-add-btn,
 .pcl-save-btn {
     display: flex;
     align-items: center;

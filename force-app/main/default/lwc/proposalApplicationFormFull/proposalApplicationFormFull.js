@@ -414,8 +414,45 @@ export default class ProposalApplicationFormFull extends LightningElement {
         }));
     }
 
+    // Gantt input: same milestones as the table, but with the locale-independent ISO dates.
+    get ganttMilestones() {
+        return (this.data?.projectMilestones || []).map((record) => ({
+            milestone: record.Milestone__c,
+            startDate: record.startDateIso,
+            endDate: record.endDateIso
+        }));
+    }
+
     get hasProjectMilestones() {
         return this.projectMilestones.length > 0;
+    }
+
+    // Files from User_Documents__c linked to the Proposal, already filtered (Full stage,
+    // Submitted/Uploaded) and categorised server-side - see getProposalDetails.
+    proposalDocumentsByCategory(category) {
+        return (this.data?.proposalDocuments || [])
+            .filter((doc) => doc.category === category)
+            .map((doc, index) => ({
+                key: doc.id || String(index),
+                name: doc.name,
+                url: doc.url
+            }));
+    }
+
+    get flowchartDocuments() {
+        return this.proposalDocumentsByCategory('flowchart');
+    }
+
+    get hasFlowchartDocuments() {
+        return this.flowchartDocuments.length > 0;
+    }
+
+    get supportDocuments() {
+        return this.proposalDocumentsByCategory('document');
+    }
+
+    get hasSupportDocuments() {
+        return this.supportDocuments.length > 0;
     }
 
     /* ============================================================
@@ -1082,6 +1119,39 @@ export default class ProposalApplicationFormFull extends LightningElement {
         return this.supervisorParticipant?.Your_present_past_relevant_grants__c || '';
     }
 
+    // The supervisor's uploaded document lives on the Proposal_Participant_Association__c
+    // itself (Document_URL__c / Document_Status__c), not in User_Documents__c.
+    get supervisorDocumentUrl() {
+        return (this.supervisorParticipant?.Document_URL__c || '').trim();
+    }
+
+    get hasSupervisorDocument() {
+        return this.supervisorDocumentUrl !== '';
+    }
+
+    get supervisorDocumentName() {
+        return this.fileNameFromUrl(this.supervisorDocumentUrl);
+    }
+
+    get supervisorDocumentStatus() {
+        return this.supervisorParticipant?.Document_Status__c || 'Pending';
+    }
+
+    get isSupervisorDocumentSubmitted() {
+        return ['Submitted', 'Approved', 'ReSubmitted'].includes(this.supervisorDocumentStatus);
+    }
+
+    get supervisorDocumentStatusIcon() {
+        return this.isSupervisorDocumentSubmitted ? 'utility:success' : 'utility:clock';
+    }
+
+    get supervisorDocumentStatusClass() {
+        return (
+            'papf-status-badge' +
+            (this.isSupervisorDocumentSubmitted ? ' papf-status-badge_uploaded' : ' papf-status-badge_pending')
+        );
+    }
+
     /* ============================================================
        11. DISSEMINATION PLANS (Proposal__c fields)
        ============================================================ */
@@ -1153,9 +1223,40 @@ export default class ProposalApplicationFormFull extends LightningElement {
                 designation: contact.Position__c || '',
                 department: contact.Department || '',
                 organisation: contact.AccountId || '',
-                telephone: contact.Phone || ''
+                telephone: contact.Phone || '',
+                ...this.participantDocumentInfo(record)
             };
         });
+    }
+
+    // Document state for a Proposal_Participant_Association__c (Document_Status__c /
+    // Document_URL__c live on the association itself) - shared by the Sponsor cards; the
+    // Fellowship Supervisor getters below read the same two fields.
+    participantDocumentInfo(record) {
+        const status = record?.Document_Status__c || 'Pending';
+        const isSubmitted = ['Submitted', 'Approved', 'ReSubmitted'].includes(status);
+        const url = (record?.Document_URL__c || '').trim();
+        return {
+            documentStatus: status,
+            documentStatusIcon: isSubmitted ? 'utility:success' : 'utility:clock',
+            documentStatusClass:
+                'papf-status-badge' + (isSubmitted ? ' papf-status-badge_uploaded' : ' papf-status-badge_pending'),
+            documentUrl: url,
+            hasDocument: url !== '',
+            documentName: this.fileNameFromUrl(url)
+        };
+    }
+
+    // S3 keys look like '<folder>/<uuid>_<original file name>' - show just the file name.
+    fileNameFromUrl(url) {
+        const raw = (url || '').split('?')[0].split('/').pop() || '';
+        let name = raw;
+        try {
+            name = decodeURIComponent(raw);
+        } catch (e) {
+            name = raw;
+        }
+        return name.replace(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}_/i, '');
     }
 
     get hasSponsors() {
@@ -1346,6 +1447,18 @@ export default class ProposalApplicationFormFull extends LightningElement {
        for WOHI" table)
        ============================================================ */
 
+    // Files for one WOHI_Collaboration__c - User_Documents__c looks up to it directly (see
+    // getProposalDetails' wohiDocuments, already limited to uploaded files with a link).
+    documentsForCollaboration(collaborationId) {
+        return (this.data?.wohiDocuments || [])
+            .filter((doc) => doc.collaborationId === collaborationId)
+            .map((doc, index) => ({
+                key: doc.id || String(index),
+                name: doc.name,
+                url: doc.url
+            }));
+    }
+
     get wohiApplicants() {
         const collaborations = this.data?.wohiCollaborations || [];
         const visits = this.data?.wohiCollaboratorVisits || [];
@@ -1373,7 +1486,16 @@ export default class ProposalApplicationFormFull extends LightningElement {
                 scientificJustification: record.Scientific_Justification_for_WOHI_lab__c || '',
                 expectedOutcome: record.Expected_outcome_from_each_visit__c || '',
                 visits: this.mapWohiVisits(visits, record.Id),
-                hasVisits: this.mapWohiVisits(visits, record.Id).length > 0
+                hasVisits: this.mapWohiVisits(visits, record.Id).length > 0,
+                documentStatus: record.Wohi_User_Document_Status__c ? 'Submitted' : 'Pending',
+                documentStatusClass:
+                    'papf-status-badge' +
+                    (record.Wohi_User_Document_Status__c
+                        ? ' papf-status-badge_uploaded'
+                        : ' papf-status-badge_pending'),
+                documentStatusIcon: record.Wohi_User_Document_Status__c ? 'utility:success' : 'utility:clock',
+                documents: this.documentsForCollaboration(record.Id),
+                hasDocuments: this.documentsForCollaboration(record.Id).length > 0
             }));
     }
 
@@ -1438,7 +1560,16 @@ export default class ProposalApplicationFormFull extends LightningElement {
                 expertise: record.Expertise__c || '',
                 yearsOfExperience: record.Years_of_Experience_as_independent_PI__c || '',
                 extentAndNature: record.Extent_and_nature_of_Collaborator__c || '',
-                mtaRequirement: record.Will_the_collaboration_require_MTA__c || ''
+                mtaRequirement: record.Will_the_collaboration_require_MTA__c || '',
+                documentStatus: record.Wohi_User_Document_Status__c ? 'Submitted' : 'Pending',
+                documentStatusClass:
+                    'papf-status-badge' +
+                    (record.Wohi_User_Document_Status__c
+                        ? ' papf-status-badge_uploaded'
+                        : ' papf-status-badge_pending'),
+                documentStatusIcon: record.Wohi_User_Document_Status__c ? 'utility:success' : 'utility:clock',
+                documents: this.documentsForCollaboration(record.Id),
+                hasDocuments: this.documentsForCollaboration(record.Id).length > 0
             }));
     }
 
@@ -1537,12 +1668,47 @@ export default class ProposalApplicationFormFull extends LightningElement {
         return records.find((doc) => doc.Human__c === this.humanRecord?.Id) || null;
     }
 
+    // Files linked to this Human__c record (see getProposalDetails' humanDocuments), already
+    // placed by S3 folder: 'letter' = clinical-collaborator letter of participation,
+    // 'consent' = informed-consent attachment.
+    humanDocumentsByCategory(category) {
+        return (this.data?.humanDocuments || [])
+            .filter((doc) => doc.category === category)
+            .map((doc, index) => ({
+                key: doc.id || String(index),
+                name: doc.name,
+                url: doc.url
+            }));
+    }
+
+    get humanLetterDocuments() {
+        return this.humanDocumentsByCategory('letter');
+    }
+
+    get hasHumanLetterDocuments() {
+        return this.humanLetterDocuments.length > 0;
+    }
+
+    get humanConsentDocuments() {
+        return this.humanDocumentsByCategory('consent');
+    }
+
+    get hasHumanConsentDocuments() {
+        return this.humanConsentDocuments.length > 0;
+    }
+
     get hospitalLetterUploadStatus() {
+        if (this.hasHumanLetterDocuments) {
+            return 'Uploaded';
+        }
         return this.hospitalLetterDocument?.Upload_Status__c || 'Pending';
     }
 
     get isHospitalLetterUploaded() {
-        return this.hospitalLetterUploadStatus === 'Uploaded';
+        return (
+            this.hospitalLetterUploadStatus === 'Uploaded' ||
+            this.hospitalLetterUploadStatus === 'Submitted/Uploaded'
+        );
     }
 
     get hospitalLetterStatusIcon() {

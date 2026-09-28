@@ -463,7 +463,14 @@ public with sharing class ProposalApplicantDetailsController {
             for (SObject milestone : Database.query(
                 'SELECT ' + milestoneFields + ' FROM Project_Milestone__c WHERE Proposal__c = :proposalId ORDER BY Start_Date__c ASC NULLS LAST'
             )) {
-                milestoneMaps.add(toMap(milestone));
+                Map<String, Object> milestoneMap = toMap(milestone);
+                // toMap formats Dates in the user's locale (d/m/yyyy vs m/d/yyyy), which can't be
+                // parsed reliably client-side - the Gantt chart needs the unambiguous ISO value.
+                Date milestoneStart = (Date) milestone.get('Start_Date__c');
+                Date milestoneEnd = (Date) milestone.get('End_Date__c');
+                milestoneMap.put('startDateIso', milestoneStart == null ? null : String.valueOf(milestoneStart));
+                milestoneMap.put('endDateIso', milestoneEnd == null ? null : String.valueOf(milestoneEnd));
+                milestoneMaps.add(milestoneMap);
             }
         }
         result.put('projectMilestones', milestoneMaps);
@@ -512,6 +519,7 @@ public with sharing class ProposalApplicantDetailsController {
         // same shape as Animals__c, covering the "Research Involving Human
         // Participants" section.
         Map<String, Object> humanMap = new Map<String, Object>();
+        Id humanId;
         String humanFields = getQueryableFieldList('Human__c');
         if (!String.isBlank(humanFields)) {
             List<SObject> humanRecords = Database.query(
@@ -519,9 +527,51 @@ public with sharing class ProposalApplicantDetailsController {
             );
             if (!humanRecords.isEmpty()) {
                 humanMap = toMap(humanRecords[0]);
+                humanId = humanRecords[0].Id;
             }
         }
         result.put('human', humanMap);
+
+        // The files uploaded on the "Research Involving Human Participants" step
+        // (clinical-collaborator letter of participation, informed-consent attachment) are
+        // User_Documents__c records linked ONLY through Human__c - Proposal__c and
+        // Applicant_Proposal_Association__c are blank on them, so neither the generic
+        // userDocuments list nor a Proposal__c query would ever find them. Placement is by the
+        // S3 folder in Document_Link__c: '/human-collaborator-letter/' and '/human-consent/'
+        // are unambiguous; the older '/human-documents/' folder holds both kinds, told apart
+        // only by User_Document_Name__c ('Consent Attachment' -> consent, anything else ->
+        // letter of participation).
+        List<Map<String, Object>> humanDocumentMaps = new List<Map<String, Object>>();
+        if (humanId != null) {
+            for (User_Documents__c doc : [
+                SELECT Id, User_Document_Name__c, Document_Link__c
+                FROM User_Documents__c
+                WHERE Human__c = :humanId
+                ORDER BY CreatedDate ASC
+            ]) {
+                if (String.isBlank(doc.Document_Link__c)) {
+                    continue;
+                }
+                String link = doc.Document_Link__c.trim();
+                String category;
+                if (link.contains('/human-collaborator-letter/')) {
+                    category = 'letter';
+                } else if (link.contains('/human-consent/')) {
+                    category = 'consent';
+                } else if (link.contains('/human-documents/')) {
+                    category = 'Consent Attachment'.equalsIgnoreCase(doc.User_Document_Name__c) ? 'consent' : 'letter';
+                } else {
+                    continue;
+                }
+                humanDocumentMaps.add(new Map<String, Object>{
+                    'id' => doc.Id,
+                    'name' => String.isNotBlank(doc.User_Document_Name__c) ? doc.User_Document_Name__c : link.substringAfterLast('/'),
+                    'url' => link,
+                    'category' => category
+                });
+            }
+        }
+        result.put('humanDocuments', humanDocumentMaps);
 
         // WOHI_Collaboration__c looks up to Applicant_Proposal_Association__c (same
         // as the generic childObjectNames block above), but it needs its own block
@@ -532,6 +582,7 @@ public with sharing class ProposalApplicantDetailsController {
         // apart; the LWC splits this one list by Type__c.
         List<Map<String, Object>> wohiCollaborationMaps = new List<Map<String, Object>>();
         List<Map<String, Object>> wohiCollaboratorVisitMaps = new List<Map<String, Object>>();
+        List<Map<String, Object>> wohiDocumentMaps = new List<Map<String, Object>>();
         String wohiLookupField = getLookupFieldName('WOHI_Collaboration__c', 'Applicant_Proposal_Association__c');
         if (!String.isBlank(wohiLookupField) && !applicantIds.isEmpty()) {
             String wohiFields = getQueryableFieldList('WOHI_Collaboration__c');
@@ -545,6 +596,29 @@ public with sharing class ProposalApplicantDetailsController {
                     wohiCollaborationIds.add(wohiRecord.Id);
                 }
                 if (!wohiCollaborationIds.isEmpty()) {
+                    // Files uploaded by the WOHI applicant / collaborator on the portal:
+                    // User_Documents__c looks up straight to WOHI_Collaboration__c. Only
+                    // records that actually hold a file are returned (Document_Link__c is
+                    // long-text, so that check has to happen here, not in the WHERE clause).
+                    for (User_Documents__c doc : [
+                        SELECT Id, User_Document_Name__c, Document_Link__c, WOHI_Collaboration__c
+                        FROM User_Documents__c
+                        WHERE WOHI_Collaboration__c IN :wohiCollaborationIds
+                        AND Upload_Status__c IN ('Submitted/Uploaded', 'Uploaded')
+                        ORDER BY CreatedDate ASC
+                    ]) {
+                        if (String.isBlank(doc.Document_Link__c)) {
+                            continue;
+                        }
+                        String link = doc.Document_Link__c.trim();
+                        wohiDocumentMaps.add(new Map<String, Object>{
+                            'id' => doc.Id,
+                            'collaborationId' => doc.WOHI_Collaboration__c,
+                            'name' => String.isNotBlank(doc.User_Document_Name__c) ? doc.User_Document_Name__c : link.substringAfterLast('/'),
+                            'url' => link
+                        });
+                    }
+
                     String wohiVisitFields = getQueryableFieldList('WOHI_Collaborator_Visit__c');
                     if (!String.isBlank(wohiVisitFields)) {
                         for (SObject visit : Database.query(
@@ -564,6 +638,7 @@ public with sharing class ProposalApplicantDetailsController {
             }
         }
         result.put('wohiCollaborations', wohiCollaborationMaps);
+        result.put('wohiDocuments', wohiDocumentMaps);
         result.put('wohiCollaboratorVisits', wohiCollaboratorVisitMaps);
 
         // Suggested_Reviewer__c also looks up directly to Proposal__c - covers both
@@ -580,6 +655,41 @@ public with sharing class ProposalApplicantDetailsController {
             }
         }
         result.put('suggestedReviewers', suggestedReviewerMaps);
+
+        // User_Documents__c looks up directly to Proposal__c for the files the portal uploads
+        // on the Full "Research Proposal" step - the flowchart image and any additional
+        // supporting documents (cohort support letter, draft consent form, etc.). Nothing on
+        // the record says which is which (Documen_type__c is unused); the S3 folder in
+        // Document_Link__c is the only discriminator - '/flowcharts/' vs '/documents/'.
+        // Document_Link__c is a long-text field, so it can't be filtered in the WHERE clause.
+        List<Map<String, Object>> proposalDocumentMaps = new List<Map<String, Object>>();
+        for (User_Documents__c doc : [
+            SELECT Id, User_Document_Name__c, Document_Link__c
+            FROM User_Documents__c
+            WHERE Proposal__c = :proposalId
+            AND Stages__c = 'Full'
+            AND Upload_Status__c = 'Submitted/Uploaded'
+            ORDER BY CreatedDate ASC
+        ]) {
+            if (String.isBlank(doc.Document_Link__c)) {
+                continue;
+            }
+            String link = doc.Document_Link__c.trim();
+            String category = link.contains('/flowcharts/') ? 'flowchart' : (link.contains('/documents/') ? 'document' : null);
+            if (category == null) {
+                continue;
+            }
+            String fileName = String.isNotBlank(doc.User_Document_Name__c)
+                ? doc.User_Document_Name__c
+                : link.substringAfterLast('/');
+            proposalDocumentMaps.add(new Map<String, Object>{
+                'id' => doc.Id,
+                'name' => fileName,
+                'url' => link,
+                'category' => category
+            });
+        }
+        result.put('proposalDocuments', proposalDocumentMaps);
 
         Map<String, Object> fieldLabels = new Map<String, Object>();
         fieldLabels.put('Proposal__c', getFieldLabels('Proposal__c'));

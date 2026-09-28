@@ -1,0 +1,58 @@
+<template>
+    <div class="gantt-card">
+        <template lwc:if={hasTimeline}>
+            <div class="gantt-wrap">
+                <div class="gantt-label-col" style={labelColStyle}>
+                    <div class="gantt-label-header" style={labelHeaderStyle}></div>
+                    <template for:each={rows} for:item="row">
+                        <div key={row.key} class="gantt-label-cell" style={row.labelStyle} title={row.label}>
+                            <span class="gantt-dot" style={row.dotStyle}></span>
+                            <span class="gantt-label-text">{row.label}</span>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="gantt-scroll">
+                    <div style={timelineStyle}>
+                        <div class="gantt-header-row">
+                            <template for:each={yearCells} for:item="c">
+                                <div key={c.key} class="gantt-hcell gantt-hcell_year" style={c.style}>{c.label}</div>
+                            </template>
+                        </div>
+                        <div class="gantt-header-row">
+                            <template for:each={halfCells} for:item="c">
+                                <div key={c.key} class="gantt-hcell gantt-hcell_half" style={c.style}>{c.label}</div>
+                            </template>
+                        </div>
+                        <div class="gantt-header-row">
+                            <template for:each={monthCells} for:item="c">
+                                <div key={c.key} class="gantt-hcell gantt-hcell_month" style={c.style}>{c.label}</div>
+                            </template>
+                        </div>
+
+                        <template for:each={rows} for:item="row">
+                            <div key={row.key} class="gantt-row" style={row.rowStyle}>
+                                <div class="gantt-track">
+                                    <template for:each={row.gridlines} for:item="g">
+                                        <div key={g.key} class="gantt-gridline" style={g.style}></div>
+                                    </template>
+                                    <template lwc:if={row.valid}>
+                                        <div class="gantt-bar" style={row.barStyle} data-idx={row.idx}
+                                            onmouseenter={handleBarEnter} onmouseleave={handleBarLeave}>
+                                            <template lwc:if={row.showTooltip}>
+                                                <div class="gantt-tooltip" style={row.tooltipStyle}>{row.tooltipText}</div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template lwc:else>
+            <p class="gantt-empty">{emptyMessage}</p>
+        </template>
+    </div>
+</template>

@@ -66,6 +66,7 @@ public with sharing class ReviewerSectionResponseController {
                 mapping.Id,
                 resolveReviewerName(mapping),
                 mapping.Reviewer_Type__c,
+                mapping.Status__c,
                 mapping.Overall_Assessment_Comments__c,
                 mapping.Overall_Score__c,
                 mapping.Application_Stages__c,
@@ -195,6 +196,7 @@ public with sharing class ReviewerSectionResponseController {
         @AuraEnabled public Id mappingId;
         @AuraEnabled public String reviewerName;
         @AuraEnabled public String reviewerType;
+        @AuraEnabled public String status;
         @AuraEnabled public String overallComments;
         @AuraEnabled public Decimal overallScore;
         @AuraEnabled public String applicationStage;
@@ -204,6 +206,7 @@ public with sharing class ReviewerSectionResponseController {
             Id mappingId,
             String reviewerName,
             String reviewerType,
+            String status,
             String overallComments,
             Decimal overallScore,
             String applicationStage,
@@ -212,6 +215,7 @@ public with sharing class ReviewerSectionResponseController {
             this.mappingId = mappingId;
             this.reviewerName = String.isBlank(reviewerName) ? 'Unnamed Reviewer' : reviewerName;
             this.reviewerType = reviewerType;
+            this.status = status;
             this.overallComments = overallComments;
             this.overallScore = overallScore;
             this.applicationStage = applicationStage;

@@ -1,0 +1,231 @@
+.sel-container {
+    padding: 15px 15px 15px;
+}
+
+/* ================================================================
+   BANNER
+   ================================================================ */
+
+.sel-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 16px 20px;
+    margin-bottom: 16px;
+
+    border-radius: 0.75rem;
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.sel-banner-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    border-radius: 0.6rem;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sel-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.sel-banner-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.sel-banner-subtitle {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.sel-picker {
+    margin-bottom: 14px;
+    max-width: 420px;
+}
+
+/* ================================================================
+   TOOLBAR
+   ================================================================ */
+
+.sel-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.sel-toolbar lightning-input {
+    flex: 1;
+    max-width: 420px;
+}
+
+.sel-count {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #5c1029;
+}
+
+/* ================================================================
+   TABLE - only the body scrolls, so Cancel / Save stay on screen
+   ================================================================ */
+
+.sel-table-wrap {
+    max-height: calc(100vh - 380px);
+    min-height: 120px;
+    overflow: auto;
+
+    border: 1px solid #eef1f6;
+    border-radius: 10px;
+}
+
+.sel-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sel-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    background: #8b1e3f;
+    color: #ffffff;
+
+    text-align: left;
+    padding: 0.6rem 0.9rem;
+
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.sel-table td {
+    padding: 0.5rem 0.9rem;
+    vertical-align: middle;
+
+    font-size: 0.8125rem;
+    color: #334155;
+
+    border-bottom: 1px solid #eef1f6;
+}
+
+.sel-table tr:last-child td {
+    border-bottom: none;
+}
+
+.sel-th_checkbox,
+.sel-td_checkbox {
+    width: 70px;
+    text-align: center;
+}
+
+/* Centre every checkbox (select / select-all / Is Active) in its column. */
+.sel-th_checkbox lightning-input,
+.sel-td_checkbox lightning-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sel-th_checkbox,
+.sel-td_checkbox {
+    padding-left: 0;
+    padding-right: 0;
+    vertical-align: middle;
+}
+
+.sel-th_checkbox lightning-input {
+    --slds-c-checkbox-color-border: #ffffff;
+}
+
+.sel-row_selected td {
+    background: #fdf5f7;
+}
+
+.sel-row_added td {
+    opacity: 0.6;
+}
+
+.sel-added-badge {
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: #eef1f6;
+    color: #64748b;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ================================================================
+   ACTIONS
+   ================================================================ */
+
+.sel-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.sel-save-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0.5rem 1.25rem;
+
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #ffffff;
+
+    background: linear-gradient(120deg, #7a1a37 0%, #8b1e3f 100%);
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.25);
+}
+
+.sel-save-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    box-shadow: none;
+}
+
+.sel-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+    --sds-c-icon-color-foreground-default: #ffffff;
+}
+
+.sel-ghost-btn {
+    padding: 0.5rem 1.25rem;
+
+    border: 1px solid #d8dde3;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.sel-ghost-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}

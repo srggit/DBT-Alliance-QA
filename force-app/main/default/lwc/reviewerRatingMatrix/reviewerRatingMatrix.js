@@ -15,6 +15,11 @@ export default class ReviewerRatingMatrix extends LightningElement {
     showRejectionReason = false;
     rejectionReason = '';
     prelimReviewerEligibilityStatus;
+    @api hideDecisionPanel = false;
+
+    get showDecisionPanel() {
+        return !this.hideDecisionPanel;
+    }
 
     @api
     get recordId() {
@@ -74,7 +79,9 @@ export default class ReviewerRatingMatrix extends LightningElement {
         return (this.reviewers || []).map((reviewer) => ({
             key: reviewer.mappingId,
             label: reviewer.reviewerName || 'Unnamed Reviewer',
-            applicationStage: reviewer.applicationStage || '—'
+            applicationStage: reviewer.applicationStage || '—',
+            reviewerType: reviewer.reviewerType || '—',
+            status: reviewer.status || '—'
         }));
     }
 
@@ -82,17 +89,21 @@ export default class ReviewerRatingMatrix extends LightningElement {
         return this.reviewerColumns.length;
     }
 
-    get stageColumnGroups() {
-        const groups = [];
-        this.reviewerColumns.forEach((col) => {
-            const last = groups[groups.length - 1];
-            if (last && last.stage === col.applicationStage) {
-                last.colspan += 1;
-            } else {
-                groups.push({ key: col.key, stage: col.applicationStage, colspan: 1 });
+    // Top group-header label - "Prelim Reviewers"/"Full Reviewers" when every reviewer
+    // shares one stage (the common case, since this component is stage-scoped by the
+    // Proposal itself), falling back to plain "Reviewers" if that's ever not true.
+    get reviewerGroupHeaderLabel() {
+        const stages = new Set(this.reviewerColumns.map((col) => col.applicationStage).filter(Boolean));
+        if (stages.size === 1) {
+            const stage = stages.values().next().value;
+            if (stage === 'Prelims') {
+                return 'Prelim Reviewers';
             }
-        });
-        return groups;
+            if (stage === 'Full') {
+                return 'Full Reviewers';
+            }
+        }
+        return 'Reviewers';
     }
 
     get totalColumns() {

@@ -7,6 +7,17 @@ public with sharing class ReviewerController {
     // in the org the template happens to be deployed in.
     private static final String REVIEWER_PORTAL_URL_PLACEHOLDER = '{!Reviewer_Portal_URL__c}';
 
+    // Placeholder in the committee assignment template: replaced with a bold "assigned as the
+    // Reviewer" line for members with Committee_Reviewer__c = true, and with nothing for the rest.
+    private static final String REVIEWER_NOTICE_PLACEHOLDER = '{!Reviewer_Assignment_Notice__c}';
+    private static final String REVIEWER_SUBJECT = 'New Proposal Assigned - You are the Reviewer';
+
+    // Proposal statuses at which the committee has already been notified (or is being notified):
+    // members added / made reviewers from then on get their own email right away.
+    public static final Set<String> COMMITTEE_STAGE_STATUSES = new Set<String>{
+        'Committee Review', 'Chair/Co-Chair', 'Committee Shortlisting'
+    };
+
     public class ReviewerResult implements Comparable {
         @AuraEnabled public Id Id;
         @AuraEnabled public String Name;
@@ -391,6 +402,14 @@ public with sharing class ReviewerController {
             return;
         }
 
+        sendCommitteeEmails(proposalIds, null);
+    }
+
+    // Sends the committee assignment email for the given proposals. onlyProposalCommitteeIds
+    // null = every Proposal_Committee__c member on those proposals (the Committee Review status
+    // change); otherwise just those junction records (members added later from the Proposal
+    // Committee screen).
+    public static void sendCommitteeEmails(Set<Id> proposalIds, Set<Id> onlyProposalCommitteeIds) {
         // ---------------------------------------------------------
         // 2. Re-query Proposal
         //    Trigger.new does NOT contain relationship fields
@@ -442,19 +461,37 @@ public with sharing class ReviewerController {
         //    both round-robin-selected DCM reviewers and Chair/Co-chair) -
         //    no longer just the Committee_Reviewer__c = true subset.
         // ---------------------------------------------------------
-        List<Proposal_Committee__c> assignedReviewers = [
-            SELECT
-                Proposal__c,
-                Committee_Member__r.First_Name__c, Committee_Member__r.Committee_Master__r.First_Name__c,
-                Committee_Member__r.Last_Name__c, Committee_Member__r.Committee_Master__r.Last_Name__c,
-                Committee_Member__r.Title__c, Committee_Member__r.Committee_Master__r.Title__c,
-                Committee_Member__r.Email__c, Committee_Member__r.Committee_Master__r.Email__c,
-                Committee_Member__r.Community_Member_UUID__c, Committee_Member__r.Committee_Master__r.Firebase_UID__c,
-                Committee_Member__r.Type__c
-            FROM Proposal_Committee__c
-            WHERE Proposal__c IN :proposalIds
-            AND Committee_Member__r.Email__c != null
-        ];
+        List<Proposal_Committee__c> assignedReviewers;
+        if (onlyProposalCommitteeIds == null) {
+            assignedReviewers = [
+                SELECT
+                    Proposal__c,
+                    Committee_Member__r.First_Name__c, Committee_Member__r.Committee_Master__r.First_Name__c,
+                    Committee_Member__r.Last_Name__c, Committee_Member__r.Committee_Master__r.Last_Name__c,
+                    Committee_Member__r.Title__c, Committee_Member__r.Committee_Master__r.Title__c,
+                    Committee_Member__r.Email__c, Committee_Member__r.Committee_Master__r.Email__c,
+                    Committee_Member__r.Community_Member_UUID__c, Committee_Member__r.Committee_Master__r.Firebase_UID__c,
+                    Committee_Member__r.Type__c, Committee_Reviewer__c
+                FROM Proposal_Committee__c
+                WHERE Proposal__c IN :proposalIds
+                AND Committee_Member__r.Email__c != null
+            ];
+        } else {
+            assignedReviewers = [
+                SELECT
+                    Proposal__c,
+                    Committee_Member__r.First_Name__c, Committee_Member__r.Committee_Master__r.First_Name__c,
+                    Committee_Member__r.Last_Name__c, Committee_Member__r.Committee_Master__r.Last_Name__c,
+                    Committee_Member__r.Title__c, Committee_Member__r.Committee_Master__r.Title__c,
+                    Committee_Member__r.Email__c, Committee_Member__r.Committee_Master__r.Email__c,
+                    Committee_Member__r.Community_Member_UUID__c, Committee_Member__r.Committee_Master__r.Firebase_UID__c,
+                    Committee_Member__r.Type__c, Committee_Reviewer__c
+                FROM Proposal_Committee__c
+                WHERE Proposal__c IN :proposalIds
+                AND Id IN :onlyProposalCommitteeIds
+                AND Committee_Member__r.Email__c != null
+            ];
+        }
 
         if (assignedReviewers.isEmpty()) {
             System.debug('No assigned reviewers found for these proposals.');
@@ -669,6 +706,20 @@ public with sharing class ReviewerController {
                 );
 
                 // -------------------------------------------------
+                // 12b. Reviewer notice - bold line for Committee_Reviewer__c members,
+                // removed (empty) for everyone else.
+                Boolean isReviewer = pc.Committee_Reviewer__c == true;
+                String reviewerNoticeHtml = isReviewer
+                    ? '<p style="margin:0 0 16px 0;"><strong>You have been assigned as the Reviewer for proposal '
+                        + proposalIdText + '.</strong></p>'
+                    : '';
+                String reviewerNoticeText = isReviewer
+                    ? 'You have been assigned as the Reviewer for proposal ' + proposalIdText + '.'
+                    : '';
+                emailHtml = emailHtml.replace(REVIEWER_NOTICE_PLACEHOLDER, reviewerNoticeHtml);
+                emailText = emailText.replace(REVIEWER_NOTICE_PLACEHOLDER, reviewerNoticeText);
+
+                // -------------------------------------------------
                 // 13. Replace Committee Member fields
                 // -------------------------------------------------
                 emailHtml = emailHtml.replace(
@@ -725,7 +776,7 @@ public with sharing class ReviewerController {
                 );
 
                 email.setSubject(
-                    committeeTemplate.Subject
+                    isReviewer ? REVIEWER_SUBJECT : committeeTemplate.Subject
                 );
 
                 email.setSaveAsActivity(false);

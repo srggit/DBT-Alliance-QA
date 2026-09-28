@@ -581,6 +581,11 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return this.isAssignChairCoChairTab;
     }
 
+    // Same Proposal Committee modal as the Assign Chair/Co-Chair tab's "Committee" button.
+    get showCommitteeMembersButton() {
+        return this.isCommitteeReviewTab;
+    }
+
     get showCommitteeEvaluationButton() {
         return this.isCommitteeReviewTab;
     }
@@ -691,12 +696,17 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return false;
     }
 
+    // Status and My Verdict are hidden for now on these tabs (remove this getter's condition to bring them back).
+    get hideStatusAndVerdictColumns() {
+        return this.isCommitteeReviewTab || this.isPeerShortlistingTab || this.isPeerReviewTab;
+    }
+
     get showStatusColumn() {
-        return !this.isAssignedTab;
+        return !this.isAssignedTab && !this.hideStatusAndVerdictColumns;
     }
 
     get showEligibilityColumn() {
-        return !this.isAssignedTab && !this.isFullApplicationTab;
+        return !this.isAssignedTab && !this.isFullApplicationTab && !this.hideStatusAndVerdictColumns;
     }
 
     get columnMeta() {
@@ -730,6 +740,9 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         }
         if (this.isFullApplicationTab) {
             hiddenKeys.push('eligibility');
+        }
+        if (this.hideStatusAndVerdictColumns) {
+            hiddenKeys.push('status', 'eligibility');
         }
         defs = defs.filter((col) => !hiddenKeys.includes(col.key));
         return defs.map((col) => {
@@ -884,6 +897,7 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
     handleCloseCommitteeEvaluation() {
         this.showCommitteeEvaluationModal = false;
         this.selectedProposalIdForCommitteeEvaluation = undefined;
+        refreshApex(this.wiredResult);
     }
 
     handleOpenReviewerMapping(event) {

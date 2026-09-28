@@ -45,6 +45,66 @@
                 <default>false</default>
                 <label>Budget</label>
             </value>
+            <value>
+                <fullName>Research Proposal</fullName>
+                <default>false</default>
+                <label>Research Proposal</label>
+            </value>
+            <value>
+                <fullName>Research Involving Human Participants</fullName>
+                <default>false</default>
+                <label>Research Involving Human Participants</label>
+            </value>
+            <value>
+                <fullName>Research Involving Experiment on Animals</fullName>
+                <default>false</default>
+                <label>Research Involving Experiment on Animals</label>
+            </value>
+            <value>
+                <fullName>Host Institution Details</fullName>
+                <default>false</default>
+                <label>Host Institution Details</label>
+            </value>
+            <value>
+                <fullName>Fellowship Supervisor Details</fullName>
+                <default>false</default>
+                <label>Fellowship Supervisor Details</label>
+            </value>
+            <value>
+                <fullName>Work Outside Host Institution (WOHI)</fullName>
+                <default>false</default>
+                <label>Work Outside Host Institution (WOHI)</label>
+            </value>
+            <value>
+                <fullName>Collaboration</fullName>
+                <default>false</default>
+                <label>Collaboration</label>
+            </value>
+            <value>
+                <fullName>Dissemination Plans</fullName>
+                <default>false</default>
+                <label>Dissemination Plans</label>
+            </value>
+            <value>
+                <fullName>Additional Role</fullName>
+                <default>false</default>
+                <label>Additional Role</label>
+            </value>
+            <value>
+                <fullName>Mentor Details</fullName>
+                <default>false</default>
+                <label>Mentor Details</label>
+            </value>
+            <value>
+                <fullName>Sponsor Details</fullName>
+                <default>false</default>
+                <label>Sponsor Details</label>
+            </value>
+            <value>
+                <fullName>Data Management and Data Sharing</fullName>
+                <default>false</default>
+                <label>Data Management and Data Sharing</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

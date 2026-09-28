@@ -7,11 +7,25 @@
                     <lightning-icon icon-name="utility:table" size="small"></lightning-icon>
                 </div>
                 <div class="cem-banner-text">
-                    <div class="cem-banner-title">Committee Evaluation Responses</div>
-                    <div class="cem-banner-subtitle">Compare Committee Evaluation answers, grouped by section,
-                        across all submitted committee members.</div>
+                    <div class="cem-banner-title">{bannerTitle}</div>
+                    <div class="cem-banner-subtitle">{bannerSubtitle}</div>
                 </div>
             </div>
+
+            <div class="cem-tabs" role="tablist">
+                <button type="button" role="tab" aria-selected={isCommitteeTab} class={committeeTabClass}
+                    data-tab="committee" onclick={handleTabClick}>Committee Review</button>
+                <button type="button" role="tab" aria-selected={isReviewersTab} class={reviewersTabClass}
+                    data-tab="reviewers" onclick={handleTabClick}>Reviewers Review</button>
+            </div>
+
+            <template lwc:if={isReviewersTab}>
+                <div class="cem-reviewers-pane">
+                    <c-peer-evaluation-matrix record-id={recordId} hide-decision-panel hide-banner></c-peer-evaluation-matrix>
+                </div>
+            </template>
+
+            <template lwc:else>
 
             <template lwc:if={isLoading}>
                 <div class="slds-is-relative slds-p-around_large">
@@ -30,7 +44,10 @@
                             <tr>
                                 <th class="cem-th cem-th_question">Question</th>
                                 <template for:each={memberColumns} for:item="col">
-                                    <th key={col.key} class="cem-th cem-th_member">{col.label}</th>
+                                    <th key={col.key} class="cem-th cem-th_member">
+                                        <div class="cem-member-name">{col.label}</div>
+                                        <div class="cem-member-meta">{col.status}</div>
+                                    </th>
                                 </template>
                             </tr>
                         </thead>
@@ -63,6 +80,61 @@
                 <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
                     No submitted Committee Evaluation responses available for this proposal.
                 </div>
+            </template>
+
+            <template lwc:if={showDecisionPanel}>
+                <div class="cem-decision-panel">
+                    <div class="slds-form-element cem-feedback-field">
+                        <label class="slds-form-element__label" for="committee-feedback-summary">Committee Feedback
+                            Summary</label>
+                        <div class="slds-form-element__control">
+                            <textarea id="committee-feedback-summary" class="slds-textarea cem-feedback-textarea"
+                                value={feedbackSummary} onchange={handleFeedbackChange}
+                                placeholder="Enter committee feedback summary..."></textarea>
+                        </div>
+                    </div>
+                    <template lwc:if={showRejectionReason}>
+                        <div class="slds-form-element cem-feedback-field">
+                            <label class="slds-form-element__label" for="committee-reason-for-rejection">Reason for
+                                Rejection</label>
+                            <div class="slds-form-element__control">
+                                <textarea id="committee-reason-for-rejection"
+                                    class="slds-textarea cem-feedback-textarea" value={rejectionReason}
+                                    onchange={handleRejectionReasonChange}
+                                    placeholder="Enter reason for rejection..."></textarea>
+                            </div>
+                        </div>
+                        <div class="cem-decision-actions">
+                            <button type="button" class="cem-decision-btn cem-decision-btn_neutral"
+                                onclick={handleCancelRejection} disabled={isSavingDecision}>
+                                <span>Cancel</span>
+                            </button>
+                            <button type="button" class="cem-decision-btn cem-decision-btn_reject"
+                                onclick={handleConfirmRejection} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:close" size="xx-small"
+                                    class="cem-decision-btn-icon"></lightning-icon>
+                                <span>Confirm Rejection</span>
+                            </button>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="cem-decision-actions">
+                            <button type="button" class="cem-decision-btn cem-decision-btn_reject"
+                                onclick={handleRejectClick} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:close" size="xx-small"
+                                    class="cem-decision-btn-icon"></lightning-icon>
+                                <span>Reject</span>
+                            </button>
+                            <button type="button" class="cem-decision-btn cem-decision-btn_proceed"
+                                onclick={handleProceed} disabled={isSavingDecision}>
+                                <lightning-icon icon-name="utility:check" size="xx-small"
+                                    class="cem-decision-btn-icon"></lightning-icon>
+                                <span>Proceed to Assign Chair/Co-Chair</span>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </template>
             </template>
 
         </div>

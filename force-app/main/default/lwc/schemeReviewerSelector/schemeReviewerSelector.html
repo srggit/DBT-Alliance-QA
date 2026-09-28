@@ -1,0 +1,116 @@
+<template>
+    <div class="sel-container">
+
+        <div class="sel-banner">
+            <div class="sel-banner-icon">
+                <lightning-icon icon-name="utility:adduser" size="small"></lightning-icon>
+            </div>
+            <div class="sel-banner-text">
+                <div class="sel-banner-title">Add Scheme Reviewers</div>
+                <div class="sel-banner-subtitle">Select Reviewers from the master list to add to this Yearly Scheme.</div>
+            </div>
+        </div>
+
+        <template lwc:if={needsSchemePicker}>
+            <div class="sel-picker">
+                <lightning-combobox label="Yearly Scheme" placeholder="Select a Yearly Scheme" options={schemes}
+                    value={_pickedSchemeId} onchange={handleSchemeChange} required>
+                </lightning-combobox>
+            </div>
+        </template>
+
+        <template lwc:if={showPickHint}>
+            <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                Select a Yearly Scheme to choose its Reviewers.
+            </p>
+        </template>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading reviewers..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:elseif={error}>
+            <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+        </template>
+        <template lwc:elseif={hasReviewers}>
+            <div class="sel-toolbar">
+                <lightning-input type="search" variant="label-hidden" label="Search Reviewers"
+                    placeholder="Search by name, email, organization or type" onchange={handleSearch}>
+                </lightning-input>
+                <div class="sel-count">{selectedCount} selected</div>
+            </div>
+
+            <div class="sel-table-wrap">
+                <table class="sel-table">
+                    <thead>
+                        <tr>
+                            <th class="sel-th_checkbox">
+                                <lightning-input type="checkbox" variant="label-hidden" label="Select all visible"
+                                    checked={allVisibleSelected} onchange={handleSelectAllVisible}>
+                                </lightning-input>
+                            </th>
+                            <th>Reviewer</th>
+                            <th>Email</th>
+                            <th>Organization</th>
+                            <th>Type</th>
+                            <th class="sel-th_checkbox">Is Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.key} class={row.rowClass}>
+                                <td class="sel-td_checkbox">
+                                    <lightning-input type="checkbox" variant="label-hidden" label="Select Reviewer"
+                                        checked={row.selected} disabled={row.alreadyAdded} data-id={row.key}
+                                        onchange={handleRowSelect}>
+                                    </lightning-input>
+                                </td>
+                                <td>
+                                    {row.name}
+                                    <template lwc:if={row.alreadyAdded}>
+                                        <span class="sel-added-badge">Already added</span>
+                                    </template>
+                                </td>
+                                <td>{row.email}</td>
+                                <td>{row.organization}</td>
+                                <td>{row.reviewerType}</td>
+                                <td class="sel-td_checkbox">
+                                    <lightning-input type="checkbox" variant="label-hidden" label="Is Active"
+                                        checked={row.isActive} disabled={row.activeDisabled} data-id={row.key}
+                                        onchange={handleActiveChange}>
+                                    </lightning-input>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <template lwc:if={noResults}>
+                    <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                        No Reviewers match your search.
+                    </p>
+                </template>
+            </div>
+        </template>
+        <template lwc:elseif={showEmptyState}>
+            <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                No Reviewers found.
+            </p>
+        </template>
+
+        <div class="sel-actions">
+            <button type="button" class="sel-ghost-btn" onclick={handleCancel} disabled={isSaving}>
+                <span>Cancel</span>
+            </button>
+            <button type="button" class="sel-save-btn" disabled={saveDisabled} onclick={handleSave}>
+                <template lwc:if={isSaving}>
+                    <lightning-spinner alternative-text="Saving..." size="x-small" variant="inverse">
+                    </lightning-spinner>
+                </template>
+                <span>Save</span>
+                <lightning-icon icon-name="utility:check" size="xx-small" class="sel-btn-icon"></lightning-icon>
+            </button>
+        </div>
+
+    </div>
+</template>

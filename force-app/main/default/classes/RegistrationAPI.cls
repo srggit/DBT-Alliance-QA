@@ -38,7 +38,7 @@ global class RegistrationAPI {
             con.Gender__c = req.gender;
             con.BirthDate = req.dob;
             con.Nationality__c = req.nationality;
-            con.Type__c = req.type;
+            con.Type__c = String.isNotBlank(req.type) ? req.type : 'Applicant';
             
             con.MailingCity = req.city;
             //con. = req.district;

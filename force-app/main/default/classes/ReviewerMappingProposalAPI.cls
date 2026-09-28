@@ -201,7 +201,7 @@ global without sharing class ReviewerMappingProposalAPI {
 
         // ---- Source 3: WOHI Collaborations (linked via APA) ---- //
         List<WOHI_Collaboration__c> wohiRecords = [
-            SELECT Id, Full_Name__c, Current_Position__c, Organisation__c, Roles__c
+            SELECT Id, Full_Name__c, Current_Position__c, Organisation__c, Roles__c,Type__c
             FROM WOHI_Collaboration__c
             WHERE Applicant_Proposal_Association__r.Proposal__c = :proposalId
             ORDER BY CreatedDate ASC
@@ -212,7 +212,14 @@ global without sharing class ReviewerMappingProposalAPI {
             pw.participantName = wc.Full_Name__c;
             pw.participantPosition = wc.Current_Position__c;
             pw.participantOrganization = wc.Organisation__c;
-            pw.role = wc.Roles__c;
+            //pw.role = wc.Type__c == 'Collaborator' ? 'Collaborator' : wc.Roles__c;
+            if (wc.Type__c == 'Collaborator') {
+                    pw.role = 'Collaborator';
+                } else if (wc.Type__c == 'WOHI' && String.isBlank(wc.Roles__c)) {
+                    pw.role = 'External Sponsor';
+                } else {
+                    pw.role = wc.Roles__c;
+                }
             participants.add(pw);
         }
 

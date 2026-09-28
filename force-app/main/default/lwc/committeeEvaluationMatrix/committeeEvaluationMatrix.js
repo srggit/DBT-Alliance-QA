@@ -1,10 +1,16 @@
 import { LightningElement, api, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getCommitteeEvaluations from '@salesforce/apex/CommitteeEvaluationMatrixController.getCommitteeEvaluations';
+import saveCommitteeDecision from '@salesforce/apex/CommitteeEvaluationMatrixController.saveCommitteeDecision';
 
 export default class CommitteeEvaluationMatrix extends LightningElement {
     _recordId;
     isLoading = false;
+    isSavingDecision = false;
+    showRejectionReason = false;
+    feedbackSummary = '';
+    rejectionReason = '';
     error;
     members = [];
 
@@ -42,6 +48,104 @@ export default class CommitteeEvaluationMatrix extends LightningElement {
         }
     }
 
+    handleFeedbackChange(event) {
+        this.feedbackSummary = event.target.value;
+    }
+
+    handleRejectionReasonChange(event) {
+        this.rejectionReason = event.target.value;
+    }
+
+    // First click on Reject just reveals the Reason for Rejection field - the rejection
+    // only saves once handleConfirmRejection runs with a non-blank reason.
+    handleRejectClick() {
+        this.showRejectionReason = true;
+    }
+
+    handleCancelRejection() {
+        this.showRejectionReason = false;
+        this.rejectionReason = '';
+    }
+
+    handleConfirmRejection() {
+        if (!this.rejectionReason || !this.rejectionReason.trim()) {
+            this.showToast('Error', 'Reason for Rejection is required.', 'error');
+            return;
+        }
+        this.saveDecision('Reject', 'Proposal rejected.');
+    }
+
+    handleProceed() {
+        if (!this.feedbackSummary || !this.feedbackSummary.trim()) {
+            this.showToast('Error', 'Committee Feedback Summary is required.', 'error');
+            return;
+        }
+        this.saveDecision('Proceed', 'Proposal moved to Chair/Co-Chair stage.');
+    }
+
+    async saveDecision(decision, successMessage) {
+        if (!this._recordId) {
+            return;
+        }
+        this.isSavingDecision = true;
+        try {
+            await saveCommitteeDecision({
+                proposalId: this._recordId,
+                decision,
+                feedbackSummary: this.feedbackSummary,
+                reasonForRejection: decision === 'Reject' ? this.rejectionReason : null
+            });
+            this.showToast('Success', successMessage, 'success');
+            this.showRejectionReason = false;
+            this.rejectionReason = '';
+            this.dispatchEvent(new CustomEvent('close'));
+        } catch (e) {
+            this.showToast('Error', e?.body?.message || e?.message || 'Unable to save decision.', 'error');
+        } finally {
+            this.isSavingDecision = false;
+        }
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    activeTab = 'committee';
+
+    get isCommitteeTab() {
+        return this.activeTab === 'committee';
+    }
+
+    get isReviewersTab() {
+        return this.activeTab === 'reviewers';
+    }
+
+    get bannerTitle() {
+        return this.isReviewersTab ? 'Peer Evaluation Responses' : 'Committee Evaluation Responses';
+    }
+
+    get bannerSubtitle() {
+        return this.isReviewersTab
+            ? 'Compare Peer Evaluation question answers across all submitted Full-stage reviewers.'
+            : 'Compare Committee Evaluation answers, grouped by section, across all submitted committee members.';
+    }
+
+    get committeeTabClass() {
+        return 'cem-tab' + (this.isCommitteeTab ? ' cem-tab_active' : '');
+    }
+
+    get reviewersTabClass() {
+        return 'cem-tab' + (this.isReviewersTab ? ' cem-tab_active' : '');
+    }
+
+    handleTabClick(event) {
+        this.activeTab = event.currentTarget.dataset.tab;
+    }
+
+    get showDecisionPanel() {
+        return !this.isLoading && !this.error;
+    }
+
     get hasData() {
         return !this.isLoading && !this.error && this.members && this.members.length > 0;
     }
@@ -53,7 +157,8 @@ export default class CommitteeEvaluationMatrix extends LightningElement {
     get memberColumns() {
         return (this.members || []).map((member) => ({
             key: member.committeeId,
-            label: member.memberName || 'Unnamed Member'
+            label: member.memberName || 'Unnamed Member',
+            status: member.status || '—'
         }));
     }
 

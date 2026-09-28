@@ -91,6 +91,20 @@
     min-width: 220px;
 }
 
+.pem-reviewer-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.pem-reviewer-meta {
+    margin-top: 2px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #8a5163;
+}
+
 .pem-td {
     padding: 0.65rem 1rem;
     vertical-align: top;

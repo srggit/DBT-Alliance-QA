@@ -259,6 +259,98 @@ public with sharing class ProposalReviewerController {
 
     }
 
+    // Single-proposal counterpart to getProposals - same reviewer-detail-building logic
+    // (expected Reviewer_Type__c by Proposal_Status__c, organization-conflict detection),
+    // but scoped to one Proposal instead of a paginated list. Powers the standalone
+    // "Assign Reviewers" component embedded from myEligibilityChecks. Not cacheable - reused
+    // imperatively right after saveReviewerDecision/addReviewersToProposal, and a cacheable
+    // method here would risk serving the LDS client cache's stale pre-save response (the
+    // same bug fixed on GrantTeamResponseItemsController.getGrantTeamResponseItems).
+    @AuraEnabled
+    public static ProposalRow getReviewerAssignmentsForProposal(Id proposalId) {
+        if (proposalId == null) {
+            throw new AuraHandledException('Proposal Id is required.');
+        }
+
+        List<Proposal__c> proposals = [
+            SELECT Id, Proposal_Id__c, Proposal_Status__c,
+                   Yearly_Scheme__r.Scheme_Items__r.Name
+            FROM Proposal__c
+            WHERE Id = :proposalId
+            LIMIT 1
+        ];
+        if (proposals.isEmpty()) {
+            throw new AuraHandledException('Proposal not found or you do not have access.');
+        }
+        Proposal__c proposal = proposals[0];
+
+        String applicantName = '';
+        String applicantOrganization = '';
+        Id applicantOrgId;
+        for (Applicant_Proposal_Association__c apa : [
+            SELECT Contact__r.Name, Contact__r.AccountId, Contact__r.Account.Name
+            FROM Applicant_Proposal_Association__c
+            WHERE Proposal__c = :proposalId
+            AND Is_Coordinator__c = true
+            LIMIT 1
+        ]) {
+            applicantName = apa.Contact__r != null ? apa.Contact__r.Name : '';
+            applicantOrganization = (apa.Contact__r != null && apa.Contact__r.Account != null)
+                ? apa.Contact__r.Account.Name
+                : '';
+            applicantOrgId = apa.Contact__r != null ? apa.Contact__r.AccountId : null;
+        }
+
+        // Same business rule as getProposals: Prelim Review -> Ex-Grantee, Peer Review -> Peer
+        String expectedReviewerType = proposal.Proposal_Status__c == 'Prelim Review' ? 'Ex-Grantee' : 'Peer';
+
+        List<ReviewerDetail> reviewerDetails = new List<ReviewerDetail>();
+        for (Reviewer_Mapping__c reviewer : [
+            SELECT Id, Reviewer_Name__c, Organization__c, Organization__r.Name,
+                   Grant_Member_Status__c, Conflict_Reason__c
+            FROM Reviewer_Mapping__c
+            WHERE Proposal__c = :proposalId
+            AND Reviewer_Type__c = :expectedReviewerType
+        ]) {
+            String decision = 'Pending';
+            if (reviewer.Grant_Member_Status__c == 'Approved') {
+                decision = 'Approved';
+            } else if (reviewer.Grant_Member_Status__c == 'Conflict') {
+                decision = 'Conflict';
+            }
+
+            Boolean hasOrganizationConflict =
+                reviewer.Organization__c != null &&
+                applicantOrgId != null &&
+                reviewer.Organization__c == applicantOrgId;
+
+            reviewerDetails.add(
+                new ReviewerDetail(
+                    reviewer.Id,
+                    reviewer.Reviewer_Name__c,
+                    reviewer.Organization__r != null ? reviewer.Organization__r.Name : '',
+                    decision,
+                    reviewer.Conflict_Reason__c,
+                    hasOrganizationConflict
+                )
+            );
+        }
+
+        String schemeName = (proposal.Yearly_Scheme__r != null && proposal.Yearly_Scheme__r.Scheme_Items__r != null)
+            ? proposal.Yearly_Scheme__r.Scheme_Items__r.Name
+            : '';
+
+        return new ProposalRow(
+            proposal.Id,
+            proposal.Proposal_Id__c,
+            applicantName,
+            applicantOrganization,
+            schemeName,
+            proposal.Proposal_Status__c,
+            reviewerDetails
+        );
+    }
+
     /*
      * POPUP PAGINATION IS HANDLED HERE. PAGE SIZE = 20
      * Directions: FIRST, NEXT, PREV, LAST

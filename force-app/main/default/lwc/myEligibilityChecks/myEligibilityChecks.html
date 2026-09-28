@@ -303,6 +303,16 @@
                                                                 class="myec-open-btn-icon"></lightning-icon>
                                                         </button>
                                                     </template>
+                                                    <template lwc:if={showCommitteeMembersButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenCommitteeList}>
+                                                            <span>Committee Members</span>
+                                                            <lightning-icon icon-name="utility:groups" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
                                                     <template lwc:if={showCommitteeEvaluationButton}>
                                                         <button type="button"
                                                             class="myec-open-btn myec-open-btn_compact"
@@ -590,7 +600,7 @@
     </template>
 
     <template lwc:if={showCommitteeListModal}>
-        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim myec-modal-no-transform">
             <div class="slds-modal__container myec-large-modal">
                 <header class="slds-modal__header myec-modal-header-plain">
                     <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
@@ -598,7 +608,8 @@
                     </lightning-button-icon>
                 </header>
                 <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
-                    <c-proposal-committee-list record-id={selectedProposalIdForCommitteeList}>
+                    <c-proposal-committee-list record-id={selectedProposalIdForCommitteeList}
+                        oncancel={handleCloseCommitteeList}>
                     </c-proposal-committee-list>
                 </div>
             </div>
@@ -615,7 +626,8 @@
                     </lightning-button-icon>
                 </header>
                 <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
-                    <c-committee-evaluation-matrix record-id={selectedProposalIdForCommitteeEvaluation}>
+                    <c-committee-evaluation-matrix record-id={selectedProposalIdForCommitteeEvaluation}
+                        onclose={handleCloseCommitteeEvaluation}>
                     </c-committee-evaluation-matrix>
                 </div>
             </div>

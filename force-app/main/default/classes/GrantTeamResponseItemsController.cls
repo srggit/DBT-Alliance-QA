@@ -1,6 +1,10 @@
 public with sharing class GrantTeamResponseItemsController {
 
-    @AuraEnabled(cacheable=true)
+    // Not cacheable: called imperatively (not via @wire) from grantsManagerResponseItems.js,
+    // right after the modal reopens post-save - a cacheable method here can serve the LDS
+    // client cache's stale pre-save response instead of hitting the server, which is exactly
+    // why the saved answer wasn't showing until a full page refresh.
+    @AuraEnabled
     public static ResponseWrapper getGrantTeamResponseItems(Id proposalId) {
         try {
             if (proposalId == null) {

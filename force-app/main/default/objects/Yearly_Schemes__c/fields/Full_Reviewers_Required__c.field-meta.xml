@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Full_Reviewers_Required__c</fullName>
+    <description>Number of reviewers expected for a Full-stage proposal of this scheme. Blank uses 3.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reviewers expected for a Full proposal. Leave blank to use the default of 3.</inlineHelpText>
+    <label>Full Reviewers Required</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

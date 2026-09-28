@@ -132,6 +132,14 @@
                 <behavior>Edit</behavior>
                 <field>Conflict_of_Interest_Description__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>All_Committee_Response_Submitted__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Recommended_for_Chair_Co_Chair_Stage__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

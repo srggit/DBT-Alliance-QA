@@ -1,0 +1,238 @@
+:host {
+    display: block;
+}
+
+.arm-container {
+    padding: 0;
+}
+
+/* ================================================================
+   BANNER
+   ================================================================ */
+
+.arm-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 16px 20px;
+    margin: 0 13px 16px;
+
+    border-radius: 0.75rem;
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.arm-banner-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    border-radius: 0.6rem;
+
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arm-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #8b1e3f;
+}
+
+.arm-banner-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.arm-banner-subtitle {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ================================================================
+   TABLE
+   ================================================================ */
+
+.arm-table-wrap {
+    margin: 0 13px;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+}
+
+.arm-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.arm-th {
+    background: #8b1e3f;
+    color: #ffffff;
+
+    text-align: left;
+    padding: 0.6rem 0.9rem;
+
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.arm-th_checkbox {
+    width: 60px;
+    text-align: center;
+}
+
+.arm-td {
+    padding: 0.6rem 0.9rem;
+    vertical-align: top;
+
+    font-size: 0.8125rem;
+    color: #334155;
+
+    border-bottom: 1px solid #eef1f6;
+}
+
+.arm-td_checkbox {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.arm-tr:last-child .arm-td {
+    border-bottom: none;
+}
+
+.arm-tr_org-conflict {
+    background: #fff7e6;
+}
+
+.arm-actions-cell {
+    min-width: 220px;
+}
+
+.arm-decision-combo {
+    max-width: 180px;
+}
+
+.arm-conflict-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.arm-existing-conflict {
+    margin-top: 6px;
+    padding: 6px 8px;
+
+    border-radius: 0.4rem;
+    background: #fdf2f4;
+
+    font-size: 0.75rem;
+    color: #5c1029;
+    cursor: pointer;
+}
+
+.arm-conflict-label {
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.arm-conflict-editor {
+    margin-top: 8px;
+}
+
+.arm-character-count {
+    margin-top: 2px;
+    font-size: 0.6875rem;
+    color: #8a5163;
+    text-align: right;
+}
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+
+.arm-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 14px 13px 0;
+}
+
+.arm-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+    --sds-c-icon-color-foreground-default: #ffffff;
+}
+
+.arm-add-btn,
+.arm-save-btn,
+.arm-save-reviewers-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0.5rem 1.25rem;
+
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #ffffff;
+
+    background: linear-gradient(120deg, #7a1a37 0%, #8b1e3f 100%);
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.25);
+}
+
+.arm-save-btn {
+    margin-top: 8px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.75rem;
+}
+
+.arm-save-reviewers-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    box-shadow: none;
+}
+
+.arm-ghost-btn {
+    padding: 0.5rem 1.25rem;
+
+    border: 1px solid #d8dde3;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+/* ================================================================
+   ADD REVIEWER MODAL
+   ================================================================ */
+
+.arm-modal-anim {
+    z-index: 9010;
+}
+
+.arm-modal-container {
+    max-width: 760px;
+}
+
+.arm-modal-header {
+    padding: 1.25rem 1.5rem 0.75rem;
+}
+
+.arm-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

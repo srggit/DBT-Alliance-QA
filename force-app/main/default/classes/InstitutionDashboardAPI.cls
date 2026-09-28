@@ -73,7 +73,7 @@ global without sharing class InstitutionDashboardAPI {
             // specific contact is the Applicant__c on the AHA row.
             List<Applicant_Host_Association__c> ahaList = [
                 SELECT Id, Applicant__c, Applicant__r.Name,
-                       Host__c,
+                       Host__c,CreatedDate,
                        Proposal__c,
                        Proposal__r.Proposal_Id__c,Proposal__r.Peer_Application_Stage__c,
                        Proposal__r.Proposal_Status__c,Proposal__r.Application_Stages__c,
@@ -139,6 +139,7 @@ global without sharing class InstitutionDashboardAPI {
                 String applicationStage = aha.Proposal__r.Application_Stages__c;
                 String scheme        = aha.Proposal__r.Yearly_Scheme__r.Scheme_Items__r != null ? aha.Proposal__r.Yearly_Scheme__r.Scheme_Items__r.Name : null;
                 String stage         = status;
+                String createdDate = aha.CreatedDate != null ? aha.CreatedDate.format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'', 'UTC') : null;
                 String apaKey        = proposalrecordId + '_' + applicantId;
                 Id apaId             = proposalApplicantToApaId.get(apaKey);
 
@@ -152,6 +153,7 @@ global without sharing class InstitutionDashboardAPI {
                 item.applicationStage = applicationStage;
                 item.scheme        = scheme;
                 item.stage         = stage;
+                item.createdDate   = createdDate;
                 workQueue.add(item);
 
                 ApplicantPortfolioItem portfolioItem = new ApplicantPortfolioItem();
@@ -164,6 +166,7 @@ global without sharing class InstitutionDashboardAPI {
                 portfolioItem.applicationStage = applicationStage;
                 portfolioItem.scheme           = scheme;
                 portfolioItem.stage            = stage;
+                portfolioItem.createdDate   = createdDate;
                 applicantPortfolio.add(portfolioItem);
             }
 
@@ -233,6 +236,7 @@ global without sharing class InstitutionDashboardAPI {
         global String applicationStage;
         global String scheme;
         global String stage;
+        global String createdDate;
     }
 
     // Lean wrapper for the "Unified Applicant Portfolio" table.
@@ -248,5 +252,6 @@ global without sharing class InstitutionDashboardAPI {
         global String applicationStage;
         global String scheme;
         global String stage;
+        global String createdDate;
     }
 }

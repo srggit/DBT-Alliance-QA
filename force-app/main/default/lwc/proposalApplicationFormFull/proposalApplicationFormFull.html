@@ -161,7 +161,27 @@
                         <div class="papf-field-block">
                             <div class="papf-field-header">g. Flowchart showing key stages of research plan and
                                 timeline</div>
-                            <div class="papf-field-hint">Not yet implemented - coming soon.</div>
+                            <template lwc:if={hasFlowchartDocuments}>
+                                <template for:each={flowchartDocuments} for:item="doc">
+                                    <div key={doc.key} class="papf-flowchart-item">
+                                        <img src={doc.url} alt={doc.name} class="papf-flowchart-img" />
+                                        <ul class="papf-document-list">
+                                            <li class="papf-document-item">
+                                                <span>{doc.name}</span>
+                                                <a href={doc.url} target="_blank" rel="noopener noreferrer"
+                                                    class="papf-view-btn">
+                                                    <lightning-icon icon-name="utility:preview" size="xx-small"
+                                                        class="papf-view-btn-icon"></lightning-icon>
+                                                    <span>View</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No flowchart uploaded.</p>
+                            </template>
                         </div>
 
                         <div class="papf-field-block">
@@ -214,7 +234,7 @@
 
                         <div class="papf-field-block">
                             <div class="papf-field-header">j. Gantt Chart</div>
-                            <div class="papf-field-hint">Not yet implemented - coming soon.</div>
+                            <c-project-milestone-gantt milestones={ganttMilestones}></c-project-milestone-gantt>
                         </div>
 
                         <div class="papf-field-block">
@@ -225,6 +245,29 @@
                                 <lightning-formatted-rich-text value={researchProposalReferences}>
                                 </lightning-formatted-rich-text>
                             </div>
+                        </div>
+
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">l. Additional support letters (cohort / draft consent
+                                form, etc.)</div>
+                            <template lwc:if={hasSupportDocuments}>
+                                <ul class="papf-document-list">
+                                    <template for:each={supportDocuments} for:item="doc">
+                                        <li key={doc.key} class="papf-document-item">
+                                            <span>{doc.name}</span>
+                                            <a href={doc.url} target="_blank" rel="noopener noreferrer"
+                                                class="papf-view-btn">
+                                                <lightning-icon icon-name="utility:preview" size="xx-small"
+                                                    class="papf-view-btn-icon"></lightning-icon>
+                                                <span>View</span>
+                                            </a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                            <template lwc:else>
+                                <p class="papf-empty-note">No additional support letters uploaded.</p>
+                            </template>
                         </div>
 
                     </template>
@@ -504,6 +547,22 @@
                                             </lightning-icon>
                                             <span>{hospitalLetterUploadStatus}</span>
                                         </span>
+                                        <template lwc:if={hasHumanLetterDocuments}>
+                                            <ul class="papf-document-list">
+                                                <template for:each={humanLetterDocuments} for:item="doc">
+                                                    <li key={doc.key} class="papf-document-item">
+                                                        <span>{doc.name}</span>
+                                                        <a href={doc.url} target="_blank" rel="noopener noreferrer"
+                                                            class="papf-view-btn">
+                                                            <lightning-icon icon-name="utility:preview"
+                                                                size="xx-small" class="papf-view-btn-icon">
+                                                            </lightning-icon>
+                                                            <span>View</span>
+                                                        </a>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </template>
                                     </div>
                                 </template>
                             </div>
@@ -521,6 +580,30 @@
                                         <span class="papf-radio-label">No</span>
                                     </div>
                                 </div>
+                                <template lwc:if={requireConsentChecked}>
+                                    <div class="papf-field-block papf-card-field-spaced">
+                                        <div class="papf-field-header">Attachment</div>
+                                        <template lwc:if={hasHumanConsentDocuments}>
+                                            <ul class="papf-document-list">
+                                                <template for:each={humanConsentDocuments} for:item="doc">
+                                                    <li key={doc.key} class="papf-document-item">
+                                                        <span>{doc.name}</span>
+                                                        <a href={doc.url} target="_blank" rel="noopener noreferrer"
+                                                            class="papf-view-btn">
+                                                            <lightning-icon icon-name="utility:preview"
+                                                                size="xx-small" class="papf-view-btn-icon">
+                                                            </lightning-icon>
+                                                            <span>View</span>
+                                                        </a>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </template>
+                                        <template lwc:else>
+                                            <p class="papf-empty-note">No attachment uploaded.</p>
+                                        </template>
+                                    </div>
+                                </template>
                             </div>
 
                         </template>
@@ -1371,6 +1454,28 @@
                             </div>
                         </div>
 
+                        <div class="papf-field-block">
+                            <div class="papf-field-header">Document Upload Status</div>
+                            <span class={supervisorDocumentStatusClass}>
+                                <lightning-icon icon-name={supervisorDocumentStatusIcon} size="xx-small">
+                                </lightning-icon>
+                                <span>{supervisorDocumentStatus}</span>
+                            </span>
+                            <template lwc:if={hasSupervisorDocument}>
+                                <ul class="papf-document-list">
+                                    <li class="papf-document-item">
+                                        <span>{supervisorDocumentName}</span>
+                                        <a href={supervisorDocumentUrl} target="_blank" rel="noopener noreferrer"
+                                            class="papf-view-btn">
+                                            <lightning-icon icon-name="utility:preview" size="xx-small"
+                                                class="papf-view-btn-icon"></lightning-icon>
+                                            <span>View</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </template>
+                        </div>
+
                     </template>
 
                     <template lwc:elseif={isWohiActive}>
@@ -1503,6 +1608,31 @@
                                             </lightning-formatted-rich-text>
                                         </div>
                                     </div>
+
+                                    <div class="papf-field-block papf-card-field-spaced">
+                                        <div class="papf-field-header">Document Upload Status</div>
+                                        <span class={applicant.documentStatusClass}>
+                                            <lightning-icon icon-name={applicant.documentStatusIcon}
+                                                size="xx-small"></lightning-icon>
+                                            <span>{applicant.documentStatus}</span>
+                                        </span>
+                                        <template lwc:if={applicant.hasDocuments}>
+                                            <ul class="papf-document-list">
+                                                <template for:each={applicant.documents} for:item="doc">
+                                                    <li key={doc.key} class="papf-document-item">
+                                                        <span>{doc.name}</span>
+                                                        <a href={doc.url} target="_blank" rel="noopener noreferrer"
+                                                            class="papf-view-btn">
+                                                            <lightning-icon icon-name="utility:preview"
+                                                                size="xx-small" class="papf-view-btn-icon">
+                                                            </lightning-icon>
+                                                            <span>View</span>
+                                                        </a>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </template>
+                                    </div>
                                 </div>
                             </template>
                         </template>
@@ -1627,6 +1757,31 @@
                                                 <lightning-formatted-rich-text value={collaborator.mtaRequirement}>
                                                 </lightning-formatted-rich-text>
                                             </div>
+                                        </div>
+
+                                        <div class="papf-field-block papf-card-field-spaced">
+                                            <div class="papf-field-header">Document Upload Status</div>
+                                            <span class={collaborator.documentStatusClass}>
+                                                <lightning-icon icon-name={collaborator.documentStatusIcon}
+                                                    size="xx-small"></lightning-icon>
+                                                <span>{collaborator.documentStatus}</span>
+                                            </span>
+                                            <template lwc:if={collaborator.hasDocuments}>
+                                                <ul class="papf-document-list">
+                                                    <template for:each={collaborator.documents} for:item="doc">
+                                                        <li key={doc.key} class="papf-document-item">
+                                                            <span>{doc.name}</span>
+                                                            <a href={doc.url} target="_blank"
+                                                                rel="noopener noreferrer" class="papf-view-btn">
+                                                                <lightning-icon icon-name="utility:preview"
+                                                                    size="xx-small" class="papf-view-btn-icon">
+                                                                </lightning-icon>
+                                                                <span>View</span>
+                                                            </a>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </template>
                                         </div>
                                     </div>
                                 </template>
@@ -1810,6 +1965,28 @@
                                                 <div class="papf-field-label">Telephone No.</div>
                                                 <div class="papf-field-value">{sponsor.telephone}</div>
                                             </div>
+                                        </div>
+                                        <div class="papf-card-field-spaced">
+                                            <div class="papf-field-label">Document Upload Status</div>
+                                            <span class={sponsor.documentStatusClass}>
+                                                <lightning-icon icon-name={sponsor.documentStatusIcon}
+                                                    size="xx-small"></lightning-icon>
+                                                <span>{sponsor.documentStatus}</span>
+                                            </span>
+                                            <template lwc:if={sponsor.hasDocument}>
+                                                <ul class="papf-document-list">
+                                                    <li class="papf-document-item">
+                                                        <span>{sponsor.documentName}</span>
+                                                        <a href={sponsor.documentUrl} target="_blank"
+                                                            rel="noopener noreferrer" class="papf-view-btn">
+                                                            <lightning-icon icon-name="utility:preview"
+                                                                size="xx-small" class="papf-view-btn-icon">
+                                                            </lightning-icon>
+                                                            <span>View</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </template>
                                         </div>
                                     </div>
                                 </template>

@@ -1,0 +1,219 @@
+<template>
+    <div class="arm-container">
+
+        <div class="arm-banner">
+            <div class="arm-banner-icon">
+                <lightning-icon icon-name="utility:identity" size="small"></lightning-icon>
+            </div>
+            <div class="arm-banner-text">
+                <div class="arm-banner-title">{modalTitle}</div>
+                <div class="arm-banner-subtitle">Review decisions &amp; organization for each assigned reviewer.</div>
+            </div>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading reviewers..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template lwc:elseif={error}>
+            <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+        </template>
+
+        <template lwc:elseif={hasData}>
+            <template lwc:if={hasReviewers}>
+                <div class="arm-table-wrap">
+                    <table class="arm-table">
+                        <thead>
+                            <tr>
+                                <th class="arm-th">Reviewer Name</th>
+                                <th class="arm-th">Organization</th>
+                                <th class="arm-th">Applicant Name</th>
+                                <th class="arm-th">Applicant Organization</th>
+                                <th class="arm-th">Actions</th>
+                                <th class="arm-th">Conflict</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={reviewers} for:item="reviewer">
+                                <tr key={reviewer.reviewerMappingId} class={reviewer.rowClass}>
+                                    <td class="arm-td">{reviewer.reviewerName}</td>
+                                    <td class="arm-td">{reviewer.organizationLabel}</td>
+                                    <td class="arm-td">{applicantNameLabel}</td>
+                                    <td class="arm-td">{applicantOrganizationLabel}</td>
+                                    <td class="arm-td arm-actions-cell">
+                                        <lightning-combobox class="arm-decision-combo" label="Decision"
+                                            variant="label-hidden" value={reviewer.decision}
+                                            options={decisionOptions} data-id={reviewer.reviewerMappingId}
+                                            onchange={handleDecisionChange}>
+                                        </lightning-combobox>
+
+                                        <template lwc:if={reviewer.conflictReason}>
+                                            <template lwc:if={reviewer.isEditingConflict}></template>
+                                            <template lwc:else>
+                                                <div class="arm-existing-conflict" data-id={reviewer.reviewerMappingId}
+                                                    onclick={handleConflictReasonClick}>
+                                                    <span class="arm-conflict-label">Conflict Reason:</span>
+                                                    <span>{reviewer.conflictReason}</span>
+                                                </div>
+                                            </template>
+                                        </template>
+
+                                        <template lwc:if={reviewer.showConflictReason}>
+                                            <div class="arm-conflict-editor">
+                                                <lightning-textarea label="Conflict Reason" variant="label-hidden"
+                                                    maxlength="255" value={reviewer.conflictReason}
+                                                    data-id={reviewer.reviewerMappingId}
+                                                    onchange={handleConflictReasonChange}
+                                                    placeholder="Enter conflict reason">
+                                                </lightning-textarea>
+                                                <div class="arm-character-count">{reviewer.conflictReasonLength}/255</div>
+                                                <button type="button" class="arm-save-btn"
+                                                    data-id={reviewer.reviewerMappingId} onclick={handleConflictSave}>
+                                                    <span>Save</span>
+                                                    <lightning-icon icon-name="utility:check" size="xx-small">
+                                                    </lightning-icon>
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </td>
+                                    <td class="arm-td arm-conflict-cell">
+                                        <template lwc:if={reviewer.hasOrganizationConflict}>
+                                            <lightning-icon icon-name={reviewer.orgConflictIcon} size="x-small"
+                                                variant="warning"
+                                                title="Reviewer and applicant share the same organization"
+                                                alternative-text="Organization conflict">
+                                            </lightning-icon>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <template lwc:else>
+                <div class="slds-align_absolute-center slds-p-around_large slds-text-color_weak">
+                    No reviewers assigned to this application yet.
+                </div>
+            </template>
+
+            <div class="arm-footer">
+                <button type="button" class="arm-ghost-btn" onclick={handleCancel}>
+                    <span>Cancel</span>
+                </button>
+                <button type="button" class="arm-add-btn" onclick={handleOpenAddReviewer}>
+                    <span>Add</span>
+                    <lightning-icon icon-name="utility:adduser" size="xx-small" class="arm-btn-icon"></lightning-icon>
+                </button>
+            </div>
+        </template>
+
+    </div>
+
+    <template lwc:if={showAddReviewerModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open arm-modal-anim">
+            <div class="slds-modal__container arm-modal-container">
+                <header class="slds-modal__header arm-modal-header">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" title="Close"
+                        variant="bare" onclick={handleCloseAddReviewerModal} class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 class="slds-text-heading_medium">Add Reviewer</h2>
+                    <p class="slds-m-top_x-small">Select reviewers for this application</p>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col">
+                            <lightning-input type="search" label="Search by Name" value={reviewerNameSearch}
+                                onchange={handleReviewerNameSearch} placeholder="Enter reviewer name">
+                            </lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-input type="search" label="Search by Email" value={reviewerEmailSearch}
+                                onchange={handleReviewerEmailSearch} placeholder="Enter email">
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <template lwc:if={reviewerLoading}>
+                        <lightning-spinner alternative-text="Loading Reviewers"></lightning-spinner>
+                    </template>
+
+                    <template lwc:if={reviewerRecords.length}>
+                        <div class="arm-table-wrap">
+                            <table class="arm-table">
+                                <thead>
+                                    <tr>
+                                        <th class="arm-th arm-th_checkbox">Select</th>
+                                        <th class="arm-th">Name</th>
+                                        <th class="arm-th">Email</th>
+                                        <th class="arm-th">Grant Type</th>
+                                        <th class="arm-th">Organization</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={reviewerRecords} for:item="reviewer">
+                                        <tr key={reviewer.reviewerId} class="arm-tr">
+                                            <td class="arm-td arm-td_checkbox">
+                                                <lightning-input type="checkbox" variant="label-hidden"
+                                                    label="Select Reviewer" checked={reviewer.selected}
+                                                    data-id={reviewer.reviewerId} onchange={handleReviewerSelection}>
+                                                </lightning-input>
+                                            </td>
+                                            <td class="arm-td">{reviewer.name}</td>
+                                            <td class="arm-td">{reviewer.email}</td>
+                                            <td class="arm-td">{reviewer.grantType}</td>
+                                            <td class="arm-td">{reviewer.organizationName}</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </template>
+
+                    <template lwc:if={reviewerTotalPages}>
+                        <div
+                            class="slds-grid slds-grid_align-center slds-grid_vertical-align-center slds-m-top_medium">
+                            <lightning-button-icon icon-name="utility:jump_to_left" alternative-text="First"
+                                title="First" variant="border-filled" onclick={handleReviewerFirst}
+                                disabled={reviewerDisablePrevious} class="slds-m-right_xxx-small">
+                            </lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Previous"
+                                title="Previous" variant="border-filled" onclick={handleReviewerPrevious}
+                                disabled={reviewerDisablePrevious} class="slds-m-right_xxx-small">
+                            </lightning-button-icon>
+                            <span class="slds-m-horizontal_small slds-text-body_small">Page {reviewerCurrentPage} of
+                                {reviewerTotalPages}</span>
+                            <lightning-button-icon icon-name="utility:chevronright" alternative-text="Next"
+                                title="Next" variant="border-filled" onclick={handleReviewerNext}
+                                disabled={reviewerDisableNext} class="slds-m-left_xxx-small">
+                            </lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:jump_to_right" alternative-text="Last"
+                                title="Last" variant="border-filled" onclick={handleReviewerLast}
+                                disabled={reviewerDisableNext} class="slds-m-left_xxx-small">
+                            </lightning-button-icon>
+                        </div>
+                        <div
+                            class="slds-align_absolute-center slds-m-top_x-small slds-text-body_small slds-text-color_weak">
+                            Showing {reviewerStartRecord} - {reviewerEndRecord} of {reviewerTotalRecords} reviewers
+                        </div>
+                    </template>
+                </div>
+
+                <footer class="slds-modal__footer arm-modal-footer">
+                    <button type="button" class="arm-ghost-btn" onclick={handleCloseAddReviewerModal}>
+                        <span>Cancel</span>
+                    </button>
+                    <button type="button" class="arm-save-reviewers-btn" onclick={handleSaveReviewers}
+                        disabled={disableSaveReviewers}>
+                        <span>Save</span>
+                        <lightning-icon icon-name="utility:check" size="xx-small" class="arm-btn-icon"></lightning-icon>
+                    </button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -675,6 +675,14 @@ lightning-card {
     animation: myec-modal-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
+/* slds-fade-in-open applies translate3d(0,0,0), which makes this modal the containing block
+   for position: fixed children - so a popup opened inside it (Add Committee Members) could only
+   blur/dim the modal's own area. Dropping the transform lets that popup's backdrop cover the
+   whole screen. */
+.myec-modal-anim.myec-modal-no-transform {
+    transform: none;
+}
+
 .myec-modal-anim .slds-modal__container {
     animation: myec-modal-container-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
 }

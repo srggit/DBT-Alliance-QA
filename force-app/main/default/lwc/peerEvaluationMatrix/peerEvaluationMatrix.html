@@ -2,16 +2,18 @@
     <lightning-card>
         <div class="pem-container">
 
-            <div class="pem-banner">
-                <div class="pem-banner-icon">
-                    <lightning-icon icon-name="utility:table" size="small"></lightning-icon>
+            <template lwc:if={showBanner}>
+                <div class="pem-banner">
+                    <div class="pem-banner-icon">
+                        <lightning-icon icon-name="utility:table" size="small"></lightning-icon>
+                    </div>
+                    <div class="pem-banner-text">
+                        <div class="pem-banner-title">Peer Evaluation Responses</div>
+                        <div class="pem-banner-subtitle">Compare Peer Evaluation question answers across all submitted
+                            Full-stage reviewers.</div>
+                    </div>
                 </div>
-                <div class="pem-banner-text">
-                    <div class="pem-banner-title">Peer Evaluation Responses</div>
-                    <div class="pem-banner-subtitle">Compare Peer Evaluation question answers across all submitted
-                        Full-stage reviewers.</div>
-                </div>
-            </div>
+            </template>
 
             <template lwc:if={isLoading}>
                 <div class="slds-is-relative slds-p-around_large">
@@ -30,7 +32,10 @@
                             <tr>
                                 <th class="pem-th pem-th_question">Question</th>
                                 <template for:each={reviewerColumns} for:item="col">
-                                    <th key={col.key} class="pem-th pem-th_reviewer">{col.label}</th>
+                                    <th key={col.key} class="pem-th pem-th_reviewer">
+                                        <div class="pem-reviewer-name">{col.label} ({col.reviewerType})</div>
+                                        <div class="pem-reviewer-meta">{col.status}</div>
+                                    </th>
                                 </template>
                             </tr>
                         </thead>

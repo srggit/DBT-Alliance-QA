@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prelim_Grants_Responses_Required__c</fullName>
+    <description>Number of submitted Grants Team responses needed to decide Prelim eligibility for a proposal of this scheme. Blank uses 2.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Submitted Grants Team responses needed to decide Prelim eligibility. Leave blank to use the default of 2.</inlineHelpText>
+    <label>Prelim Grants Responses Required</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -9,6 +9,8 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
     private static final String JOB_PROPOSAL_PARTICIPANT_HOST = 'PROPOSAL_PARTICIPANT_HOST';
     private static final String JOB_FULL_APPLICATION_ELIGIBLE = 'FULL_APPLICATION_ELIGIBLE';
     private static final String JOB_REVIEWER_MAPPING_APPROVED = 'REVIEWER_MAPPING_APPROVED';
+    private static final String JOB_PPA_DOCUMENT_SUBMITTED = 'PPA_DOCUMENT_SUBMITTED';
+    private static final String JOB_SUPERVISOR_FULL_SUBMISSION = 'SUPERVISOR_FULL_SUBMISSION';
 
     // Literal placeholder token the New_Proposal_Assignment template's "Proceed to Portal"
     // link uses (both HTML href and plain-text fallback) - matching this fixed token, rather
@@ -92,6 +94,10 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
             processFullApplicationEligible();
         } else if (jobType == JOB_REVIEWER_MAPPING_APPROVED) {
             processReviewerMappingApproved();
+        } else if (jobType == JOB_PPA_DOCUMENT_SUBMITTED) {
+            processProposalParticipantDocumentSubmitted();
+        } else if (jobType == JOB_SUPERVISOR_FULL_SUBMISSION) {
+            processSupervisorFullSubmission();
         } else {
             System.debug('Unknown EmailNotificationQueueable Job Type: ' + jobType);
         }
@@ -131,17 +137,18 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
             if (String.isBlank(wc.Email__c)) {
                 continue;
             }
-            Notification__c nc = new Notification__c();
-            String title = String.isBlank(wc.Title__c) ? '' : wc.Title__c + ' ';
-            String firstName = String.isBlank(wc.FirstName__c) ? '' : wc.FirstName__c + ' ';
-            String lastName = String.isBlank(wc.Last_Name__c) ? '' : wc.Last_Name__c + ' ';
-            String type = String.isBlank(wc.Type__c) ? '' : wc.Type__c + ' ';
-            nc.Title__c = type +' Assigned';
-            nc.Description__c = title + firstName + lastName +' '+ type + ' Assigned';
-            nc.Expiry_Date__c = system.today().addDays(10);
-            nc.Contact__c = wc.Applicant_Proposal_Association__r.Contact__c;
-            notificationCon.add(nc);
-            
+            // Notification__c creation for WOHI/Collaborator assignment disabled per request.
+            // Notification__c nc = new Notification__c();
+            // String title = String.isBlank(wc.Title__c) ? '' : wc.Title__c + ' ';
+            // String firstName = String.isBlank(wc.FirstName__c) ? '' : wc.FirstName__c + ' ';
+            // String lastName = String.isBlank(wc.Last_Name__c) ? '' : wc.Last_Name__c + ' ';
+            // String type = String.isBlank(wc.Type__c) ? '' : wc.Type__c + ' ';
+            // nc.Title__c = type +' Assigned';
+            // nc.Description__c = title + firstName + lastName +' '+ type + ' Assigned';
+            // nc.Expiry_Date__c = system.today().addDays(10);
+            // nc.Contact__c = wc.Applicant_Proposal_Association__r.Contact__c;
+            // notificationCon.add(nc);
+
 
             String invitationLink = invitationLinks.get(wc.Id);
 
@@ -205,9 +212,9 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
         if (!recordsToUpdate.isEmpty()) {
             update recordsToUpdate;
         }
-        if(!notificationCon.isEmpty()){
-            insert notificationCon;
-        }
+        // if(!notificationCon.isEmpty()){
+        //     insert notificationCon;
+        // }
     }
 
     /*
@@ -1223,6 +1230,279 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
             } catch (Exception ex) {
                 System.debug(
                     'Full Application eligible email exception. ' +
+                    'Proposal Id: ' + proposal.Id +
+                    ', Email: ' + contact.Email +
+                    ', Error: ' + ex.getMessage()
+                );
+            }
+        }
+
+        if (!notificationsToInsert.isEmpty()) {
+            insert notificationsToInsert;
+        }
+    }
+
+    /*
+     * ============================================================
+     * PROPOSAL PARTICIPANT DOCUMENT SUBMITTED
+     * ============================================================
+     * recordIds here are Proposal_Participant_Association__c Ids - enqueued from
+     * ProposalParticipantTriggerHandler.createDocumentUploadedNotifications, at the same
+     * moment (Document_Uploaded__c just flipped to true) that already creates the
+     * Notification__c for this event - this just adds the matching applicant-facing email.
+     */
+    private void processProposalParticipantDocumentSubmitted() {
+
+        List<Proposal_Participant_Association__c> ppas = [
+            SELECT Id, Roles__c, Proposal__c, Proposal__r.Proposal_Id__c, Participant__r.Name
+            FROM Proposal_Participant_Association__c
+            WHERE Id IN :recordIds
+        ];
+
+        if (ppas.isEmpty()) {
+            return;
+        }
+
+        Set<Id> proposalIds = new Set<Id>();
+        for (Proposal_Participant_Association__c ppa : ppas) {
+            if (ppa.Proposal__c != null) {
+                proposalIds.add(ppa.Proposal__c);
+            }
+        }
+
+        Map<Id, Applicant_Proposal_Association__c> applicantByProposal =
+            new Map<Id, Applicant_Proposal_Association__c>();
+
+        if (!proposalIds.isEmpty()) {
+            for (
+                Applicant_Proposal_Association__c apa : [
+                    SELECT Proposal__c,
+                           Contact__c,
+                           Contact__r.Title__c,
+                           Contact__r.Salutation,
+                           Contact__r.FirstName,
+                           Contact__r.LastName,
+                           Contact__r.Email
+                    FROM Applicant_Proposal_Association__c
+                    WHERE Proposal__c IN :proposalIds
+                    AND Contact__c != null
+                    ORDER BY CreatedDate ASC
+                ]
+            ) {
+                if (!applicantByProposal.containsKey(apa.Proposal__c)) {
+                    applicantByProposal.put(apa.Proposal__c, apa);
+                }
+            }
+        }
+
+        for (Proposal_Participant_Association__c ppa : ppas) {
+
+            Applicant_Proposal_Association__c applicantAssociation = applicantByProposal.get(ppa.Proposal__c);
+            if (applicantAssociation == null || applicantAssociation.Contact__r == null || String.isBlank(applicantAssociation.Contact__r.Email)) {
+                System.debug('Skipping PPA_DOCUMENT_SUBMITTED email - no Applicant email for Proposal: ' + ppa.Proposal__c);
+                continue;
+            }
+
+            Contact contact = applicantAssociation.Contact__r;
+
+            List<String> nameParts = new List<String>();
+            if (String.isNotBlank(contact.Title__c)) {
+                nameParts.add(contact.Title__c);
+            } else if (String.isNotBlank(contact.Salutation)) {
+                nameParts.add(contact.Salutation);
+            }
+            if (String.isNotBlank(contact.FirstName)) {
+                nameParts.add(contact.FirstName);
+            }
+            if (String.isNotBlank(contact.LastName)) {
+                nameParts.add(contact.LastName);
+            }
+            String applicantName = String.join(nameParts, ' ');
+
+            String roleLabel = String.isNotBlank(ppa.Roles__c) ? ppa.Roles__c : 'Participant';
+            String participantName = (ppa.Participant__r != null && String.isNotBlank(ppa.Participant__r.Name))
+                ? ppa.Participant__r.Name
+                : '';
+            String proposalIdText = (ppa.Proposal__r != null && String.isNotBlank(ppa.Proposal__r.Proposal_Id__c))
+                ? ppa.Proposal__r.Proposal_Id__c
+                : '';
+
+            Map<String, String> mergeValues = new Map<String, String>{
+                'Applicant_Name'   => applicantName,
+                'Role'             => roleLabel,
+                'Participant_Name' => participantName,
+                'ProposalId'       => proposalIdText
+            };
+
+            System.debug('PPA Document Submitted Merge Values ==> ' + mergeValues);
+
+            try {
+                HttpResponse response = SESService.sendEmail(contact.Email, 'Proposal_Participant_Document_Submitted_Email_Template', mergeValues);
+
+                if (response != null && response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+                    System.debug(
+                        'PPA Document Submitted email sent successfully. ' +
+                        'PPA Id: ' + ppa.Id +
+                        ', Email: ' + contact.Email +
+                        ', Status: ' + response.getStatusCode()
+                    );
+                } else {
+                    System.debug(
+                        'PPA Document Submitted email failed. ' +
+                        'PPA Id: ' + ppa.Id +
+                        ', Email: ' + contact.Email +
+                        ', Status: ' + (response == null ? 'NULL' : String.valueOf(response.getStatusCode())) +
+                        ', Body: ' + (response == null ? '' : response.getBody())
+                    );
+                }
+            } catch (Exception ex) {
+                System.debug(
+                    'PPA Document Submitted email exception. ' +
+                    'PPA Id: ' + ppa.Id +
+                    ', Email: ' + contact.Email +
+                    ', Error: ' + ex.getMessage()
+                );
+            }
+        }
+    }
+
+    /*
+     * ============================================================
+     * SUPERVISOR FULL SUBMISSION
+     * ============================================================
+     * recordIds here are Proposal__c Ids - enqueued from
+     * ProposalTriggerHandler.notifySupervisorFullSubmission as soon as
+     * Peer_Application_Stage__c transitions to 'Final Submit'. The Supervisor's name isn't
+     * on the Proposal itself - it's looked up fresh here from
+     * Proposal_Participant_Association__c (Roles__c = 'Supervisor'), taking the most
+     * recently created one per Proposal if more than one exists.
+     */
+    private void processSupervisorFullSubmission() {
+
+        List<Proposal__c> proposals = [
+            SELECT Id, Proposal_Id__c, Application_Stages__c
+            FROM Proposal__c
+            WHERE Id IN :recordIds
+        ];
+
+        if (proposals.isEmpty()) {
+            return;
+        }
+
+        Map<Id, String> supervisorNameByProposal = new Map<Id, String>();
+        for (
+            Proposal_Participant_Association__c ppa : [
+                SELECT Proposal__c, Participant__r.Name
+                FROM Proposal_Participant_Association__c
+                WHERE Proposal__c IN :recordIds
+                AND Roles__c = 'Supervisor'
+                ORDER BY CreatedDate DESC
+            ]
+        ) {
+            if (!supervisorNameByProposal.containsKey(ppa.Proposal__c)) {
+                supervisorNameByProposal.put(
+                    ppa.Proposal__c,
+                    ppa.Participant__r != null ? ppa.Participant__r.Name : null
+                );
+            }
+        }
+
+        Map<Id, Applicant_Proposal_Association__c> applicantByProposal =
+            new Map<Id, Applicant_Proposal_Association__c>();
+
+        for (
+            Applicant_Proposal_Association__c apa : [
+                SELECT Proposal__c,
+                       Contact__c,
+                       Contact__r.Title__c,
+                       Contact__r.Salutation,
+                       Contact__r.FirstName,
+                       Contact__r.LastName,
+                       Contact__r.Email
+                FROM Applicant_Proposal_Association__c
+                WHERE Proposal__c IN :recordIds
+                AND Contact__c != null
+                ORDER BY CreatedDate ASC
+            ]
+        ) {
+            if (!applicantByProposal.containsKey(apa.Proposal__c)) {
+                applicantByProposal.put(apa.Proposal__c, apa);
+            }
+        }
+
+        List<Notification__c> notificationsToInsert = new List<Notification__c>();
+
+        for (Proposal__c proposal : proposals) {
+
+            String supervisorName = supervisorNameByProposal.get(proposal.Id);
+            if (String.isBlank(supervisorName)) {
+                System.debug('Skipping SUPERVISOR_FULL_SUBMISSION email - no Supervisor found for Proposal: ' + proposal.Id);
+                continue;
+            }
+
+            Applicant_Proposal_Association__c applicantAssociation = applicantByProposal.get(proposal.Id);
+            if (applicantAssociation == null || applicantAssociation.Contact__r == null || String.isBlank(applicantAssociation.Contact__r.Email)) {
+                System.debug('Skipping SUPERVISOR_FULL_SUBMISSION email - no Applicant email for Proposal: ' + proposal.Id);
+                continue;
+            }
+
+            Contact contact = applicantAssociation.Contact__r;
+
+            List<String> nameParts = new List<String>();
+            if (String.isNotBlank(contact.Title__c)) {
+                nameParts.add(contact.Title__c);
+            } else if (String.isNotBlank(contact.Salutation)) {
+                nameParts.add(contact.Salutation);
+            }
+            if (String.isNotBlank(contact.FirstName)) {
+                nameParts.add(contact.FirstName);
+            }
+            if (String.isNotBlank(contact.LastName)) {
+                nameParts.add(contact.LastName);
+            }
+            String applicantName = String.join(nameParts, ' ');
+
+            String proposalIdText = String.isNotBlank(proposal.Proposal_Id__c) ? proposal.Proposal_Id__c : '';
+            String applicationStage = String.isNotBlank(proposal.Application_Stages__c) ? proposal.Application_Stages__c : 'Full';
+
+            Notification__c notif = new Notification__c();
+            notif.Contact__c = applicantAssociation.Contact__c;
+            notif.Title__c = 'Full Application Submitted';
+            notif.Description__c = 'Your Supervisor (' + supervisorName + ') has submitted the Full Application.';
+            notif.Expiry_Date__c = System.today().addDays(10);
+            notificationsToInsert.add(notif);
+
+            Map<String, String> mergeValues = new Map<String, String>{
+                'Applicant_Name'   => applicantName,
+                'Supervisor_Name'  => supervisorName,
+                'ApplicationStage' => applicationStage,
+                'ProposalId'       => proposalIdText
+            };
+
+            System.debug('Supervisor Full Submission Merge Values ==> ' + mergeValues);
+
+            try {
+                HttpResponse response = SESService.sendEmail(contact.Email, 'Supervisor_Full_Submission_Email_Template', mergeValues);
+
+                if (response != null && response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+                    System.debug(
+                        'Supervisor Full Submission email sent successfully. ' +
+                        'Proposal Id: ' + proposal.Id +
+                        ', Email: ' + contact.Email +
+                        ', Status: ' + response.getStatusCode()
+                    );
+                } else {
+                    System.debug(
+                        'Supervisor Full Submission email failed. ' +
+                        'Proposal Id: ' + proposal.Id +
+                        ', Email: ' + contact.Email +
+                        ', Status: ' + (response == null ? 'NULL' : String.valueOf(response.getStatusCode())) +
+                        ', Body: ' + (response == null ? '' : response.getBody())
+                    );
+                }
+            } catch (Exception ex) {
+                System.debug(
+                    'Supervisor Full Submission email exception. ' +
                     'Proposal Id: ' + proposal.Id +
                     ', Email: ' + contact.Email +
                     ', Error: ' + ex.getMessage()

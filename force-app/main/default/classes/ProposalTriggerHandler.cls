@@ -585,8 +585,9 @@ public without sharing class ProposalTriggerHandler {
         // ---- New version: narrow candidates to reviewers explicitly linked to the
         // proposal's Yearly_Scheme__c via the Scheme_Reviewer__c junction (500+ reviewers
         // org-wide would otherwise all be keyword-matched; this scopes it down to just the
-        // reviewers assigned to that scheme). Reviewer_Type__c is read from Scheme_Reviewer__c
-        // itself (not the master Reviewer__c) per instruction, since that's the record that
+        // reviewers assigned to that scheme). The reviewer type is read from
+        // Scheme_Reviewer__c.Type_of_Reviewer__c (the older Reviewer_Type__c picklist on that
+        // object is being retired; not the master Reviewer__c either), since that's the record that
         // says what role this reviewer plays for this specific scheme. Keyed by
         // '<yearlySchemeId>::<type>' since different proposals in this batch can belong to
         // different schemes. ----
@@ -597,17 +598,29 @@ public without sharing class ProposalTriggerHandler {
             }
         }
 
+        // Required reviewer counts are configured per Yearly Scheme; blank falls back to the
+        // defaults (Prelims 2, Full 3).
+        Map<Id, Yearly_Schemes__c> schemeThresholdsById = new Map<Id, Yearly_Schemes__c>();
+        if (!yearlySchemeIds.isEmpty()) {
+            schemeThresholdsById = new Map<Id, Yearly_Schemes__c>([
+                SELECT Id, Prelim_Reviewers_Required__c, Full_Reviewers_Required__c
+                FROM Yearly_Schemes__c
+                WHERE Id IN :yearlySchemeIds
+            ]);
+        }
+
         Map<String, Set<Id>> reviewerIdsBySchemeAndType = new Map<String, Set<Id>>();
         Set<Id> candidateReviewerIds = new Set<Id>();
         if (!yearlySchemeIds.isEmpty()) {
             for (Scheme_Reviewer__c sr : [
-                SELECT Reviewer__c, Reviewer_Type__c, Yearly_Schemes__c
+                SELECT Reviewer__c, Type_of_Reviewer__c, Yearly_Schemes__c
                 FROM Scheme_Reviewer__c
                 WHERE Yearly_Schemes__c IN :yearlySchemeIds
-                AND Reviewer_Type__c IN :requiredReviewerTypes
+                AND Type_of_Reviewer__c IN :requiredReviewerTypes
                 AND Reviewer__c != null
+                AND Is_Active__c = true
             ]) {
-                String key = sr.Yearly_Schemes__c + '::' + sr.Reviewer_Type__c;
+                String key = sr.Yearly_Schemes__c + '::' + sr.Type_of_Reviewer__c;
                 if (!reviewerIdsBySchemeAndType.containsKey(key)) {
                     reviewerIdsBySchemeAndType.put(key, new Set<Id>());
                 }
@@ -624,6 +637,7 @@ public without sharing class ProposalTriggerHandler {
                 FROM Reviewer__c
                 WHERE Id IN :candidateReviewerIds
                 AND Email_Address__c != null
+                AND Is_Active__c = true
             ]) {
                 reviewersById.put(rev.Id, rev);
             }
@@ -719,7 +733,16 @@ public without sharing class ProposalTriggerHandler {
             // advances regardless of outcome (Prelims here; Full/Peer's status was already set
             // independently by GrantsTeamResponseHandler before this method even runs). The
             // Grants Team manually assigns any still-missing reviewers from the relevant view.
+            Yearly_Schemes__c schemeThresholds = schemeThresholdsById.get(yearlyScheme);
             Integer minRequired = (stage == 'Prelims') ? 2 : 3;
+            if (schemeThresholds != null) {
+                Decimal configured = (stage == 'Prelims')
+                    ? schemeThresholds.Prelim_Reviewers_Required__c
+                    : schemeThresholds.Full_Reviewers_Required__c;
+                if (configured != null) {
+                    minRequired = Integer.valueOf(configured);
+                }
+            }
             Integer alreadyMappedCount = existingIds.size();
             Integer totalReviewerCount = alreadyMappedCount + matchedIds.size();
             Boolean thresholdMet = totalReviewerCount >= minRequired;
@@ -832,8 +855,14 @@ public without sharing class ProposalTriggerHandler {
     	Set<Id> proposalIds = new Set<Id>();
         for (Proposal__c proposal : newProposals) {
             Proposal__c oldProposal = oldProposalMap.get(proposal.Id);
+            // Trigger point moved from 'Committee Review' to 'Peer Review' per request -
+            // Proposal_Committee__c junctions now exist well before Committee Review itself,
+            // but assignRoundRobinReviewers/sendCommitteeAssignmentEmails are unaffected:
+            // both are independently gated on the 'Committee Review' transition and query
+            // Proposal_Committee__c fresh, not relying on this method running in the same
+            // transaction.
             if (proposal.Yearly_Scheme__c != null &&
-             proposal.Proposal_Status__c =='Committee Review') {
+             proposal.Proposal_Status__c =='Peer Review') {
                 yearlySchemeIds.add(proposal.Yearly_Scheme__c);
                 proposalIds.add(proposal.Id);
             }
@@ -896,9 +925,8 @@ public without sharing class ProposalTriggerHandler {
     // wraparound comes from applying "mod N" whenever it's read, so it never needs resetting.
     // Must run after cloneCommitteeMember() so the Proposal_Committee__c junction records
     // for this proposal already exist.
-    // Only Type__c = 'DCM' members rotate through this ring - Chair and Co-chair still get
-    // a Proposal_Committee__c record (via cloneCommitteeMember, for every committee member
-    // regardless of type) but are never picked as reviewers by this method.
+    // Every committee member (DCM, Chair and Co-chair alike) rotates through this ring and
+    // can be picked as a reviewer.
     public static void assignRoundRobinReviewers(List<Proposal__c> newProposals, Map<Id, Proposal__c> oldProposalMap) {
         // Step 1: only proposals that just transitioned into 'Committee Review'.
         Map<Id, Id> yearlySchemeIdByProposalId = new Map<Id, Id>();
@@ -925,15 +953,13 @@ public without sharing class ProposalTriggerHandler {
             FOR UPDATE
         ]);
 
-        // Step 3: committee ring per scheme, ordered by Sequence__c. Only Type__c = 'DCM'
-        // members rotate as reviewers - Chair and Co-chair are excluded from the ring
-        // entirely and can never be picked here.
+        // Step 3: committee ring per scheme, ordered by Sequence__c. All member types
+        // (DCM, Chair, Co-chair) are part of the ring.
         Map<Id, List<Committee_Member__c>> ringByScheme = new Map<Id, List<Committee_Member__c>>();
         for (Committee_Member__c member : [
             SELECT Id, Yearly_Schemes__c, Sequence__c, Assignment_Count__c
             FROM Committee_Member__c
             WHERE Yearly_Schemes__c IN :yearlySchemeIds
-            AND Type__c = 'DCM'
             ORDER BY Sequence__c ASC NULLS LAST
         ]) {
             if (!ringByScheme.containsKey(member.Yearly_Schemes__c)) {
@@ -1034,7 +1060,15 @@ public without sharing class ProposalTriggerHandler {
         Savepoint sp = Database.setSavepoint();
         try {
             if (!proposalCommitteesToUpdate.isEmpty()) {
-                update proposalCommitteesToUpdate;
+                // sendCommitteeAssignmentEmails runs right after this and emails every member
+                // (reviewers with the "assigned as the Reviewer" wording) - so the per-record
+                // reviewer email on Committee_Reviewer__c false -> true must not also fire here.
+                ProposalCommitteeTriggerHandler.suppressReviewerEmail = true;
+                try {
+                    update proposalCommitteesToUpdate;
+                } finally {
+                    ProposalCommitteeTriggerHandler.suppressReviewerEmail = false;
+                }
             }
             if (!membersToUpdate.isEmpty()) {
                 update membersToUpdate;
@@ -1249,6 +1283,34 @@ public without sharing class ProposalTriggerHandler {
             return;
         }
         System.enqueueJob(new EmailNotificationQueueable('FULL_APPLICATION_ELIGIBLE', proposalIds));
+    }
+
+    /*
+     Notifies the Applicant (email only, via the Supervisor's name resolved from
+     Proposal_Participant_Association__c where Roles__c = 'Supervisor') as soon as
+     Peer_Application_Stage__c transitions to 'Final Submit' - regardless of which path set
+     it. The recordIds passed to the queueable are Proposal__c Ids, not PPA Ids - the
+     Supervisor lookup happens inside EmailNotificationQueueable.processSupervisorFullSubmission
+     itself, since Peer_Application_Stage__c lives on the Proposal, not the participant.
+    */
+    public static void notifySupervisorFullSubmission(List<Proposal__c> newProposals, Map<Id, Proposal__c> oldMap) {
+        if (oldMap == null) {
+            return;
+        }
+        List<Id> proposalIds = new List<Id>();
+        for (Proposal__c prop : newProposals) {
+            Proposal__c oldProp = oldMap.get(prop.Id);
+            if (oldProp == null) {
+                continue;
+            }
+            if (prop.Peer_Application_Stage__c == 'Final Submit' && oldProp.Peer_Application_Stage__c != 'Final Submit') {
+                proposalIds.add(prop.Id);
+            }
+        }
+        if (proposalIds.isEmpty()) {
+            return;
+        }
+        System.enqueueJob(new EmailNotificationQueueable('SUPERVISOR_FULL_SUBMISSION', proposalIds));
     }
 
     /*

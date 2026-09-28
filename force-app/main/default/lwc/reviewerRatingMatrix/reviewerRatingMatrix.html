@@ -28,18 +28,15 @@
                     <table class="rrm-table">
                         <thead>
                             <tr>
-                                <th class="rrm-th rrm-th_section" rowspan="3">Section Name</th>
-                                <th class="rrm-th rrm-th_group" colspan={reviewerColumnCount}>Reviewers</th>
-                            </tr>
-                            <tr>
-                                <template for:each={stageColumnGroups} for:item="group">
-                                    <th key={group.key} class="rrm-th rrm-th_stage" colspan={group.colspan}>
-                                        {group.stage}</th>
-                                </template>
+                                <th class="rrm-th rrm-th_section" rowspan="2">Section Name</th>
+                                <th class="rrm-th rrm-th_group" colspan={reviewerColumnCount}>{reviewerGroupHeaderLabel}</th>
                             </tr>
                             <tr>
                                 <template for:each={reviewerColumns} for:item="col">
-                                    <th key={col.key} class="rrm-th rrm-th_reviewer">{col.label}</th>
+                                    <th key={col.key} class="rrm-th rrm-th_reviewer">
+                                        <div class="rrm-reviewer-name">{col.label} ({col.reviewerType})</div>
+                                        <div class="rrm-reviewer-meta">{col.status}</div>
+                                    </th>
                                 </template>
                             </tr>
                         </thead>
@@ -84,56 +81,58 @@
                     </table>
                 </div>
 
-                <div class="rrm-decision-panel">
-                    <div class="slds-form-element rrm-feedback-field">
-                        <label class="slds-form-element__label" for="grants-feedback-summary">Grants Feedback
-                            Summary</label>
-                        <div class="slds-form-element__control">
-                            <textarea id="grants-feedback-summary" class="slds-textarea rrm-feedback-textarea"
-                                value={feedbackSummary} onchange={handleFeedbackChange}
-                                placeholder="Enter grants team feedback summary..."></textarea>
-                        </div>
-                    </div>
-                    <template lwc:if={showRejectionReason}>
+                <template lwc:if={showDecisionPanel}>
+                    <div class="rrm-decision-panel">
                         <div class="slds-form-element rrm-feedback-field">
-                            <label class="slds-form-element__label" for="reason-for-rejection">Reason for
-                                Rejection</label>
+                            <label class="slds-form-element__label" for="grants-feedback-summary">Grants Feedback
+                                Summary</label>
                             <div class="slds-form-element__control">
-                                <textarea id="reason-for-rejection" class="slds-textarea rrm-feedback-textarea"
-                                    value={rejectionReason} onchange={handleRejectionReasonChange}
-                                    placeholder="Enter reason for rejection..."></textarea>
+                                <textarea id="grants-feedback-summary" class="slds-textarea rrm-feedback-textarea"
+                                    value={feedbackSummary} onchange={handleFeedbackChange}
+                                    placeholder="Enter grants team feedback summary..."></textarea>
                             </div>
                         </div>
-                        <div class="rrm-decision-actions">
-                            <button type="button" class="rrm-decision-btn rrm-decision-btn_neutral"
-                                onclick={handleCancelRejection} disabled={isSavingDecision}>
-                                <span>Cancel</span>
-                            </button>
-                            <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
-                                onclick={handleConfirmRejection} disabled={isSavingDecision}>
-                                <lightning-icon icon-name="utility:close" size="xx-small"
-                                    class="rrm-decision-btn-icon"></lightning-icon>
-                                <span>Confirm Rejection</span>
-                            </button>
-                        </div>
-                    </template>
-                    <template lwc:else>
-                        <div class="rrm-decision-actions">
-                            <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
-                                onclick={handleRejectedClick} disabled={isDecisionDisabled}>
-                                <lightning-icon icon-name="utility:close" size="xx-small"
-                                    class="rrm-decision-btn-icon"></lightning-icon>
-                                <span>Reject</span>
-                            </button>
-                            <button type="button" class="rrm-decision-btn rrm-decision-btn_eligible"
-                                onclick={handleEligibleForFull} disabled={isDecisionDisabled}>
-                                <lightning-icon icon-name="utility:check" size="xx-small"
-                                    class="rrm-decision-btn-icon"></lightning-icon>
-                                <span>Eligible for Full</span>
-                            </button>
-                        </div>
-                    </template>
-                </div>
+                        <template lwc:if={showRejectionReason}>
+                            <div class="slds-form-element rrm-feedback-field">
+                                <label class="slds-form-element__label" for="reason-for-rejection">Reason for
+                                    Rejection</label>
+                                <div class="slds-form-element__control">
+                                    <textarea id="reason-for-rejection" class="slds-textarea rrm-feedback-textarea"
+                                        value={rejectionReason} onchange={handleRejectionReasonChange}
+                                        placeholder="Enter reason for rejection..."></textarea>
+                                </div>
+                            </div>
+                            <div class="rrm-decision-actions">
+                                <button type="button" class="rrm-decision-btn rrm-decision-btn_neutral"
+                                    onclick={handleCancelRejection} disabled={isSavingDecision}>
+                                    <span>Cancel</span>
+                                </button>
+                                <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
+                                    onclick={handleConfirmRejection} disabled={isSavingDecision}>
+                                    <lightning-icon icon-name="utility:close" size="xx-small"
+                                        class="rrm-decision-btn-icon"></lightning-icon>
+                                    <span>Confirm Rejection</span>
+                                </button>
+                            </div>
+                        </template>
+                        <template lwc:else>
+                            <div class="rrm-decision-actions">
+                                <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
+                                    onclick={handleRejectedClick} disabled={isDecisionDisabled}>
+                                    <lightning-icon icon-name="utility:close" size="xx-small"
+                                        class="rrm-decision-btn-icon"></lightning-icon>
+                                    <span>Reject</span>
+                                </button>
+                                <button type="button" class="rrm-decision-btn rrm-decision-btn_eligible"
+                                    onclick={handleEligibleForFull} disabled={isDecisionDisabled}>
+                                    <lightning-icon icon-name="utility:check" size="xx-small"
+                                        class="rrm-decision-btn-icon"></lightning-icon>
+                                    <span>Eligible for Full</span>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </template>
             </template>
 
             <template lwc:elseif={showNoData}>

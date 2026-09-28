@@ -20,6 +20,7 @@
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Email Trigger Only(Applicant).</description>
     <environments>Default</environments>
     <interviewLabel>Contact Registration Confirmation Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Contact Registration Confirmation Email</label>
@@ -48,9 +49,17 @@
         <connector>
             <targetReference>Send_User_Registration_Confirmation_Email</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Applicant</stringValue>
+            </value>
+        </filters>
         <object>Contact</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
 </Flow>

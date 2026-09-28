@@ -101,7 +101,7 @@ global without sharing class GetProposalDeclarationAPI {
 
             if (resolvedProposalId != null) {
                 List<Proposal_Participant_Association__c> ppaList = [
-                    SELECT Id, Participant__c, Roles__c, Document_Uploaded__c, Notify_through_Email__c
+                    SELECT Id, Participant__c, Roles__c, Document_Uploaded__c, Notify_through_Email__c,Re_Notify_Count__c,First_Email_Sent_Date_and_Time__c
                     FROM Proposal_Participant_Association__c
                     WHERE Proposal__c = :resolvedProposalId
                     AND Participant__c != null AND Stage__c = 'Prelims'
@@ -158,6 +158,8 @@ global without sharing class GetProposalDeclarationAPI {
                         pw.documentUploadStatus = matchedPpa.Document_Uploaded__c != null ? matchedPpa.Document_Uploaded__c : false;
                         pw.notifyThroughEmailForPPA = matchedPpa.Notify_through_Email__c != null ? matchedPpa.Notify_through_Email__c : false;
                         pw.documentUploaded = matchedPpa.Document_Uploaded__c;                  // Picklist
+                        pw.reNotifyCountForPPA = matchedPpa != null ? matchedPpa.Re_Notify_Count__c : null;
+                        pw.firstEmailSentDateTimeForPPA = (matchedPpa != null && matchedPpa.First_Email_Sent_Date_and_Time__c != null)? matchedPpa.First_Email_Sent_Date_and_Time__c.formatGmt('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''): null;
                         participantDetails.add(pw);
                     }
                 }
@@ -171,7 +173,7 @@ global without sharing class GetProposalDeclarationAPI {
 
             if (resolvedProposalId != null) {
                 List<Additional_Partcipant__c> additionalList = [
-                    SELECT Id, Roles__c, First_Name__c, Last_Name__c, Email__c, Department__c,DocumentUploaded__c,
+                    SELECT Id, Roles__c, First_Name__c, Last_Name__c, Email__c, Department__c,DocumentUploaded__c,Re_Notify_Count__c,First_Email_Sent_Date_and_Time__c,
                            Designation__c, Gender__c, Nationality__c, Organisation__c, Telephone__c, Title__c, Stage__c,
                            Notify_through_Email__c
                     FROM Additional_Partcipant__c
@@ -195,6 +197,8 @@ global without sharing class GetProposalDeclarationAPI {
                     aw.notifyThroughEmail = ap.Notify_through_Email__c;
                     aw.documentUploaded = ap.DocumentUploaded__c;
                     aw.documentUploadStatus = ap.DocumentUploaded__c;
+                    aw.reNotifyCountForAP = ap.Re_Notify_Count__c;
+                    aw.firstEmailSentDateTimeForAP = ap.First_Email_Sent_Date_and_Time__c != null? ap.First_Email_Sent_Date_and_Time__c.formatGmt('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\''): null;
                     additionalParticipants.add(aw);
                 }
 
@@ -353,6 +357,8 @@ global without sharing class GetProposalDeclarationAPI {
         global Boolean documentUploadStatus;
         global Boolean notifyThroughEmailForPPA;
         global Boolean documentUploaded;
+        global Decimal reNotifyCountForPPA;
+        global String  firstEmailSentDateTimeForPPA;
 
     }
 
@@ -375,6 +381,9 @@ global without sharing class GetProposalDeclarationAPI {
         global Boolean notifyThroughEmail;
         global Boolean documentUploadStatus;
         global Boolean documentUploaded;
+        global Decimal reNotifyCountForAP;
+        global String  firstEmailSentDateTimeForAP;
+
     }
 
     global class HostContactWrapper {

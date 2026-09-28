@@ -1,5 +1,46 @@
 .cem-container {
     padding: 0 15px 15px;
+    margin-top: -5px;
+}
+
+/* ================================================================
+   TABS
+   ================================================================ */
+
+.cem-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.cem-tab {
+    padding: 0.55rem 1.1rem;
+    margin-bottom: -1px;
+
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: #64748b;
+}
+
+.cem-tab:hover {
+    color: #8b1e3f;
+}
+
+.cem-tab_active {
+    color: #8b1e3f;
+    border-bottom-color: #8b1e3f;
+}
+
+/* The embedded peer matrix has its own side padding - cancel it so both tabs line up. */
+.cem-reviewers-pane {
+    margin: -14px -15px -10px;
 }
 
 /* ================================================================
@@ -101,6 +142,20 @@
     min-width: 220px;
 }
 
+.cem-member-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.cem-member-meta {
+    margin-top: 2px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #8a5163;
+}
+
 .cem-td {
     padding: 0.65rem 1rem;
     vertical-align: top;
@@ -162,4 +217,125 @@
     min-width: 260px;
     border-right: 2px solid #e2e8f0;
     box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.15);
+}
+
+/* ================================================================
+   COMMITTEE DECISION PANEL (feedback textarea + Reject / Proceed buttons)
+   ================================================================ */
+
+.cem-decision-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eef1f6;
+}
+
+.cem-feedback-field {
+    width: 100%;
+}
+
+.cem-feedback-field .slds-form-element__label {
+    font-weight: 600;
+    color: #16325c;
+}
+
+.cem-feedback-textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 72px;
+    padding: 0.6rem 0.75rem;
+
+    border: 1px solid #d8dde5;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #172554;
+
+    font-size: 13px;
+    font-family: inherit;
+
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cem-feedback-textarea:hover {
+    border-color: #8b1e3f;
+}
+
+.cem-feedback-textarea:focus {
+    border-color: #8b1e3f;
+    box-shadow: 0 0 0 3px rgba(139, 30, 63, 0.12);
+}
+
+.cem-decision-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.cem-decision-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 9px 16px;
+    margin: 0;
+    border: none;
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.cem-decision-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cem-decision-btn_proceed {
+    background: linear-gradient(120deg, #1b8a4c 0%, #24a45d 100%);
+    box-shadow: 0 4px 10px rgba(27, 138, 76, 0.28);
+}
+
+.cem-decision-btn_proceed:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(27, 138, 76, 0.35);
+}
+
+.cem-decision-btn_reject {
+    background: linear-gradient(120deg, #a51c1c 0%, #c23934 100%);
+    box-shadow: 0 4px 10px rgba(194, 57, 52, 0.28);
+}
+
+.cem-decision-btn_reject:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(194, 57, 52, 0.35);
+}
+
+.cem-decision-btn-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.cem-decision-btn_neutral {
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #d8dde5;
+    box-shadow: none;
+}
+
+.cem-decision-btn_neutral:hover:not(:disabled) {
+    background: #f4f6f9;
+    border-color: #b8c0cc;
 }

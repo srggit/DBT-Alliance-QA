@@ -75,6 +75,10 @@ trigger ProposalTrigger on Proposal__c(before insert, before update, after inser
             // set it - same reasoning as sendFullApplicationNotifications just above, but for
             // the Applicant audience instead of the Grants Team.
             ProposalTriggerHandler.notifyApplicantOnFullApplicationEligibility(Trigger.new, Trigger.oldMap);
+
+            // Notifies the Applicant (email, with the Supervisor's name) as soon as
+            // Peer_Application_Stage__c transitions to 'Final Submit'.
+            ProposalTriggerHandler.notifySupervisorFullSubmission(Trigger.new, Trigger.oldMap);
         }
     }
      if (Trigger.isAfter && Trigger.isInsert) {

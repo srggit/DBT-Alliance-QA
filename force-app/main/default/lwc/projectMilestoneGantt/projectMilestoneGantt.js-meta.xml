@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>false</isExposed>
+    <masterLabel>Project Milestone Gantt</masterLabel>
+    <description>Read-only Gantt chart for Project Milestones, mirroring the applicant portal GanttChart.</description>
+</LightningComponentBundle>

@@ -11,7 +11,7 @@ public with sharing class CommitteeEvaluationMatrixController {
         }
 
         List<Proposal_Committee__c> committeeMembers = [
-            SELECT Id, Commitee_Member_Name__c
+            SELECT Id, Commitee_Member_Name__c, Status__c
             FROM Proposal_Committee__c
             WHERE Proposal__c = :proposalId
             AND Status__c = 'Submitted'
@@ -49,19 +49,59 @@ public with sharing class CommitteeEvaluationMatrixController {
                     answers.add(new QuestionAnswerWrapper(cme.Section_Detail__c, cme.Question__c, cme.Answer__c));
                 }
             }
-            result.add(new MemberEvaluationWrapper(pc.Id, pc.Commitee_Member_Name__c, answers));
+            result.add(new MemberEvaluationWrapper(pc.Id, pc.Commitee_Member_Name__c, pc.Status__c, answers));
         }
         return result;
+    }
+
+    // Final Committee Review decision, taken from the Committee Evaluation Responses screen:
+    //  - 'Reject'  -> Reason_for_Rejection__c (required) + status 'Rejected'.
+    //  - 'Proceed' -> Committee_Feedback_Summary__c (required) + Recommended_for_Chair_Co_Chair_Stage__c = 'Yes'
+    //                 + status 'Chair/Co-Chair'.
+    // Replaces the old "2 Submitted committee responses -> Chair/Co-Chair" automation.
+    @AuraEnabled
+    public static void saveCommitteeDecision(Id proposalId, String decision, String feedbackSummary, String reasonForRejection) {
+        if (proposalId == null) {
+            throw new AuraHandledException('Proposal Id is required.');
+        }
+        if (decision != 'Reject' && decision != 'Proceed') {
+            throw new AuraHandledException('Decision must be Reject or Proceed.');
+        }
+        if (decision == 'Reject' && String.isBlank(reasonForRejection)) {
+            throw new AuraHandledException('Reason for Rejection is required.');
+        }
+        if (decision == 'Proceed' && String.isBlank(feedbackSummary)) {
+            throw new AuraHandledException('Committee Feedback Summary is required.');
+        }
+
+        Proposal__c toUpdate = new Proposal__c(Id = proposalId);
+        if (!String.isBlank(feedbackSummary)) {
+            toUpdate.Committee_Feedback_Summary__c = feedbackSummary;
+        }
+        if (decision == 'Reject') {
+            toUpdate.Reason_for_Rejection__c = reasonForRejection;
+            toUpdate.Proposal_Status__c = 'Rejected';
+        } else {
+            toUpdate.Recommended_for_Chair_Co_Chair_Stage__c = 'Yes';
+            toUpdate.Proposal_Status__c = 'Chair/Co-Chair';
+        }
+        try {
+            update toUpdate;
+        } catch (DmlException e) {
+            throw new AuraHandledException('Unable to save decision: ' + e.getDmlMessage(0));
+        }
     }
 
     public class MemberEvaluationWrapper {
         @AuraEnabled public Id committeeId;
         @AuraEnabled public String memberName;
+        @AuraEnabled public String status;
         @AuraEnabled public List<QuestionAnswerWrapper> answers;
 
-        public MemberEvaluationWrapper(Id committeeId, String memberName, List<QuestionAnswerWrapper> answers) {
+        public MemberEvaluationWrapper(Id committeeId, String memberName, String status, List<QuestionAnswerWrapper> answers) {
             this.committeeId = committeeId;
             this.memberName = memberName;
+            this.status = status;
             this.answers = answers;
         }
     }

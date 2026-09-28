@@ -310,16 +310,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Reason_for_Rejection__c</fieldItem>
-                <identifier>RecordReason_for_Rejection_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Want_Restricted_Reviewer__c</fieldItem>
                 <identifier>RecordWant_Restricted_Reviewer_cField</identifier>
             </fieldInstance>
@@ -686,6 +676,16 @@
                 <identifier>RecordCommittee_Feedback_Summary_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_for_Rejection__c</fieldItem>
+                <identifier>RecordReason_for_Rejection_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-35659548-3a80-493b-90b3-1f930dc0f63d</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -746,8 +746,38 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Committee_Review_Submitted__c</fieldItem>
+                <identifier>RecordCommittee_Review_Submitted_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.All_Committee_Response_Submitted__c</fieldItem>
+                <identifier>RecordAll_Committee_Response_Submitted_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Reason_for_Rejection_before_Committee__c</fieldItem>
                 <identifier>RecordReason_for_Rejection_before_Committee_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Recommended_for_Chair_Co_Chair_Stage__c</fieldItem>
+                <identifier>RecordRecommended_for_Chair_Co_Chair_Stage__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b7b9bac3-f16f-4052-aba5-a0c0a6e1c8ba</name>
@@ -2142,19 +2172,16 @@
                             <value>NAME</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Commitee_Member_Name__c</value>
+                            <value>Committee_Member__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Committee_Member__c</value>
+                            <value>Commitee_Member_Name__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Type__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Committee_Reviewer__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Scheme_Name__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Status__c</value>
@@ -2164,6 +2191,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Application_Stages__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Scheme_Name__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>CREATED_DATE</value>
