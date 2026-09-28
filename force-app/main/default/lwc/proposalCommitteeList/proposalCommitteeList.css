@@ -1,0 +1,181 @@
+:host {
+    display: block;
+}
+
+.pcl-container {
+    padding: 0;
+}
+
+/* ================================================================
+   BANNER
+   ================================================================ */
+
+.pcl-banner {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    height: 88px;
+    padding: 0 24px;
+    margin-bottom: 16px;
+
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: linear-gradient(120deg, #4a0f22 0%, #7a1a37 55%, #8b1e3f 85%, #95324f 100%);
+    box-shadow: 0 8px 24px rgba(74, 15, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.pcl-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%);
+    pointer-events: none;
+}
+
+.pcl-banner-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+
+    border-radius: 0.5rem;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    position: relative;
+    z-index: 1;
+}
+
+.pcl-banner-icon lightning-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+.pcl-banner-text {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pcl-banner-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 20px;
+}
+
+.pcl-banner-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 16px;
+}
+
+.pcl-banner-art {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-12deg);
+    opacity: 0.18;
+    pointer-events: none;
+}
+
+.pcl-banner-art lightning-icon {
+    --slds-c-icon-color-foreground-default: #ffffff;
+}
+
+/* ================================================================
+   ACTIONS
+   ================================================================ */
+
+.pcl-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+.pcl-save-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0.5rem 1.25rem;
+
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #ffffff;
+
+    background: linear-gradient(120deg, #7a1a37 0%, #8b1e3f 100%);
+    box-shadow: 0 4px 10px rgba(139, 30, 63, 0.25);
+}
+
+.pcl-save-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    box-shadow: none;
+}
+
+/* ================================================================
+   TABLE
+   ================================================================ */
+
+.pcl-table-wrap {
+    overflow-x: auto;
+
+    border: 1px solid #eef1f6;
+    border-radius: 10px;
+}
+
+.pcl-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pcl-table th {
+    background: #8b1e3f;
+    color: #ffffff;
+
+    text-align: left;
+    padding: 0.6rem 0.9rem;
+
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.pcl-table td {
+    padding: 0.55rem 0.9rem;
+    vertical-align: middle;
+
+    font-size: 0.8125rem;
+    color: #334155;
+    white-space: nowrap;
+
+    border-bottom: 1px solid #eef1f6;
+}
+
+.pcl-table tr:last-child td {
+    border-bottom: none;
+}
+
+.pcl-type-cell {
+    min-width: 160px;
+    white-space: normal;
+}

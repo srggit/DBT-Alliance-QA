@@ -92,13 +92,27 @@ export default class ReOpenSection extends LightningElement {
     }
 
     async handleReopenSelected() {
-        if (this.selectedSectionIds.size === 0) {
+        // Read straight off the rendered inputs rather than the tracked
+        // selectedSectionIds/sectionReasons state - that state is only updated by onchange
+        // (fires on blur/Enter), so a checkbox ticked or a reason typed just before clicking
+        // this button, without first leaving the field, could still read as unselected/blank
+        // here even though it's visibly checked/filled on screen.
+        const checkboxEls = Array.from(this.template.querySelectorAll('[data-role="reopen-checkbox"]'));
+        const reasonEls = Array.from(this.template.querySelectorAll('[data-role="reopen-reason"]'));
+
+        const reasonById = new Map();
+        reasonEls.forEach((el) => reasonById.set(el.dataset.id, (el.value || '').trim()));
+
+        const selectedIds = checkboxEls.filter((el) => el.checked).map((el) => el.dataset.id);
+
+        if (selectedIds.length === 0) {
             this.showToast('Error', 'Select at least one section to reopen.', 'error');
             return;
         }
-        const sectionRequests = Array.from(this.selectedSectionIds).map((sectionId) => ({
+
+        const sectionRequests = selectedIds.map((sectionId) => ({
             sectionId,
-            reason: (this.sectionReasons.get(sectionId) || '').trim()
+            reason: reasonById.get(sectionId) || ''
         }));
         if (sectionRequests.some((req) => !req.reason)) {
             this.showToast('Error', 'Enter a reopening reason for every selected section.', 'error');
@@ -106,7 +120,9 @@ export default class ReOpenSection extends LightningElement {
         }
         this.isSaving = true;
         try {
-            await reopenSchemeSections({ sectionRequests });
+            // Sent as a JSON string, not the raw list - see reopenSchemeSections' doc comment
+            // for why (the bare List<InnerWrapperClass> wire binding was dropping field values).
+            await reopenSchemeSections({ sectionRequestsJson: JSON.stringify(sectionRequests) });
             this.showToast('Success', 'Selected sections have been reopened.', 'success');
             await this.loadSections();
             this.dispatchEvent(new CustomEvent('save'));

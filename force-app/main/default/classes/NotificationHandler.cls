@@ -237,6 +237,85 @@ public with sharing class NotificationHandler {
         
                 notificationsToInsert.add(notif);
             }
+        // ------------------------------------------------------------------
+        // Proposal_Participant_Association__c -> notify the Applicant (via
+        // Applicant_Proposal_Association__c on the same Proposal) when a
+        // participant (Sponsor, Supervisor, etc.) submits their document
+        // ------------------------------------------------------------------
+        } else if (objectApiName == 'Proposal_Participant_Association__c') {
+
+            Set<Id> ppaIds = new Set<Id>();
+            for (SObject rec : newRecords) {
+                if (rec == null) {
+                    continue;
+                }
+                Proposal_Participant_Association__c ppa = (Proposal_Participant_Association__c) rec;
+                if (ppa.Id != null) {
+                    ppaIds.add(ppa.Id);
+                }
+            }
+
+            if (!ppaIds.isEmpty()) {
+
+                // Re-query for Roles__c / Participant__r.Name / Proposal__c - not
+                // guaranteed to be on the trigger's record set.
+                List<Proposal_Participant_Association__c> ppasWithDetails = [
+                    SELECT Id, Proposal__c, Roles__c, Participant__c, Participant__r.Name
+                    FROM Proposal_Participant_Association__c
+                    WHERE Id IN :ppaIds
+                ];
+
+                Set<Id> proposalIds = new Set<Id>();
+                for (Proposal_Participant_Association__c ppa : ppasWithDetails) {
+                    if (ppa.Proposal__c != null) {
+                        proposalIds.add(ppa.Proposal__c);
+                    }
+                }
+
+                // One Applicant_Proposal_Association__c per Proposal - resolves the
+                // Applicant's Contact, same lookup used above for Proposal Rejected.
+                Map<Id, Applicant_Proposal_Association__c> apaByProposalId = new Map<Id, Applicant_Proposal_Association__c>();
+                if (!proposalIds.isEmpty()) {
+                    for (Applicant_Proposal_Association__c apa : [
+                        SELECT Id, Contact__c, Proposal__c
+                        FROM Applicant_Proposal_Association__c
+                        WHERE Proposal__c IN :proposalIds
+                    ]) {
+                        apaByProposalId.put(apa.Proposal__c, apa);
+                    }
+                }
+
+                for (Proposal_Participant_Association__c ppa : ppasWithDetails) {
+
+                    if (ppa.Proposal__c == null) {
+                        System.debug('Skipping PPA ' + ppa.Id + ' - no related Proposal.');
+                        continue;
+                    }
+
+                    Applicant_Proposal_Association__c apa = apaByProposalId.get(ppa.Proposal__c);
+
+                    // NULL CHECK: need the Applicant's Contact to notify them
+                    if (apa == null || apa.Contact__c == null) {
+                        System.debug('No Applicant Contact found for Proposal: ' + ppa.Proposal__c);
+                        continue;
+                    }
+
+                    String roleLabel = String.isNotBlank(ppa.Roles__c) ? ppa.Roles__c : 'Participant';
+                    String participantName = (ppa.Participant__r != null && String.isNotBlank(ppa.Participant__r.Name))
+                        ? ppa.Participant__r.Name
+                        : '';
+
+                    Notification__c notif = new Notification__c();
+                    notif.For_all__c = false;
+                    notif.Contact__c = apa.Contact__c;
+                    notif.Title__c = 'Document Submitted';
+                    notif.Description__c = roleLabel + ' (' + participantName + ') has submitted the required document.';
+                    notif.Expiry_Date__c = Date.today().addDays(10);
+
+                    notificationsToInsert.add(notif);
+                }
+            }
+
         }
 
         else {

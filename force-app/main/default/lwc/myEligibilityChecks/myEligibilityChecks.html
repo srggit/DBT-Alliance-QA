@@ -62,6 +62,9 @@
                         <button type="button" class={committeeReviewTabClass} data-tab="committeeReview"
                             title={committeeReviewTooltip}
                             onclick={handleSelectListTab}>{committeeReviewLabel}</button>
+                        <button type="button" class={assignChairCoChairTabClass} data-tab="assignChairCoChair"
+                            title={assignChairCoChairTooltip}
+                            onclick={handleSelectListTab}>{assignChairCoChairLabel}</button>
                         <button type="button" class={needsReviewersTabClass} data-tab="needsReviewers"
                             title={needsReviewersTooltip}
                             onclick={handleSelectListTab}>{needsReviewersLabel}</button>
@@ -290,6 +293,26 @@
                                                         <lightning-icon icon-name="utility:new_window" size="xx-small"
                                                             class="myec-open-btn-icon"></lightning-icon>
                                                     </button>
+                                                    <template lwc:if={showCommitteeListButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenCommitteeList}>
+                                                            <span>Committee</span>
+                                                            <lightning-icon icon-name="utility:groups" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={showCommitteeEvaluationButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenCommitteeEvaluation}>
+                                                            <span>Committee Evaluation</span>
+                                                            <lightning-icon icon-name="utility:table" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
                                                     <template lwc:if={isAssignedTab}>
                                                         <button type="button"
                                                             class="myec-open-btn myec-open-btn_compact"
@@ -326,6 +349,26 @@
                                                             data-proposal-id={row.proposalId}
                                                             onclick={handleOpenReviewerMapping}>
                                                             <span>Reviewer Response</span>
+                                                            <lightning-icon icon-name="utility:identity" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={showReviewerSectionResponseButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenReviewerSectionResponse}>
+                                                            <span>Reviewer Response 2</span>
+                                                            <lightning-icon icon-name="utility:comments" size="xx-small"
+                                                                class="myec-open-btn-icon"></lightning-icon>
+                                                        </button>
+                                                    </template>
+                                                    <template lwc:if={showAssignReviewersButton}>
+                                                        <button type="button"
+                                                            class="myec-open-btn myec-open-btn_compact"
+                                                            data-proposal-id={row.proposalId}
+                                                            onclick={handleOpenAssignReviewers}>
+                                                            <span>Assign Reviewers</span>
                                                             <lightning-icon icon-name="utility:identity" size="xx-small"
                                                                 class="myec-open-btn-icon"></lightning-icon>
                                                         </button>
@@ -449,6 +492,51 @@
         <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
     </template>
 
+    <template lwc:if={showReviewerSectionResponseModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseReviewerSectionResponse}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <template lwc:if={reviewerSectionResponseUsesPeerEvaluation}>
+                        <c-peer-evaluation-matrix record-id={selectedProposalIdForReviewerSectionResponse}
+                            hide-decision-panel={hideReviewerSectionResponseDecisionPanel}
+                            onclose={handleCloseReviewerSectionResponse}>
+                        </c-peer-evaluation-matrix>
+                    </template>
+                    <template lwc:else>
+                        <c-reviewer-rating-matrix record-id={selectedProposalIdForReviewerSectionResponse}
+                            hide-decision-panel={hideReviewerSectionResponseDecisionPanel}
+                            onclose={handleCloseReviewerSectionResponse}>
+                        </c-reviewer-rating-matrix>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showAssignReviewersModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseAssignReviewers}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-assign-reviewers-modal record-id={selectedProposalIdForAssignReviewers}
+                        oncancel={handleCloseAssignReviewers}>
+                    </c-assign-reviewers-modal>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
     <template lwc:if={showPeerEvaluationModal}>
         <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
             <div class="slds-modal__container myec-large-modal">
@@ -495,6 +583,40 @@
                 </header>
                 <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
                     <c-proposal-review-component initial-status-filter={proposalReviewerInitialStatusFilter}></c-proposal-review-component>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showCommitteeListModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseCommitteeList}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-proposal-committee-list record-id={selectedProposalIdForCommitteeList}>
+                    </c-proposal-committee-list>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open myec-backdrop-blur myec-backdrop-anim"></div>
+    </template>
+
+    <template lwc:if={showCommitteeEvaluationModal}>
+        <div class="slds-modal slds-fade-in-open slds-modal_large myec-modal-anim">
+            <div class="slds-modal__container myec-large-modal">
+                <header class="slds-modal__header myec-modal-header-plain">
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close" class="slds-modal__close"
+                        variant="bare" onclick={handleCloseCommitteeEvaluation}>
+                    </lightning-button-icon>
+                </header>
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-bottom_medium">
+                    <c-committee-evaluation-matrix record-id={selectedProposalIdForCommitteeEvaluation}>
+                    </c-committee-evaluation-matrix>
                 </div>
             </div>
         </div>

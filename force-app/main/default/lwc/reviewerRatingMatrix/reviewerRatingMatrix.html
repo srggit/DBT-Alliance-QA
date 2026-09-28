@@ -120,13 +120,13 @@
                     <template lwc:else>
                         <div class="rrm-decision-actions">
                             <button type="button" class="rrm-decision-btn rrm-decision-btn_reject"
-                                onclick={handleRejectedClick} disabled={isSavingDecision}>
+                                onclick={handleRejectedClick} disabled={isDecisionDisabled}>
                                 <lightning-icon icon-name="utility:close" size="xx-small"
                                     class="rrm-decision-btn-icon"></lightning-icon>
                                 <span>Reject</span>
                             </button>
                             <button type="button" class="rrm-decision-btn rrm-decision-btn_eligible"
-                                onclick={handleEligibleForFull} disabled={isSavingDecision}>
+                                onclick={handleEligibleForFull} disabled={isDecisionDisabled}>
                                 <lightning-icon icon-name="utility:check" size="xx-small"
                                     class="rrm-decision-btn-icon"></lightning-icon>
                                 <span>Eligible for Full</span>

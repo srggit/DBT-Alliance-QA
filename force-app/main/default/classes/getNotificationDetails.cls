@@ -22,7 +22,7 @@ global with sharing class getNotificationDetails {
 
             if (!String.isBlank(contactId)) {
                 notifications = [
-                    SELECT Id, Title__c, Description__c, Expiry_Date__c,
+                    SELECT Id, Title__c, Description__c, Expiry_Date__c, CreatedDate,
                            Yearly_Schemes__c, For_All__c, Contact__c
                     FROM Notification__c
                     WHERE Expiry_Date__c > :today
@@ -30,7 +30,7 @@ global with sharing class getNotificationDetails {
                 ];
             } else {
                 notifications = [
-                    SELECT Id, Title__c, Description__c, Expiry_Date__c,
+                    SELECT Id, Title__c, Description__c, Expiry_Date__c, CreatedDate,
                            Yearly_Schemes__c, For_All__c, Contact__c
                     FROM Notification__c
                     WHERE Expiry_Date__c > :today
@@ -75,9 +75,7 @@ global with sharing class getNotificationDetails {
                 String currentStatus = (existingStatus != null) ? existingStatus.Status__c : 'Unread';
                 Id statusId = (existingStatus != null) ? existingStatus.Id : null;
 
-                if (currentStatus == 'Unread') {
-                    result.add(new NotificationResult(n, currentStatus, statusId));
-                }
+                result.add(new NotificationResult(n, currentStatus, statusId));
             }
 
             response.success = true;
@@ -107,6 +105,7 @@ global with sharing class getNotificationDetails {
         public String title;
         public String description;
         public Date expiryDate;
+        public Datetime createdDate;
         public Id schemeId;
         public Boolean forAll;
         public String status;
@@ -117,6 +116,7 @@ global with sharing class getNotificationDetails {
             this.title = n.Title__c;
             this.description = n.Description__c;
             this.expiryDate = n.Expiry_Date__c;
+            this.createdDate = n.CreatedDate;
             this.schemeId = n.Yearly_Schemes__c;
             this.forAll = n.For_All__c;
             this.status = status;

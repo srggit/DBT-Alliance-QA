@@ -9,7 +9,7 @@ import createCommitteeMembers from '@salesforce/apex/CommitteeMemberController.c
 
 const TYPE_CHAIR = 'Chair';
 const TYPE_COCHAIR = 'Co-chair';
-const TYPE_MEMBER = 'Member';
+const TYPE_DCM = 'DCM';
 const SINGLE_SEAT_TYPES = [TYPE_CHAIR, TYPE_COCHAIR];
 
 export default class CommitteeMemberSelector extends LightningElement {
@@ -124,9 +124,9 @@ export default class CommitteeMemberSelector extends LightningElement {
             if (row.alreadyAdded || !visibleIds.has(row.masterId)) {
                 return row;
             }
-            // Default newly-checked rows to Member so the user only has to touch the
+            // Default newly-checked rows to DCM so the user only has to touch the
             // Type dropdown for the one Chair and one Co-chair they want to designate.
-            const type = checked && !row.type ? TYPE_MEMBER : row.type;
+            const type = checked && !row.type ? TYPE_DCM : row.type;
             return { ...row, selected: checked, type: checked ? type : row.type };
         });
 
@@ -154,9 +154,9 @@ export default class CommitteeMemberSelector extends LightningElement {
             if (row.masterId !== id) {
                 return row;
             }
-            // Default to Member on check so the user only has to touch the Type dropdown
+            // Default to DCM on check so the user only has to touch the Type dropdown
             // for the one Chair and one Co-chair they want to designate.
-            const type = checked && !row.type ? TYPE_MEMBER : row.type;
+            const type = checked && !row.type ? TYPE_DCM : row.type;
             return { ...row, selected: checked, type };
         });
         if (checked) {
@@ -193,14 +193,14 @@ export default class CommitteeMemberSelector extends LightningElement {
         const id = event.target.dataset.id;
         const value = event.detail.value;
         // Chair and Co-chair are single-seat: picking one for this row bumps whoever
-        // currently holds it (among selected, non-locked rows) back down to Member.
+        // currently holds it (among selected, non-locked rows) back down to DCM.
         const bumpOthers = SINGLE_SEAT_TYPES.includes(value);
         this.masterRows = this.masterRows.map(row => {
             if (row.masterId === id) {
                 return { ...row, type: value };
             }
             if (bumpOthers && row.selected && !row.alreadyAdded && row.type === value) {
-                return { ...row, type: TYPE_MEMBER };
+                return { ...row, type: TYPE_DCM };
             }
             return row;
         });

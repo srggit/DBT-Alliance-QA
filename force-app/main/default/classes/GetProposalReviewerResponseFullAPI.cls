@@ -1857,7 +1857,7 @@ global without sharing class GetProposalReviewerResponseFullAPI {
 
     private static List<Human__c> buildHumanDetails(Id proposalId) {
         return [
-            SELECT Id, Age_Minimum__c, Age_Maximum__c, Project_will_any_hospital_clinical_facil__c,
+            SELECT Id, Age_Maximum__c, Age_Minimum__c, Project_will_any_hospital_clinical_facil__c,
                     biohazards_are_associated_Biological__c
                    , CurrencyIsoCode,PersonalRegulatorybodiesethicalreview__c,
                     Details_of_stem_Cell_experiment_nature__c,
@@ -2020,8 +2020,8 @@ global without sharing class GetProposalReviewerResponseFullAPI {
         List<WOHI_Collaboration__c> collabRecords = [
             SELECT Id, Applicant_Proposal_Association__c, City_Town__c, CurrencyIsoCode,
                    Current_Position__c, Department__c, District__c, Email__c,
-                   Expected_outcome_from_each_visit__c, Expertise__c,
-                    FirstName__c, Gender__c,Will_the_collaboration_require_MTA__c,Extent_and_nature_of_Collaborator__c,
+                   Expected_outcome_from_each_visit__c, Expertise__c,Will_the_collaboration_require_MTA__c,
+                   Extent_and_nature_of_Collaborator__c, FirstName__c, Gender__c,
                    Invitation_Link__c, Last_Name__c, Nationality__c, Notified__c,
                    Organisation__c, Postcode__c, Scientific_Justification_for_WOHI_lab__c,
                    State__c, Status__c, TelephoneNo__c, Title__c, Type__c,

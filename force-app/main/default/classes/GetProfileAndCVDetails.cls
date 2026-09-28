@@ -249,7 +249,7 @@ global without sharing class GetProfileAndCVDetails {
 
         try {
             List<Contact> contacts = [
-                SELECT Id, Title, Title__c, FirstName, LastName, Phone, Email, BirthDate, Position__c, Department, MailingCity, 
+                SELECT Id, Title, Title__c, FirstName, LastName, Phone, Email, BirthDate, Position__c, Department, MailingCity,Added_as_Sponsor__c, Added_as_Supervisor__c ,
                 MailingState, MailingCountry, MailingPostalCode, AccountId, Account.Name, Qualifying_Degree__c, Qualifying_Degree_Viva_Date__c, Research_Experience_After_Viva_Date_Yrs__c, Research_Experience_After_Viva_Date_Mont__c, ORCID_ID__c, Google_Scholar_Profile__c,
 
                     (SELECT Id, Applicant_Proposal_Association__c, Contact__c, Country__c, CreatedById, CreatedDate, CurrencyIsoCode, Department_School_Division__c, End_Date__c, Institution__c, IsDeleted, Likely_date_of_completion__c, Name, OwnerId, Pursuing_Higher_Degree__c, Qualification__c, Research_Summary_During_Highest_Degree__c, Specify_Other_Degree__c, Specify_the_pursuing_degree__c, Specify_the_University__c, Start_Date__c, Subject__c, Supervisor__c, Title_of_thesis_Dissertation__c, University__c 
@@ -314,6 +314,7 @@ global without sharing class GetProfileAndCVDetails {
 
             profileDetails.orcidID = con.ORCID_ID__c;
             profileDetails.googleScholarProfileLink = con.Google_Scholar_Profile__c;
+            profileDetails.hostPortalSwitch = (con.Added_as_Sponsor__c == true || con.Added_as_Supervisor__c == true);
 
             for(Education_Details__c edu : con.Education_Details__r){
                 WrapperClassData.EducationDetailsWrapper educationDetailsWrapper = new WrapperClassData.EducationDetailsWrapper();

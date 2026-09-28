@@ -148,6 +148,7 @@ global with sharing class WrapperClassData {
         public Integer durationOfResearchExperienceAfterQualifyingVivaDate_Months;
         public String orcidID;
         public String googleScholarProfileLink;
+        public Boolean hostPortalSwitch;
     }
     
     global class EducationDetailsWrapper {

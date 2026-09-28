@@ -3,6 +3,7 @@ import { CurrentPageReference } from 'lightning/navigation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getReviewerSectionResponses from '@salesforce/apex/ReviewerSectionResponseController.getReviewerSectionResponses';
 import saveFullEligibilityDecision from '@salesforce/apex/ReviewerSectionResponseController.saveFullEligibilityDecision';
+import getPrelimReviewerEligibilityStatus from '@salesforce/apex/ReviewerSectionResponseController.getPrelimReviewerEligibilityStatus';
 
 export default class ReviewerRatingMatrix extends LightningElement {
     _recordId;
@@ -13,6 +14,7 @@ export default class ReviewerRatingMatrix extends LightningElement {
     isSavingDecision = false;
     showRejectionReason = false;
     rejectionReason = '';
+    prelimReviewerEligibilityStatus;
 
     @api
     get recordId() {
@@ -40,12 +42,24 @@ export default class ReviewerRatingMatrix extends LightningElement {
         this.error = undefined;
         try {
             this.reviewers = await getReviewerSectionResponses({ proposalId: this._recordId });
+            this.prelimReviewerEligibilityStatus = await getPrelimReviewerEligibilityStatus({ proposalId: this._recordId });
         } catch (e) {
             this.error = e?.body?.message || e?.message || 'Unable to load reviewer ratings.';
             this.reviewers = [];
         } finally {
             this.isLoading = false;
         }
+    }
+
+    // Reject/Eligible for Full stay visible at all times, but only become actionable
+    // once Prelim_Reviewer_Eligibility_Status__c is 'Submitted' - the same condition
+    // the Shortlisting tab itself is already filtered on.
+    get isDecisionEnabled() {
+        return this.prelimReviewerEligibilityStatus === 'Submitted';
+    }
+
+    get isDecisionDisabled() {
+        return this.isSavingDecision || !this.isDecisionEnabled;
     }
 
     get hasData() {

@@ -75,6 +75,23 @@ public with sharing class ReviewerSectionResponseController {
         return result;
     }
 
+    // Gates the Reject/Eligible for Full buttons in reviewerRatingMatrix.js - those
+    // decisions should only be takeable once Prelim_Reviewer_Eligibility_Status__c is
+    // 'Submitted' (the same condition the Shortlisting tab itself is already filtered on).
+    @AuraEnabled(cacheable=true)
+    public static String getPrelimReviewerEligibilityStatus(Id proposalId) {
+        if (proposalId == null) {
+            return null;
+        }
+        List<Proposal__c> proposals = [
+            SELECT Prelim_Reviewer_Eligibility_Status__c
+            FROM Proposal__c
+            WHERE Id = :proposalId
+            LIMIT 1
+        ];
+        return proposals.isEmpty() ? null : proposals[0].Prelim_Reviewer_Eligibility_Status__c;
+    }
+
     // Records the Grants team's Eligible for Full / Rejected decision (and accompanying
     // feedback) from the reviewerRatingMatrix component. decision must be exactly
     // 'Eligible' or 'Not Eligible' - anything else is rejected before it reaches the DML.

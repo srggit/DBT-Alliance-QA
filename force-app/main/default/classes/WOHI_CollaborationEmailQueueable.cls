@@ -6,6 +6,7 @@ public without sharing class WOHI_CollaborationEmailQueueable
 
     public WOHI_CollaborationEmailQueueable( List<Id> collaborationIds, Map<Id, String> invitationLinks,
     String templateDeveloperName ) {
+        System.debug('Inside Line 9 WOHI_CollaborationEmailQueueable');
         this.collaborationIds = collaborationIds;
         this.invitationLinks =  invitationLinks;
         this.templateDeveloperName = templateDeveloperName;
@@ -19,11 +20,11 @@ public without sharing class WOHI_CollaborationEmailQueueable
             SELECT Id,
                    Title__c,
                    FirstName__c,
-            	   Applicant_Proposal_Association__r.Contact__r.FirstName,
-            	   Applicant_Proposal_Association__r.Contact__r.LastName,
-            	   Applicant_Proposal_Association__r.Contact__r.Title,
                    Applicant_Proposal_Association__r.Proposal__r.Proposal_Id__c,
                    Applicant_Proposal_Association__r.Yearly_Scheme__r.Scheme__c, 
+            	   Applicant_Proposal_Association__r.Contact__r.Title,
+            	   Applicant_Proposal_Association__r.Contact__r.FirstName,
+            	   Applicant_Proposal_Association__r.Contact__r.LastName,
                    Last_Name__c,
                    Organisation__c,
                    Email__c,

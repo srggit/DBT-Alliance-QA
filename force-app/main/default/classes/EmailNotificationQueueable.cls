@@ -263,21 +263,22 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
         }
         
         
-        List<Notification__c> notiContact = new List<Notification__c>();
-        for (Additional_Partcipant__c referee : records) {
-             Applicant_Proposal_Association__c applicantAssociation = applicantByProposal.get(referee.Proposal__c);
-             Contact contact = applicantAssociation.Contact__r;
-            String title = String.isBlank(referee.Title__c) ? '' : referee.Title__c + ' ';
-            String firstName = String.isBlank(referee.First_Name__c) ? '' : referee.First_Name__c + ' ';
-            String lastName = String.isBlank(referee.Last_Name__c) ? '' : referee.Last_Name__c + ' ';
-            Notification__c nc = new Notification__c();
-            nc.Contact__c = applicantAssociation.Contact__c;
-            nc.Expiry_Date__c = system.today().addDays(10);
-            nc.Title__c ='Participant Assigned';
-            nc.Description__c =title + firstName + lastName+ ' ' +referee.Roles__c +' has been assigned to you.';
-            notiContact.add(nc);
+        // List<Notification__c> notiContact = new List<Notification__c>();
+        // Notification__c creation for Referee/Mentor disabled per request.
+        // for (Additional_Partcipant__c referee : records) {
+        //      Applicant_Proposal_Association__c applicantAssociation = applicantByProposal.get(referee.Proposal__c);
+        //      Contact contact = applicantAssociation.Contact__r;
+        //     String title = String.isBlank(referee.Title__c) ? '' : referee.Title__c + ' ';
+        //     String firstName = String.isBlank(referee.First_Name__c) ? '' : referee.First_Name__c + ' ';
+        //     String lastName = String.isBlank(referee.Last_Name__c) ? '' : referee.Last_Name__c + ' ';
+        //     Notification__c nc = new Notification__c();
+        //     nc.Contact__c = applicantAssociation.Contact__c;
+        //     nc.Expiry_Date__c = system.today().addDays(10);
+        //     nc.Title__c ='Participant Assigned';
+        //     nc.Description__c =title + firstName + lastName+ ' ' +referee.Roles__c +' has been assigned to you.';
+        //     notiContact.add(nc);
 
-        }
+        // }
        
                 
 
@@ -346,9 +347,9 @@ public without sharing class EmailNotificationQueueable implements Queueable, Da
         if (!recordsToUpdate.isEmpty()) {
             update recordsToUpdate;
         }
-        if(!notiContact.isEmpty()){
-            Insert notiContact;
-        }
+        // if(!notiContact.isEmpty()){
+        //     Insert notiContact;
+        // }
     }
 
     /*

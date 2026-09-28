@@ -401,7 +401,7 @@ public with sharing class ReviewerController {
                 Proposal_Status__c,
                 Proposal_Id__c,
                 Yearly_Scheme__c,
-                Yearly_Scheme__r.Name
+                Yearly_Scheme__r.Name,Yearly_Scheme__r.Scheme_Items__r.Name
             FROM Proposal__c
             WHERE Id IN :proposalIds
         ];
@@ -515,8 +515,8 @@ public with sharing class ReviewerController {
                     : String.valueOf(proposal.Proposal_Id__c);
 
             String schemeName =
-                proposal.Yearly_Scheme__r != null
-                    ? proposal.Yearly_Scheme__r.Name
+                proposal.Yearly_Scheme__r.Scheme_Items__r != null
+                    ? proposal.Yearly_Scheme__r.Scheme_Items__r.Name
                     : '';
 
             // -----------------------------------------------------
@@ -579,7 +579,7 @@ public with sharing class ReviewerController {
                         baseURL +
                         '?committeeMemberId=' +
                         EncodingUtil.urlEncode(
-                            String.valueOf(member.Id),
+                            String.valueOf(master.Id),
                             'UTF-8'
                         ) +
                         '&title=' +

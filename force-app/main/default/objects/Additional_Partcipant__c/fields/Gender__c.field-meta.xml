@@ -21,9 +21,9 @@
                 <label>Female</label>
             </value>
             <value>
-                <fullName>Third Gender</fullName>
+                <fullName>Other</fullName>
                 <default>false</default>
-                <label>Third Gender</label>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

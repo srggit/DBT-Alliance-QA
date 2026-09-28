@@ -162,9 +162,6 @@
         <label>CheckGrantsTeamResponse</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>one_of_GetGrantsTeamResponse</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Exists</name>

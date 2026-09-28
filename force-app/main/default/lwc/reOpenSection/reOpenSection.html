@@ -34,7 +34,7 @@
                         <tr key={section.key}>
                             <td>
                                 <lightning-input type="checkbox" variant="label-hidden" label="Select"
-                                    data-id={section.key} checked={section.isSelected}
+                                    data-id={section.key} data-role="reopen-checkbox" checked={section.isSelected}
                                     disabled={section.isDisabled} onchange={handleToggleSection}></lightning-input>
                             </td>
                             <td>{section.sectionName}</td>
@@ -42,9 +42,9 @@
                             <td>{section.reopenStatusLabel}</td>
                             <td>
                                 <lightning-input type="text" variant="label-hidden" label="Reopening Reason"
-                                    placeholder="Enter reason" data-id={section.key} value={section.reason}
-                                    disabled={section.isReasonDisabled} required={section.isSelected}
-                                    onchange={handleReasonChange}></lightning-input>
+                                    placeholder="Enter reason" data-id={section.key} data-role="reopen-reason"
+                                    value={section.reason} disabled={section.isReasonDisabled}
+                                    required={section.isSelected} onchange={handleReasonChange}></lightning-input>
                             </td>
                         </tr>
                     </template>

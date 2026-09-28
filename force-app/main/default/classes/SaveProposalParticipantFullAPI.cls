@@ -224,6 +224,7 @@ global without sharing class SaveProposalParticipantFullAPI {
                             Id = existingPpaId,
                             Roles__c = p.role,
                             Relationship_of_current_app_to_Host__c = p.relationshipOfCurrentApplicant,
+                            Added_for_Full__c = p.partcipantAddedForFull != null ? p.partcipantAddedForFull : false,
                             Notify_through_Email__c = p.notifyThroughEmailForPPA != null ? p.notifyThroughEmailForPPA : false, 
                             Added_for_Additional_Role__c = p.addedForAdditionalRoleInPPA != null ? p.addedForAdditionalRoleInPPA : false, 
                             How_will_you_support_Applicant_s_career__c = p.howWillYouSupportApplicantsCareer
@@ -235,6 +236,7 @@ global without sharing class SaveProposalParticipantFullAPI {
                             Roles__c = p.role,
                             Stage__c = PPA_STAGE,
                             Relationship_of_current_app_to_Host__c = p.relationshipOfCurrentApplicant,
+                            Added_for_Full__c = p.partcipantAddedForFull != null ? p.partcipantAddedForFull : false,
                             Notify_through_Email__c = p.notifyThroughEmailForPPA != null ? p.notifyThroughEmailForPPA : false,
                             Added_for_Additional_Role__c = p.addedForAdditionalRoleInPPA != null ? p.addedForAdditionalRoleInPPA : false,
                             How_will_you_support_Applicant_s_career__c = p.howWillYouSupportApplicantsCareer
@@ -425,6 +427,7 @@ global without sharing class SaveProposalParticipantFullAPI {
         // Additional Participant branch only
         global String organisationName;         // free-text Organisation__c
         global String whatGuidanceFromChosenMentor;
+        global Boolean partcipantAddedForFull;
         global Boolean addedForAdditionalRoleInPPA;
         global Boolean addedForAdditionalRoleInAP;
         global Boolean refereeAddedForFull;      // Checkbox on Additional_Partcipant__c.

@@ -165,6 +165,12 @@
                 <identifier>RecordAdded_as_Supervisor__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Type__c</fieldItem>
+                <identifier>RecordType__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-c48b5fa8-80e8-4a84-93b3-9fe8e4f64a4b</name>
         <type>Facet</type>
     </flexiPageRegions>

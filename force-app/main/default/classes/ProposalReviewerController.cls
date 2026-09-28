@@ -70,10 +70,14 @@ public with sharing class ProposalReviewerController {
         String cursorClause = '';
 
         if (String.isNotBlank(cursorId)) {
-            cursorClause = isPrevious ? ' AND Id < :cursorId' : ' AND Id > :cursorId';
+            cursorClause = isPrevious ? ' AND Id > :cursorId' : ' AND Id < :cursorId';
         }
 
-        String orderDir = isPrevious ? 'DESC' : 'ASC';
+        // Default (and Next) order is DESC so the most recently created Proposal shows
+        // first; Previous fetches the prior page's range in ASC (nearest-first) then
+        // gets reversed below to restore descending display order, mirroring how this
+        // used to work the other way around when ASC was the default.
+        String orderDir = isPrevious ? 'ASC' : 'DESC';
 
         String recordQuery =
             'SELECT Id, Proposal_Id__c, Proposal_Status__c, Yearly_Scheme__r.Scheme_Items__r.Name ' +

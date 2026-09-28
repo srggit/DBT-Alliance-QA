@@ -117,6 +117,10 @@ global without sharing class GlobalPicklistValues {
         Schema.DescribeFieldResult decisionOnPreviousApplicationFieldResult = Other_Grants__c.Decision_on_previous_application__c.getDescribe();
         response.decisionOnPreviousApplicationValues = getSafePicklistValues(decisionOnPreviousApplicationFieldResult);
 
+        // Pursuing Degree
+        Schema.DescribeFieldResult pursuingDegreeFieldResult = Education_Details__c.Specify_the_pursuing_degree__c.getDescribe();
+        response.pursuingDegreeValues = getSafePicklistValues(pursuingDegreeFieldResult);
+
         // HostAccounts
         Map<String, String> accountMap = new Map<String, String>();
         for (Account acc : [SELECT Id, Name FROM Account WHERE Organization_Status__c = 'Listed' ORDER BY Name]) {
@@ -186,6 +190,7 @@ global without sharing class GlobalPicklistValues {
         public FieldResult rolesValues;
         public FieldResult countryValues;
         public FieldResult decisionOnPreviousApplicationValues;
+        public FieldResult pursuingDegreeValues;
         public Map<String, String> accounts;
         public Map<String, String> organizations;
     }

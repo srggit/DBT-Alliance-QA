@@ -16,9 +16,19 @@
                 <label>Pending</label>
             </value>
             <value>
-                <fullName>Uploaded</fullName>
+                <fullName>Submitted/Uploaded</fullName>
                 <default>false</default>
-                <label>Uploaded</label>
+                <label>Submitted/Uploaded</label>
+            </value>
+            <value>
+                <fullName>Re-Submit</fullName>
+                <default>false</default>
+                <label>Re-Submit</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
             </value>
         </valueSetDefinition>
     </valueSet>

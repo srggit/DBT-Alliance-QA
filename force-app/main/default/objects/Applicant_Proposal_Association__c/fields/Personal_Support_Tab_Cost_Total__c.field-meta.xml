@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Personal_Support_Tab_Cost_Total__c</fullName>
-    <formula>BLANKVALUE(Total_IA_Salary__c, 0) + BLANKVALUE(Total_Personal_Salary__c, 0) + BLANKVALUE(Total_Host_Salary__c, 0)</formula>
+    <formula>BLANKVALUE(Total_IA_Salary__c, 0) + BLANKVALUE(Total_Personal_Salary__c, 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Personal Support Tab Cost Total</label>
     <precision>18</precision>

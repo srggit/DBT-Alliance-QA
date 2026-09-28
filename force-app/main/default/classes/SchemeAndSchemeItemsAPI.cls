@@ -96,7 +96,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
                            Second_Stage_Start_Date__c, Second_Stage_End_Date__c,
                            Application_Stages__c, Budget_Cap__c, Experience_Required__c,
                            Required_Degree__c, Team_Size_Limits__c, Days_Remaining_To_Close_Prelims__c, Days_Remaining_To_Close_Full__c,
-                            (SELECT Id, Name, Yearly_Scheme__c, Yearly_Scheme__r.Name, External_Participants__c,External_Participants_Count__c, External_Participants_Status__c,Maximum_Participants_Count__c,Stage__c
+                            (SELECT Id, Name, Yearly_Scheme__c, Yearly_Scheme__r.Name, External_Participants__c,External_Participants_Count__c, External_Participants_Status__c,Maximum_Participants_Count__c,Stage__c, Notify__c
                             FROM External_Participants__r)
                     FROM Yearly_Schemes__c
                     WHERE Year__c = :year.Id 
@@ -118,12 +118,13 @@ global without sharing class SchemeAndSchemeItemsAPI {
             // Map yearly scheme Id -> proposal status for schemes the contact has already applied to.
             Map<Id, String> proposalStatusByYearlySchemeId = new Map<Id, String>();
             Map<Id, String> proposalApplicationStageByYearlySchemeId = new Map<Id, String>();
+            Map<Id, String> proposalPeerApplicationStageByYearlySchemeId = new Map<Id, String>();
             Map<Id, Id> proposalIdByYearlySchemeId = new Map<Id, Id>();
             Map<Id, Id> apaIdByYearlySchemeId = new Map<Id, Id>();
 
             if (!yearlySchemeIds.isEmpty()) {
                 for (Applicant_Proposal_Association__c apaRecord : [
-                    SELECT Id, Yearly_Scheme__c, Proposal__r.Proposal_Status__c, Proposal__c, Proposal__r.Application_Stages__c
+                    SELECT Id, Yearly_Scheme__c, Proposal__r.Proposal_Status__c, Proposal__c, Proposal__r.Application_Stages__c,Proposal__r.Peer_Application_Stage__c
                     FROM Applicant_Proposal_Association__c
                     WHERE Contact__c = :contactId
                     AND Yearly_Scheme__c IN :yearlySchemeIds
@@ -131,6 +132,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
                     if (apaRecord.Yearly_Scheme__c != null) {
                         proposalStatusByYearlySchemeId.put(apaRecord.Yearly_Scheme__c, apaRecord.Proposal__r.Proposal_Status__c);
                         proposalApplicationStageByYearlySchemeId.put(apaRecord.Yearly_Scheme__c, apaRecord.Proposal__r.Application_Stages__c);
+                        proposalPeerApplicationStageByYearlySchemeId.put(apaRecord.Yearly_Scheme__c, apaRecord.Proposal__r.Peer_Application_Stage__c);
                         proposalIdByYearlySchemeId.put(apaRecord.Yearly_Scheme__c, apaRecord.Proposal__c);
                         apaIdByYearlySchemeId.put(apaRecord.Yearly_Scheme__c, apaRecord.Id);
                     }
@@ -173,6 +175,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
                             eligibilityByYearlySchemeId,
                             proposalStatusByYearlySchemeId,
                             proposalApplicationStageByYearlySchemeId,
+                            proposalPeerApplicationStageByYearlySchemeId,
                             proposalIdByYearlySchemeId,
                             apaIdByYearlySchemeId
                         )
@@ -212,6 +215,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
         Map<Id, EligibilityEvaluationService.EligibilityEvaluationResult> eligibilityByYearlySchemeId,
         Map<Id, String> proposalStatusByYearlySchemeId,
         Map<Id, String> proposalApplicationStageByYearlySchemeId,
+        Map<Id, String> proposalPeerApplicationStageByYearlySchemeId,
         Map<Id, Id> proposalIdByYearlySchemeId,
         Map<Id, Id> apaIdByYearlySchemeId
     ) {
@@ -223,7 +227,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
         lineItem.durationLabel = formatDuration(item.Duration__c);
         lineItem.isActive = item.Is_Active__c;
         lineItem.firstPageUrl = item.First_Page_URL__c;
-        lineItem.yearlyScheme = buildYearlySchemeWrapper(yearlyScheme, proposalStatusByYearlySchemeId, proposalApplicationStageByYearlySchemeId,proposalIdByYearlySchemeId, apaIdByYearlySchemeId);
+        lineItem.yearlyScheme = buildYearlySchemeWrapper(yearlyScheme, proposalStatusByYearlySchemeId, proposalApplicationStageByYearlySchemeId,proposalPeerApplicationStageByYearlySchemeId,proposalIdByYearlySchemeId, apaIdByYearlySchemeId);
 
         EligibilityEvaluationService.EligibilityEvaluationResult evaluationResult = yearlyScheme != null
             ? eligibilityByYearlySchemeId.get(yearlyScheme.Id)
@@ -251,6 +255,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
             wrapper.externalParticipantsCount = externalParticipant.External_Participants_Count__c;
             wrapper.maxExternalParticipantsCount = externalParticipant.Maximum_Participants_Count__c;
             wrapper.externalParticipantStage = externalParticipant.Stage__c;
+            wrapper.notify = externalParticipant.Notify__c;
 
             wrappers.add(wrapper);
         }
@@ -261,6 +266,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
         Yearly_Schemes__c yearlyScheme,
         Map<Id, String> proposalStatusByYearlySchemeId,
         Map<Id, String> proposalApplicationStageByYearlySchemeId,
+        Map<Id, String> proposalPeerApplicationStageByYearlySchemeId,
         Map<Id, Id> proposalIdByYearlySchemeId,
         Map<Id, Id> apaIdByYearlySchemeId
     ) {
@@ -453,6 +459,7 @@ global without sharing class SchemeAndSchemeItemsAPI {
         public Boolean appliedStatus;
         public String proposalStatus;
         public String proposalApplicationStage;
+        public String proposalPeerApplicationStage;
         public String proposalId;
         public String apaId;
         public Integer daysRemainingToClosePrelims;
@@ -496,5 +503,6 @@ global without sharing class SchemeAndSchemeItemsAPI {
         public Decimal externalParticipantsCount;
         public Decimal maxExternalParticipantsCount;
         public String  externalParticipantStage;
+        public Boolean notify;
     }
 }

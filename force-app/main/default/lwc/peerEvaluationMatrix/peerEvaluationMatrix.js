@@ -57,6 +57,14 @@ export default class PeerEvaluationMatrix extends LightningElement {
         return !this.isLoading && !this.error && (!this.reviewers || this.reviewers.length === 0);
     }
 
+    // Reject/Process to Committee should always be available once the component has
+    // finished loading without error - regardless of whether there's any submitted Peer
+    // Evaluation data to show yet, so the Grants Team can still make a committee decision
+    // even when no Full-stage reviewer has responded.
+    get showDecisionPanel() {
+        return !this.isLoading && !this.error;
+    }
+
     get reviewerColumns() {
         return (this.reviewers || []).map((reviewer) => ({
             key: reviewer.mappingId,

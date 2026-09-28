@@ -73,7 +73,9 @@ public without sharing class Refferee_EmailQueueable
             } catch (Exception ex) {
                 System.debug('WOHI invitation email exception. ' +'Record Id: ' + ap.Id + ', Email: ' + ap.Email__c +  ', Error: ' + ex.getMessage());
             }
-            recordsToUpdate.add( new Additional_Partcipant__c( Id = ap.Id, Invitation_Link__c = invitationLink, Email_Sent__c = emailSent ) );
+            recordsToUpdate.add( new Additional_Partcipant__c( Id = ap.Id, 
+           // Invitation_Link__c = invitationLink, 
+            Email_Sent__c = emailSent ) );
         }
         if (!recordsToUpdate.isEmpty()) {
             update recordsToUpdate;

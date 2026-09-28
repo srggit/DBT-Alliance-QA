@@ -1,0 +1,81 @@
+﻿{
+  "status": 0,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-22T11:23:58.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-22T11:23:57.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": false,
+          "componentType": "ApexClass",
+          "created": false,
+          "createdDate": "2026-09-22T11:23:58.000Z",
+          "deleted": false,
+          "fileName": "classes/WOHI_CollaborationTriggerHandler.cls",
+          "fullName": "WOHI_CollaborationTriggerHandler",
+          "id": "01pC3000001NGhpIAG",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-22T11:23:58.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0AfC300000D7Y8mKAF",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-22T11:23:58.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 1,
+    "numberComponentsTotal": 1,
+    "numberFiles": "4",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-22T11:23:57.000Z",
+    "status": "Succeeded",
+    "success": true,
+    "zipSize": 2365,
+    "files": [
+      {
+        "fullName": "WOHI_CollaborationTriggerHandler",
+        "type": "ApexClass",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\WOHI_CollaborationTriggerHandler.cls"
+      },
+      {
+        "fullName": "WOHI_CollaborationTriggerHandler",
+        "type": "ApexClass",
+        "state": "Unchanged",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\WOHI_CollaborationTriggerHandler.cls-meta.xml"
+      }
+    ],
+    "zipFileCount": 3,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D7Y8mKAF%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": []
+}

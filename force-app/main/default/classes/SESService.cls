@@ -251,40 +251,22 @@ public with sharing class SESService {
         return request;
     }
     
-    public static HttpResponse sendEmail(
-        String to,
-        String templateDeveloperName,
-        Map<String, String> mergeValues
-    ) {
+    public static HttpResponse sendEmail(String to, String templateDeveloperName, Map<String, String> mergeValues) {
+        System.debug('Inside Method');
         if (String.isBlank(to)) {
-            throw new AuraHandledException(
-                'Recipient email is required.'
-            );
+            throw new AuraHandledException('Recipient email is required.');
         }
 
         if (String.isBlank(templateDeveloperName)) {
-            throw new AuraHandledException(
-                'Email template DeveloperName is required.'
-            );
+            throw new AuraHandledException('Email template DeveloperName is required.');
         }
 
         EmailTemplate template;
 
         try {
-            template = [
-                SELECT Id,
-                    Subject,
-                    HtmlValue
-                FROM EmailTemplate
-                WHERE DeveloperName = :templateDeveloperName
-                LIMIT 1
-            ];
+            template = [SELECT Id, Subject, HtmlValue FROM EmailTemplate WHERE DeveloperName = :templateDeveloperName LIMIT 1];
         } catch (QueryException ex) {
-            throw new AuraHandledException(
-                'Email template "' +
-                templateDeveloperName +
-                '" was not found.'
-            );
+            throw new AuraHandledException('Email template "' + templateDeveloperName +'" was not found.');
         }
 
         String subject = template.Subject;
@@ -316,20 +298,13 @@ public with sharing class SESService {
 
             Http http = new Http();
 
-            return http.send(
-                buildRequest(
-                    to,
-                    subject,
-                    htmlBody
-                )
-            );
+            return http.send(buildRequest(to,subject, htmlBody));
 
         } catch (Exception ex) {
-
-            throw new AuraHandledException(
-                'Failed to send email using AWS SES. ' +
-                ex.getMessage()
-            );
+            
+            System.debug('Error at '+ ex.getLineNumber() + ''+ 'Error Message '+ ex.getMessage());
+            throw new AuraHandledException('Failed to send email using AWS SES. ' + ex.getMessage());
+            
         }
     }
 }

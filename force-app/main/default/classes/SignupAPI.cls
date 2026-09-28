@@ -20,7 +20,7 @@ global without sharing class SignupAPI {
 
             if(!existingContacts.isEmpty()) {
                 response.success = false;
-                response.message = 'Email already exists';
+                response.message = 'Email already existsss';
                 return response;
             }
 	

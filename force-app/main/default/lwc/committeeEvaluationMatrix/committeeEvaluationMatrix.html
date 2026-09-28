@@ -1,0 +1,70 @@
+<template>
+    <lightning-card>
+        <div class="cem-container">
+
+            <div class="cem-banner">
+                <div class="cem-banner-icon">
+                    <lightning-icon icon-name="utility:table" size="small"></lightning-icon>
+                </div>
+                <div class="cem-banner-text">
+                    <div class="cem-banner-title">Committee Evaluation Responses</div>
+                    <div class="cem-banner-subtitle">Compare Committee Evaluation answers, grouped by section,
+                        across all submitted committee members.</div>
+                </div>
+            </div>
+
+            <template lwc:if={isLoading}>
+                <div class="slds-is-relative slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:elseif={error}>
+                <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+            </template>
+
+            <template lwc:elseif={hasData}>
+                <div class="cem-table-wrap">
+                    <table class="cem-table">
+                        <thead>
+                            <tr>
+                                <th class="cem-th cem-th_question">Question</th>
+                                <template for:each={memberColumns} for:item="col">
+                                    <th key={col.key} class="cem-th cem-th_member">{col.label}</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={sections} for:item="section">
+                                <tr key={section.key} class="cem-section-row">
+                                    <td class="cem-section-cell cem-section-cell_question">{section.sectionName}</td>
+                                    <td class="cem-section-cell" colspan={memberCount}></td>
+                                </tr>
+                                <template for:each={section.rows} for:item="row">
+                                    <tr key={row.key} class="cem-tr">
+                                        <td class="cem-td cem-td_question">
+                                            <div class="cem-question-text">{row.question}</div>
+                                        </td>
+                                        <template for:each={row.cells} for:item="cell">
+                                            <td key={cell.key} class="cem-td">
+                                                <lightning-formatted-rich-text value={cell.value}>
+                                                </lightning-formatted-rich-text>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template lwc:elseif={showNoData}>
+                <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                    No submitted Committee Evaluation responses available for this proposal.
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

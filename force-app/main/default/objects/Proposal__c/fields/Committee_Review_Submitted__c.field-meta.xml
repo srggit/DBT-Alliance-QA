@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee_Review_Submitted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When 2 Committee Members submits their response this checkbox becomes true.</description>
+    <inlineHelpText>When 2 Committee Members submits their response this checkbox becomes true.</inlineHelpText>
+    <label>Committee Review Submitted</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

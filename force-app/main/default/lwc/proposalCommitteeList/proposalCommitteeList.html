@@ -1,0 +1,72 @@
+<template>
+    <div class="pcl-container">
+        <div class="pcl-banner">
+            <div class="pcl-banner-icon">
+                <lightning-icon icon-name="utility:groups" size="small"></lightning-icon>
+            </div>
+            <div class="pcl-banner-text">
+                <div class="pcl-banner-title">Proposal Committee</div>
+                <div class="pcl-banner-subtitle">All committee members assigned to this proposal.</div>
+            </div>
+            <div class="pcl-banner-art" aria-hidden="true">
+                <lightning-icon icon-name="utility:people" size="large"></lightning-icon>
+            </div>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <div class="slds-is-relative slds-p-around_large">
+                <lightning-spinner alternative-text="Loading committee members..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:elseif={error}>
+            <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+        </template>
+        <template lwc:elseif={hasRecords}>
+            <div class="pcl-table-wrap">
+                <table class="pcl-table">
+                    <thead>
+                        <tr>
+                            <th>Committee Member</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Committee Reviewer</th>
+                            <th>Reviewer Response</th>
+                            <th>Conflict Status</th>
+                            <th>Overall Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.key}>
+                                <td>{row.memberName}</td>
+                                <td class="pcl-type-cell">
+                                    <lightning-combobox variant="label-hidden" label="Type" value={row.type}
+                                        options={row.typeOptions} data-id={row.key}
+                                        onchange={handleTypeChange}></lightning-combobox>
+                                </td>
+                                <td>{row.status}</td>
+                                <td>{row.committeeReviewerLabel}</td>
+                                <td>{row.reviewerResponse}</td>
+                                <td>{row.conflictStatus}</td>
+                                <td>{row.overallScore}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pcl-actions">
+                <button type="button" class="pcl-save-btn" disabled={saveDisabled} onclick={handleSave}>
+                    <template lwc:if={isSaving}>
+                        <lightning-spinner alternative-text="Saving..." size="x-small" variant="inverse"></lightning-spinner>
+                    </template>
+                    <span>Save</span>
+                </button>
+            </div>
+        </template>
+        <template lwc:else>
+            <p class="slds-text-color_weak slds-p-around_medium slds-text-align_center">
+                No Proposal Committee records found for this proposal.
+            </p>
+        </template>
+    </div>
+</template>

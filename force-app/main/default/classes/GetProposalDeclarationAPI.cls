@@ -101,7 +101,7 @@ global without sharing class GetProposalDeclarationAPI {
 
             if (resolvedProposalId != null) {
                 List<Proposal_Participant_Association__c> ppaList = [
-                    SELECT Id, Participant__c, Roles__c,Document_Uploaded__c,Notify_through_Email__c
+                    SELECT Id, Participant__c, Roles__c, Document_Uploaded__c, Notify_through_Email__c
                     FROM Proposal_Participant_Association__c
                     WHERE Proposal__c = :resolvedProposalId
                     AND Participant__c != null AND Stage__c = 'Prelims'
@@ -155,8 +155,9 @@ global without sharing class GetProposalDeclarationAPI {
                         pw.mailingPostalCode = con.MailingPostalCode;
                         pw.mailingCountry = con.MailingCountry;
                         pw.role = matchedPpa != null ? matchedPpa.Roles__c : null;
-                        pw.documentUploadStatus = false ? matchedPpa.Document_Uploaded__c : false;
-                        pw.notifyThroughEmailForPPA = false ? matchedPpa.Notify_through_Email__c : false;
+                        pw.documentUploadStatus = matchedPpa.Document_Uploaded__c != null ? matchedPpa.Document_Uploaded__c : false;
+                        pw.notifyThroughEmailForPPA = matchedPpa.Notify_through_Email__c != null ? matchedPpa.Notify_through_Email__c : false;
+                        pw.documentUploaded = matchedPpa.Document_Uploaded__c;                  // Picklist
                         participantDetails.add(pw);
                     }
                 }
@@ -192,6 +193,7 @@ global without sharing class GetProposalDeclarationAPI {
                     aw.telephone = ap.Telephone__c;
                     aw.title = ap.Title__c;
                     aw.notifyThroughEmail = ap.Notify_through_Email__c;
+                    aw.documentUploaded = ap.DocumentUploaded__c;
                     aw.documentUploadStatus = ap.DocumentUploaded__c;
                     additionalParticipants.add(aw);
                 }
@@ -199,7 +201,7 @@ global without sharing class GetProposalDeclarationAPI {
                 // ---- WOHI_Collaboration__c records with Application_Stage__c = Prelims
                 List<WOHI_Collaboration__c> wohiList = [
                     SELECT Id, Title__c, FirstName__c, Last_Name__c, Email__c, Department__c, Type__c,
-                           Current_Position__c, Gender__c, Nationality__c, Organisation__c,
+                           Current_Position__c, Gender__c, Nationality__c, Organisation__c,Experience_in_Years__c,Experience_in_Months__c,
                            TelephoneNo__c, Roles__c, Application_Stage__c, Wohi_User_Document_Status__c
                     FROM WOHI_Collaboration__c
                     WHERE Applicant_Proposal_Association__c = :apaRecord.Id
@@ -221,7 +223,9 @@ global without sharing class GetProposalDeclarationAPI {
                     aw.telephone = wc.TelephoneNo__c;
                     aw.title = wc.Title__c;
                     aw.type = wc.Type__c;
-                    aw.documentUploadStatus = wc.Wohi_User_Document_Status__c;
+                    aw.experienceinMonths = wc.Experience_in_Months__c;
+                    aw.experienceinYears = wc.Experience_in_Years__c;
+                    aw.documentUploaded = wc.Wohi_User_Document_Status__c;
                     additionalParticipants.add(aw);
                 }
             }
@@ -348,6 +352,8 @@ global without sharing class GetProposalDeclarationAPI {
         global String role;
         global Boolean documentUploadStatus;
         global Boolean notifyThroughEmailForPPA;
+        global Boolean documentUploaded;
+
     }
 
     global class AdditionalParticipantWrapper {
@@ -364,8 +370,11 @@ global without sharing class GetProposalDeclarationAPI {
         global String telephone;
         global String title;
         global String type;
+        global Decimal experienceinMonths;
+        global Decimal experienceinYears;
         global Boolean notifyThroughEmail;
         global Boolean documentUploadStatus;
+        global Boolean documentUploaded;
     }
 
     global class HostContactWrapper {

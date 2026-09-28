@@ -2,8 +2,10 @@ trigger WOHI_CollaborationTrigger on WOHI_Collaboration__c (after insert, after 
     if (Trigger.isAfter) {
         if (Trigger.isInsert) {
             WOHI_CollaborationTriggerHandler.sendInvitationEmails(Trigger.new, null);
+            WOHI_CollaborationTriggerHandler.notifyApplicantOnDocumentSubmission(Trigger.new, null);
         } else if (Trigger.isUpdate) {
             WOHI_CollaborationTriggerHandler.sendInvitationEmails(Trigger.new, Trigger.oldMap);
+            WOHI_CollaborationTriggerHandler.notifyApplicantOnDocumentSubmission(Trigger.new, Trigger.oldMap);
         }
     }
 }

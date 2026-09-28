@@ -1,0 +1,139 @@
+﻿{
+  "status": 1,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-22T15:05:32.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-22T15:05:30.000Z",
+    "details": {
+      "componentFailures": [
+        {
+          "changed": false,
+          "componentType": "FlowDefinition",
+          "created": false,
+          "createdDate": "2026-09-22T15:05:31.000Z",
+          "deleted": false,
+          "fileName": "flowDefinitions/AfterUpdate_ProposalIdReplace_OldProposalId.flowDefinition",
+          "fullName": "AfterUpdate_ProposalIdReplace_OldProposalId",
+          "problem": "Invalid version number: 4",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "FlowDefinition",
+          "created": false,
+          "createdDate": "2026-09-22T15:05:31.000Z",
+          "deleted": false,
+          "fileName": "flowDefinitions/ReviewerMappingStatusUpdateToRejected.flowDefinition",
+          "fullName": "ReviewerMappingStatusUpdateToRejected",
+          "problem": "Invalid version number: 11",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "FlowDefinition",
+          "created": false,
+          "createdDate": "2026-09-22T15:05:31.000Z",
+          "deleted": false,
+          "fileName": "flowDefinitions/SchedularFlowToUpdateProposal.flowDefinition",
+          "fullName": "SchedularFlowToUpdateProposal",
+          "problem": "Invalid version number: 3",
+          "problemType": "Error",
+          "success": false
+        },
+        {
+          "changed": false,
+          "componentType": "FlowDefinition",
+          "created": false,
+          "createdDate": "2026-09-22T15:05:31.000Z",
+          "deleted": false,
+          "fileName": "flowDefinitions/UpdateValidField_After30Min.flowDefinition",
+          "fullName": "UpdateValidField_After30Min",
+          "problem": "Invalid version number: 2",
+          "problemType": "Error",
+          "success": false
+        }
+      ],
+      "componentSuccesses": [
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-22T15:05:31.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      }
+    },
+    "done": true,
+    "id": "0AfC300000D7nEEKAZ",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-22T15:05:32.000Z",
+    "numberComponentErrors": 4,
+    "numberComponentsDeployed": 0,
+    "numberComponentsTotal": 4,
+    "numberFiles": "6",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-22T15:05:30.000Z",
+    "status": "Failed",
+    "success": false,
+    "zipSize": 1833,
+    "files": [
+      {
+        "fullName": "AfterUpdate_ProposalIdReplace_OldProposalId",
+        "type": "FlowDefinition",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\flowDefinitions\\AfterUpdate_ProposalIdReplace_OldProposalId.flowDefinition-meta.xml",
+        "error": "Invalid version number: 4"
+      },
+      {
+        "fullName": "ReviewerMappingStatusUpdateToRejected",
+        "type": "FlowDefinition",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\flowDefinitions\\ReviewerMappingStatusUpdateToRejected.flowDefinition-meta.xml",
+        "error": "Invalid version number: 11"
+      },
+      {
+        "fullName": "SchedularFlowToUpdateProposal",
+        "type": "FlowDefinition",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\flowDefinitions\\SchedularFlowToUpdateProposal.flowDefinition-meta.xml",
+        "error": "Invalid version number: 3"
+      },
+      {
+        "fullName": "UpdateValidField_After30Min",
+        "type": "FlowDefinition",
+        "state": "Failed",
+        "problemType": "Error",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\flowDefinitions\\UpdateValidField_After30Min.flowDefinition-meta.xml",
+        "error": "Invalid version number: 2"
+      }
+    ],
+    "zipFileCount": 5,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D7nEEKAZ%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": []
+}

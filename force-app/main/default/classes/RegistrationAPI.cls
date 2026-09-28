@@ -38,6 +38,7 @@ global class RegistrationAPI {
             con.Gender__c = req.gender;
             con.BirthDate = req.dob;
             con.Nationality__c = req.nationality;
+            con.Type__c = req.type;
             
             con.MailingCity = req.city;
             //con. = req.district;
@@ -82,6 +83,7 @@ global class RegistrationAPI {
         public String state;
         public String country;
         public String postalCode;
+        public String type;
         
         public String telephoneNumber;
         public String email;

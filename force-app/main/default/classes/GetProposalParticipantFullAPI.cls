@@ -56,7 +56,7 @@ global without sharing class GetProposalParticipantFullAPI {
             List<ParticipantWrapper> participantDetails = new List<ParticipantWrapper>();
 
             List<Proposal_Participant_Association__c> ppaList = [
-                SELECT Id, Participant__c, Roles__c, Relationship_of_current_app_to_Host__c,Added_for_Additional_Role__c,Notify_through_Email__c,
+                SELECT Id, Participant__c, Roles__c, Relationship_of_current_app_to_Host__c,Added_for_Additional_Role__c,Notify_through_Email__c,Added_for_Full__c,
                        How_will_you_support_Applicant_s_career__c,Document_Uploaded__c,Stage__c
                 FROM Proposal_Participant_Association__c
                 WHERE Proposal__c = :resolvedProposalId                
@@ -105,6 +105,7 @@ global without sharing class GetProposalParticipantFullAPI {
                     pw.ppaId = ppa.Id;
                     pw.role = ppa.Roles__c;
                     pw.notifyThroughEmailForPPA = ppa.Notify_through_Email__c;
+                    pw.partcipantAddedForFull = ppa.Added_for_Full__c;
                     pw.relationshipOfCurrentApplicant = ppa.Relationship_of_current_app_to_Host__c;
                     pw.addedForAdditionalRoleInPPA = ppa.Added_for_Additional_Role__c;
                     pw.howWillYouSupportApplicantsCareer = ppa.How_will_you_support_Applicant_s_career__c;
@@ -232,6 +233,7 @@ global without sharing class GetProposalParticipantFullAPI {
         global String mailingCountry;
         global String role;
         global String relationshipOfCurrentApplicant;
+        global Boolean partcipantAddedForFull;
         global Boolean addedForAdditionalRoleInPPA;
         global Boolean notifyThroughEmailForPPA;
         global String howWillYouSupportApplicantsCareer;

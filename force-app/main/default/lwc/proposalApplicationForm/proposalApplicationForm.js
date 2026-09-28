@@ -675,6 +675,41 @@ export default class ProposalApplicationForm extends LightningElement {
         return this.additionalParticipants.length > 0;
     }
 
+    // WOHI_Collaboration__c holds two kinds of records under one object, told apart
+    // by Type__c ('WOHI' vs 'Collaborator') - split into two card lists here the same
+    // way Participants/Additional Participants are, mirroring their card layout.
+    get wohiEntries() {
+        return this.wohiCollaborationsByType('WOHI');
+    }
+
+    get hasWohiEntries() {
+        return this.wohiEntries.length > 0;
+    }
+
+    get collaboratorEntries() {
+        return this.wohiCollaborationsByType('Collaborator');
+    }
+
+    get hasCollaboratorEntries() {
+        return this.collaboratorEntries.length > 0;
+    }
+
+    wohiCollaborationsByType(type) {
+        const records = (this.data?.wohiCollaborations || []).filter((record) => record.Type__c === type);
+        return records.map((record, index) => ({
+            key: record.Id || String(index),
+            number: index + 1,
+            role: record.Roles__c || '-',
+            title: record.Title__c || '-',
+            firstName: record.FirstName__c || '-',
+            lastName: record.Last_Name__c || '-',
+            nationality: record.Nationality__c || '-',
+            gender: record.Gender__c || '-',
+            telephone: record.TelephoneNo__c || '-',
+            email: record.Email__c || '-'
+        }));
+    }
+
     get declaration1Checked() {
         return this.normalizeBoolean(this.getApaRawValue('Declaration 1'));
     }

@@ -9,11 +9,19 @@ global without sharing class DashboardAPI {
         'Shortlisting',
         'Full Application',
         'Peer Eligibility Check',
+        'Peer_Eligibility_Check',
         'Peer Review',
-        'Rejected',
+        'Peer Shortlisting',
         'Committee Review',
-        'Under Review',
-        'Interview'
+        'Chair/Co-Chair',
+        'Committee Shortlisting',
+        'Interview',
+        'Final Decision',
+        'Award',
+        'Finance',
+        'Monitor',
+        'Closure',
+        'Rejected'
     };
 
     private static final Set<String> EXCLUDED_GRANT_STATUSES = new Set<String>{

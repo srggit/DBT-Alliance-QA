@@ -54,7 +54,15 @@
                         </tbody>
                     </table>
                 </div>
+            </template>
 
+            <template lwc:elseif={showNoData}>
+                <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
+                    No submitted Peer Evaluation responses available for this proposal.
+                </div>
+            </template>
+
+            <template lwc:if={showDecisionPanel}>
                 <div class="pem-decision-panel">
                     <template lwc:if={showRejectionReason}>
                         <div class="slds-form-element pem-feedback-field">
@@ -118,12 +126,6 @@
                         </button>
                     </div>
                     </template>
-                </div>
-            </template>
-
-            <template lwc:elseif={showNoData}>
-                <div class="slds-p-around_large slds-text-align_center slds-text-color_weak">
-                    No submitted Peer Evaluation responses available for this proposal.
                 </div>
             </template>
 

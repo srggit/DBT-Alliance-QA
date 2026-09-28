@@ -441,6 +441,8 @@ global without sharing class SaveProposalDeclarationAPI {
                                 State__c = p.mailingState,
                                 Postcode__c = p.mailingPostalCode,
                                 Type__c = 'WOHI',
+                                Experience_in_Years__c = p.experienceinYears,
+                                Experience_in_Months__c = p.experienceinMonths,
                                 Application_Stage__c = WOHI_STAGE,
                                 Roles__c = p.role
                             ));
@@ -461,6 +463,8 @@ global without sharing class SaveProposalDeclarationAPI {
                                 State__c = p.mailingState,
                                 Postcode__c = p.mailingPostalCode,
                                 Type__c = 'WOHI',
+                                Experience_in_Years__c = p.experienceinYears,
+                                Experience_in_Months__c = p.experienceinMonths,
                                 Status__c = 'Pending',
                                 Application_Stage__c = WOHI_STAGE,
                                 Roles__c = p.role

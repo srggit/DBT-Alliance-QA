@@ -53,6 +53,7 @@ public with sharing class MyEligibilityChecksController {
                    Proposal__r.Prelim_Reviewer_Eligibility_Status__c,
                    Proposal__r.Peer_Reviewer_Eligibility_Status__c,
                    Proposal__r.Recommended_for_Committee_Review__c,
+                   Proposal__r.Committee_Review_Submitted__c,
                    Proposal__r.Yearly_Scheme__r.Name,
                    Proposal__r.Yearly_Scheme__r.Scheme_Items__r.Name
             FROM Grants_Team_Response__c
@@ -126,7 +127,8 @@ public with sharing class MyEligibilityChecksController {
                 resp.Proposal__r.Peer_Application_Stage__c,
                 resp.Proposal__r.Moved_to_Full_Stage_By_Grant_Team_Member__c,
                 resp.Proposal__r.Peer_Reviewer_Eligibility_Status__c,
-                resp.Proposal__r.Recommended_for_Committee_Review__c
+                resp.Proposal__r.Recommended_for_Committee_Review__c,
+                resp.Proposal__r.Committee_Review_Submitted__c
             ));
         }
         return results;
@@ -160,6 +162,7 @@ public with sharing class MyEligibilityChecksController {
         @AuraEnabled public Boolean movedToFullStageByGrantTeamMember;
         @AuraEnabled public String peerReviewerEligibilityStatus;
         @AuraEnabled public String recommendedForCommitteeReview;
+        @AuraEnabled public Boolean committeeReviewSubmitted;
 
         public EligibilityCheckWrapper(
             Id responseId,
@@ -182,7 +185,8 @@ public with sharing class MyEligibilityChecksController {
             String peerApplicationStage,
             Boolean movedToFullStageByGrantTeamMember,
             String peerReviewerEligibilityStatus,
-            String recommendedForCommitteeReview
+            String recommendedForCommitteeReview,
+            Boolean committeeReviewSubmitted
         ) {
             this.responseId = responseId;
             this.proposalId = proposalId;
@@ -205,6 +209,7 @@ public with sharing class MyEligibilityChecksController {
             this.movedToFullStageByGrantTeamMember = movedToFullStageByGrantTeamMember;
             this.peerReviewerEligibilityStatus = peerReviewerEligibilityStatus;
             this.recommendedForCommitteeReview = recommendedForCommitteeReview;
+            this.committeeReviewSubmitted = committeeReviewSubmitted;
             this.dueDate = '—';
         }
     }

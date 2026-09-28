@@ -54,6 +54,12 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
     selectedProposalIdForCheckEligibility;
     showReviewerResponseModal = false;
     selectedProposalIdForReviewerResponse;
+    showReviewerSectionResponseModal = false;
+    selectedProposalIdForReviewerSectionResponse;
+    hideReviewerSectionResponseDecisionPanel = false;
+    reviewerSectionResponseUsesPeerEvaluation = false;
+    showAssignReviewersModal = false;
+    selectedProposalIdForAssignReviewers;
     showPeerEvaluationModal = false;
     selectedProposalIdForPeerEvaluation;
     showReviewerMappingModal = false;
@@ -61,6 +67,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
     reviewerMappingApplicationStage;
     showProposalReviewerModal = false;
     proposalReviewerInitialStatusFilter = 'PRELIM';
+    showCommitteeListModal = false;
+    selectedProposalIdForCommitteeList;
+    showCommitteeEvaluationModal = false;
+    selectedProposalIdForCommitteeEvaluation;
 
     connectedCallback() {
         this._handleWindowClick = () => {
@@ -235,6 +245,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return this.activeListTab === 'committeeReview' ? 'myec-tab-btn myec-tab-btn_active' : 'myec-tab-btn';
     }
 
+    get assignChairCoChairTabClass() {
+        return this.activeListTab === 'assignChairCoChair' ? 'myec-tab-btn myec-tab-btn_active' : 'myec-tab-btn';
+    }
+
     get peerEligibilityTabClass() {
         return this.activeListTab === 'peerEligibility' ? 'myec-tab-btn myec-tab-btn_active' : 'myec-tab-btn';
     }
@@ -273,6 +287,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
 
     get committeeReviewLabel() {
         return `Committee Review (${this.committeeReviewCount})`;
+    }
+
+    get assignChairCoChairLabel() {
+        return `Assign Chair/Co-Chair (${this.assignChairCoChairCount})`;
     }
 
     get peerEligibilityLabel() {
@@ -318,6 +336,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return row.proposalStatus === 'Committee Review' && row.recommendedForCommitteeReview === 'Yes';
     }
 
+    isAssignChairCoChairRow(row) {
+        return row.proposalStatus === 'Chair/Co-Chair' && row.committeeReviewSubmitted === true;
+    }
+
     isPeerEligibilityRow(row) {
         return row.proposalStatus === 'Peer_Eligibility_Check'
             && row.peerApplicationStage === 'Final Submit';
@@ -359,6 +381,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return "Proposal_Status__c = 'Committee Review' AND Proposal__r.Recommended_for_Committee_Review__c = 'Yes'";
     }
 
+    get assignChairCoChairTooltip() {
+        return "Proposal_Status__c = 'Chair/Co-Chair' AND Proposal__r.Committee_Review_Submitted__c = true";
+    }
+
     get peerEligibilityTooltip() {
         return "Proposal_Status__c = 'Peer_Eligibility_Check' AND Proposal__r.Peer_Application_Stage__c = 'Final Submit'";
     }
@@ -397,6 +423,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
 
     get committeeReviewCount() {
         return this.baseFilteredRows.filter((row) => this.isCommitteeReviewRow(row)).length;
+    }
+
+    get assignChairCoChairCount() {
+        return this.baseFilteredRows.filter((row) => this.isAssignChairCoChairRow(row)).length;
     }
 
     get peerEligibilityCount() {
@@ -461,6 +491,9 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         if (this.activeListTab === 'committeeReview') {
             return this.baseFilteredRows.filter((row) => this.isCommitteeReviewRow(row));
         }
+        if (this.activeListTab === 'assignChairCoChair') {
+            return this.baseFilteredRows.filter((row) => this.isAssignChairCoChairRow(row));
+        }
         if (this.activeListTab === 'peerEligibility') {
             return this.baseFilteredRows.filter((row) => this.isPeerEligibilityRow(row));
         }
@@ -506,6 +539,10 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return this.activeListTab === 'needsReviewers';
     }
 
+    get isFullApplicationTab() {
+        return this.activeListTab === 'fullApplication';
+    }
+
     // Both Shortlisting and Needs Reviewer Assignment key off Proposal__r.Eligible_For_Prelim__c,
     // so both show the extra Official Eligibility column alongside My Verdict.
     get isUnderEligibilityCheckTab() {
@@ -524,8 +561,28 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         return this.activeListTab === 'peerReview';
     }
 
+    get showReviewerSectionResponseButton() {
+        return this.isPeerReviewTab || this.isPrelimReviewTab;
+    }
+
     get isPeerShortlistingTab() {
         return this.activeListTab === 'peerShortlisting';
+    }
+
+    get isCommitteeReviewTab() {
+        return this.activeListTab === 'committeeReview';
+    }
+
+    get isAssignChairCoChairTab() {
+        return this.activeListTab === 'assignChairCoChair';
+    }
+
+    get showCommitteeListButton() {
+        return this.isAssignChairCoChairTab;
+    }
+
+    get showCommitteeEvaluationButton() {
+        return this.isCommitteeReviewTab;
     }
 
     get showGrantTeamResponseButton() {
@@ -534,6 +591,13 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
     }
 
     get showReviewerResponseListButton() {
+        // Hidden on both Prelim Review and Peer Review per request - Reviewer Response 2
+        // (reviewerRatingMatrix / peerEvaluationMatrix) now covers both tabs, with Reviewer
+        // Type/Status shown alongside each reviewer.
+        return false;
+    }
+
+    get showAssignReviewersButton() {
         return this.isPrelimReviewTab || this.isPeerReviewTab;
     }
 
@@ -632,7 +696,7 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
     }
 
     get showEligibilityColumn() {
-        return !this.isAssignedTab;
+        return !this.isAssignedTab && !this.isFullApplicationTab;
     }
 
     get columnMeta() {
@@ -663,6 +727,9 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         const hiddenKeys = ['yearlyScheme', 'schemeItemName'];
         if (this.isAssignedTab) {
             hiddenKeys.push('status', 'eligibility');
+        }
+        if (this.isFullApplicationTab) {
+            hiddenKeys.push('eligibility');
         }
         defs = defs.filter((col) => !hiddenKeys.includes(col.key));
         return defs.map((col) => {
@@ -766,6 +833,28 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         refreshApex(this.wiredResult);
     }
 
+    handleOpenReviewerSectionResponse(event) {
+        this.selectedProposalIdForReviewerSectionResponse = event.currentTarget.dataset.proposalId;
+        this.hideReviewerSectionResponseDecisionPanel = this.isPrelimReviewTab || this.isPeerReviewTab;
+        this.reviewerSectionResponseUsesPeerEvaluation = this.isPeerReviewTab;
+        this.showReviewerSectionResponseModal = true;
+    }
+
+    handleOpenAssignReviewers(event) {
+        this.selectedProposalIdForAssignReviewers = event.currentTarget.dataset.proposalId;
+        this.showAssignReviewersModal = true;
+    }
+
+    handleCloseAssignReviewers() {
+        this.showAssignReviewersModal = false;
+        this.selectedProposalIdForAssignReviewers = undefined;
+    }
+
+    handleCloseReviewerSectionResponse() {
+        this.showReviewerSectionResponseModal = false;
+        this.selectedProposalIdForReviewerSectionResponse = undefined;
+    }
+
     handleOpenPeerEvaluation(event) {
         this.selectedProposalIdForPeerEvaluation = event.currentTarget.dataset.proposalId;
         this.showPeerEvaluationModal = true;
@@ -775,6 +864,26 @@ export default class MyEligibilityChecks extends NavigationMixin(LightningElemen
         this.showPeerEvaluationModal = false;
         this.selectedProposalIdForPeerEvaluation = undefined;
         refreshApex(this.wiredResult);
+    }
+
+    handleOpenCommitteeList(event) {
+        this.selectedProposalIdForCommitteeList = event.currentTarget.dataset.proposalId;
+        this.showCommitteeListModal = true;
+    }
+
+    handleCloseCommitteeList() {
+        this.showCommitteeListModal = false;
+        this.selectedProposalIdForCommitteeList = undefined;
+    }
+
+    handleOpenCommitteeEvaluation(event) {
+        this.selectedProposalIdForCommitteeEvaluation = event.currentTarget.dataset.proposalId;
+        this.showCommitteeEvaluationModal = true;
+    }
+
+    handleCloseCommitteeEvaluation() {
+        this.showCommitteeEvaluationModal = false;
+        this.selectedProposalIdForCommitteeEvaluation = undefined;
     }
 
     handleOpenReviewerMapping(event) {

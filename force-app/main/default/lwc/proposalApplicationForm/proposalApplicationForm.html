@@ -804,7 +804,95 @@
                             <p class="papf-empty-note">No additional participants added.</p>
                         </template>
 
-                        <div class="papf-field-block">
+                        <template lwc:if={hasWohiEntries}>
+                            <div class="papf-participant-title papf-participant-title_accent papf-card-field-spaced">
+                                WOHI</div>
+                            <template for:each={wohiEntries} for:item="participant">
+                                <div key={participant.key} class="papf-participant-card">
+                                    <div class="papf-participant-title">WOHI {participant.number}</div>
+                                    <div class="papf-publication-grid">
+                                        <div>
+                                            <div class="papf-field-label">Role</div>
+                                            <div class="papf-field-value">{participant.role}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Title</div>
+                                            <div class="papf-field-value">{participant.title}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">First Name</div>
+                                            <div class="papf-field-value">{participant.firstName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Last Name</div>
+                                            <div class="papf-field-value">{participant.lastName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Nationality</div>
+                                            <div class="papf-field-value">{participant.nationality}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Gender</div>
+                                            <div class="papf-field-value">{participant.gender}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Telephone No.</div>
+                                            <div class="papf-field-value">{participant.telephone}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Email Address</div>
+                                            <div class="papf-field-value">{participant.email}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+
+                        <template lwc:if={hasCollaboratorEntries}>
+                            <div class="papf-participant-title papf-participant-title_accent papf-card-field-spaced">
+                                Collaborator</div>
+                            <template for:each={collaboratorEntries} for:item="participant">
+                                <div key={participant.key} class="papf-participant-card">
+                                    <div class="papf-participant-title">Collaborator {participant.number}</div>
+                                    <div class="papf-publication-grid">
+                                        <div>
+                                            <div class="papf-field-label">Role</div>
+                                            <div class="papf-field-value">{participant.role}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Title</div>
+                                            <div class="papf-field-value">{participant.title}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">First Name</div>
+                                            <div class="papf-field-value">{participant.firstName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Last Name</div>
+                                            <div class="papf-field-value">{participant.lastName}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Nationality</div>
+                                            <div class="papf-field-value">{participant.nationality}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Gender</div>
+                                            <div class="papf-field-value">{participant.gender}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Telephone No.</div>
+                                            <div class="papf-field-value">{participant.telephone}</div>
+                                        </div>
+                                        <div>
+                                            <div class="papf-field-label">Email Address</div>
+                                            <div class="papf-field-value">{participant.email}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+
+                        <div class="papf-field-block papf-card-field-spaced">
                             <div class="papf-field-header">Please confirm the following declarations:</div>
 
                             <div class="papf-checkbox-row">

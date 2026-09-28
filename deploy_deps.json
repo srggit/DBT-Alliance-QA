@@ -1,0 +1,133 @@
+﻿{
+  "status": 0,
+  "result": {
+    "checkOnly": false,
+    "completedDate": "2026-09-22T15:02:29.000Z",
+    "createdBy": "005C300000BtvDp",
+    "createdByName": "Saurabh Girhe",
+    "createdDate": "2026-09-22T15:02:25.000Z",
+    "details": {
+      "componentSuccesses": [
+        {
+          "changed": true,
+          "componentType": "CustomField",
+          "created": true,
+          "createdDate": "2026-09-22T15:02:27.000Z",
+          "deleted": false,
+          "fileName": "objects/Proposal__c.object",
+          "fullName": "Proposal__c.Committee_Review_Submitted__c",
+          "id": "00NC3000004QaDdMAK",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "ApexClass",
+          "created": true,
+          "createdDate": "2026-09-22T15:02:28.000Z",
+          "deleted": false,
+          "fileName": "classes/ProposalCommitteeListController.cls",
+          "fullName": "ProposalCommitteeListController",
+          "id": "01pC3000001TaQvIAK",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "LightningComponentBundle",
+          "created": true,
+          "createdDate": "2026-09-22T15:02:28.000Z",
+          "deleted": false,
+          "fileName": "lwc/proposalCommitteeList",
+          "fullName": "proposalCommitteeList",
+          "id": "0RbC3000000LVbtKAG",
+          "success": true
+        },
+        {
+          "changed": true,
+          "componentType": "",
+          "created": false,
+          "createdDate": "2026-09-22T15:02:28.000Z",
+          "deleted": false,
+          "fileName": "package.xml",
+          "fullName": "package.xml",
+          "success": true
+        }
+      ],
+      "runTestResult": {
+        "numFailures": 0,
+        "numTestsRun": 0,
+        "totalTime": 0,
+        "codeCoverage": [],
+        "codeCoverageWarnings": [],
+        "failures": [],
+        "flowCoverage": [],
+        "flowCoverageWarnings": [],
+        "successes": []
+      },
+      "componentFailures": []
+    },
+    "done": true,
+    "id": "0AfC300000D7mYIKAZ",
+    "ignoreWarnings": false,
+    "lastModifiedDate": "2026-09-22T15:02:29.000Z",
+    "numberComponentErrors": 0,
+    "numberComponentsDeployed": 3,
+    "numberComponentsTotal": 3,
+    "numberFiles": "12",
+    "numberTestErrors": 0,
+    "numberTestsCompleted": 0,
+    "numberTestsTotal": 0,
+    "rollbackOnError": true,
+    "runTestsEnabled": false,
+    "startDate": "2026-09-22T15:02:26.000Z",
+    "status": "Succeeded",
+    "success": true,
+    "zipSize": 7507,
+    "files": [
+      {
+        "fullName": "ProposalCommitteeListController",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ProposalCommitteeListController.cls"
+      },
+      {
+        "fullName": "ProposalCommitteeListController",
+        "type": "ApexClass",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\classes\\ProposalCommitteeListController.cls-meta.xml"
+      },
+      {
+        "fullName": "Proposal__c.Committee_Review_Submitted__c",
+        "type": "CustomField",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\objects\\Proposal__c\\fields\\Committee_Review_Submitted__c.field-meta.xml"
+      },
+      {
+        "fullName": "proposalCommitteeList",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\proposalCommitteeList\\proposalCommitteeList.css"
+      },
+      {
+        "fullName": "proposalCommitteeList",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\proposalCommitteeList\\proposalCommitteeList.html"
+      },
+      {
+        "fullName": "proposalCommitteeList",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\proposalCommitteeList\\proposalCommitteeList.js"
+      },
+      {
+        "fullName": "proposalCommitteeList",
+        "type": "LightningComponentBundle",
+        "state": "Created",
+        "filePath": "C:\\Utilitarian Office Work\\DBT Alliance\\DBT QA Sandbox\\force-app\\main\\default\\lwc\\proposalCommitteeList\\proposalCommitteeList.js-meta.xml"
+      }
+    ],
+    "zipFileCount": 8,
+    "deployUrl": "https://indiaalliance--dbtqa.sandbox.my.salesforce.com/lightning/setup/DeployStatus/page?address=%2Fchangemgmt%2FmonitorDeploymentsDetails.apexp%3FasyncId%3D0AfC300000D7mYIKAZ%26retURL%3D%252Fchangemgmt%252FmonitorDeployment.apexp"
+  },
+  "warnings": []
+}

@@ -4,9 +4,6 @@ import { CloseActionScreenEvent } from 'lightning/actions';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import generateLoginToken from '@salesforce/apex/PortalSsoController.generateLoginToken';
 
-import modal from '@salesforce/resourceUrl/CustomModelCSS1';
-import { loadStyle } from 'lightning/platformResourceLoader';
-
 /*
  * Route the React app will read the one-time token from. This is the
  * contract with the portal team - confirm the exact path with them and
@@ -42,17 +39,6 @@ export default class OpenApplicantPortal extends LightningElement {
                 this.tryRun();
             }
         }
-    }
-
-    connectedCallback() {
-        debugger;
-        loadStyle(this, modal)
-            .then(() => {
-                console.log('Modal CSS loaded');
-            })
-            .catch(error => {
-                console.error('CSS load failed', error);
-            });
     }
 
     renderedCallback() {

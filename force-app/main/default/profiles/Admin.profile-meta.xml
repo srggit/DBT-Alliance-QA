@@ -281,6 +281,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GetRegisterDataforHostAPI</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GetRegistrationDetailsAPI</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -331,6 +335,14 @@
     <classAccesses>
         <apexClass>IndiaAllianceCustomerPortalSelf_Test</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InstitutionApplicationsAPI</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InstitutionDashboardAPI</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>InstitutionTriggerTest</apexClass>
@@ -591,6 +603,10 @@
     <classAccesses>
         <apexClass>UpdateProposal</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UpdateRegisterDataforHostAPI</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>WOHI_CollaborationEmailQueueable</apexClass>
@@ -4233,6 +4249,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact_History__c.Changed_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7308,6 +7329,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Proposal_Participant_Association__c.Added_for_Full__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Proposal_Participant_Association__c.Document_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Proposal_Participant_Association__c.Document_URL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Proposal_Participant_Association__c.Document_Uploaded__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9693,6 +9729,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>WOHI_Collaboration__c.Experience_in_Months__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>WOHI_Collaboration__c.Experience_in_Years__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>WOHI_Collaboration__c.Expertise__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9704,6 +9750,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>WOHI_Collaboration__c.FirstName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>WOHI_Collaboration__c.Full_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
